@@ -1,0 +1,72 @@
+<?php
+$products = $this->getProduct();
+
+?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
+    <title>Product page</title>
+</head>
+<body>
+<div class="maindiv">
+        <div class="subdiv">
+            <!-- header -->
+            <div class="headerr">
+                <?php require_once 'view/html/header.phtml'; ?>
+            </div>
+            <!-- head -->
+            <div class="headd">
+                <span>Products</span>
+                <a href="index.php?c=product&a=add">Add product</a>
+            </div>
+        </div>  
+        
+        <!-- data table -->
+        <div class="table">
+            <table border="1px" border-collapse= "collapse">
+                <tr>
+                    <th>product_id</th>
+                    <th>name</th>
+                    <th>sku</th>
+                    <th>cost</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                    <th>description</th>
+                    <th>color</th>
+                    <th>status</th>
+                    <th>material</th>
+                    <th>MEDIA</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                </tr>
+                    <?php
+                    foreach($products as $product){
+                    ?>
+                <tr>
+                        <td><?php echo $product['product_id'] ?></td>
+                        <td><?php echo $product['name'] ?></td>
+                        <td><?php echo $product['sku'] ?></td>
+                        <td><?php echo $product['cost'] ?></td>
+                        <td><?php echo $product['price'] ?></td>
+                        <td><?php echo $product['quantity'] ?></td>
+                        <td><?php echo $product['description'] ?></td>
+                        <td><?php echo $product['color'] ?></td>
+                        <td><?php echo $product['status'] ?></td>
+                        <td><?php echo $product['material'] ?></td>
+                        <td><a href="ProductMedia.php?a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td>
+                        <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td>
+                        <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td>
+                </tr>
+
+                    <?php
+                    }
+                    ?>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
