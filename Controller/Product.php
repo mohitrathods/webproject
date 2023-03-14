@@ -11,6 +11,16 @@ class Controller_Product extends Contoller_Core_Action{
 
     protected $model = null;
 
+    //------------------------- set & get product ID
+    public function setProductId($parameter){
+        $this->productId = $parameter;
+        return $this;
+    }
+
+    public function getProductId(){
+        return $this->productId;
+    }    
+
     //------------------------- set & get product
     public function setProduct($parameter){
         $this->product = $parameter;
@@ -21,21 +31,11 @@ class Controller_Product extends Contoller_Core_Action{
         return $this->product;
     }
 
-    //------------------------- set & get product ID
-    public function setProductId($parameter){
-        $this->productId = $parameter;
-        return $this;
-    }
-
-    public function getProductId(){
-        return $this->productId;
-    }
-
     //------------------------- set & get Model
-    public function setModel($parameter){
-        $this->model = $parameter;
-        return $this;
-    }
+    // public function setModel($parameter){
+    //     $this->model = $parameter;
+    //     return $this;
+    // }
 
     public function getModel(){
         //get access to model class
@@ -55,7 +55,10 @@ class Controller_Product extends Contoller_Core_Action{
         //get direct data here
         $this->getModel()->setTableName("product");
         $product = $this->getModel()->fetchAll();
+        //returned result from table fetchAll() is saved here in $product variable
+        //now that returned result in ASSOCiatove array is saved in $this->product = [] > means product array
         $this->setProduct($product);
+        //now, getProduct in grid.phtml
 
         // require_once "View/Product/grid.phtml";
 

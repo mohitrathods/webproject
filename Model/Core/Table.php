@@ -9,6 +9,9 @@ class Model_Core_Table{
 
     //------------------- set & get tablename
 
+    //as parameter, from product controller getModel() access, and Table extended in Product_Model
+    //so all functions of Table are accessiblr to product > passing value product 
+    //from Product controller through product model and setting it in setTableName as parameter
     public function setTableName($parameter){
         $this->tableName = $parameter;
         return $this;
@@ -32,10 +35,10 @@ class Model_Core_Table{
 
     //------------------- set & get adapter
 
-    public function setAdapter($parameter){
-        $this->adapter = $parameter;
-        return $this;
-    }
+    // public function setAdapter($parameter){
+    //     $this->adapter = $parameter;
+    //     return $this;
+    // }
 
     public function getAdapter(){
         //access to adapter class
@@ -53,10 +56,11 @@ class Model_Core_Table{
     //------------------------------------------------------------
 
     public function fetchAll(){
-        $tableName = $this->getTableName();
+        $tableName = $this->getTableName(); //or only tableName, because "product" is setted into tableName var
 
         $query = "SELECT * FROM `$tableName` WHERE 1";
-        return $this->getAdapter()->fetchAll($query);
+        return $this->getAdapter()->fetchAll($query); //return this result
+        
     }
     
 }

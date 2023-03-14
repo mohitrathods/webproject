@@ -1,0 +1,25 @@
+Product controller 
+get Product_Model > in that, Table is extended so, all methods of Table accessed in Product_Controller
+
+> getter setter in Product_Controller
+- of Model 
+- of setTableName for database query 
+- of setPrimaryKey for id to edit, delete etc 
+
+> getter setter in Table 
+- of Adapter 
+- of tableName to set into query and get into grid.phtml 
+- of primaryKey
+
+> adapter ma return thai ne e jase kya?
+
+----------------------------------------------------------
+> in Front > get access to request and get c and a with methods getParam and 
+setControllername & getControllerName
+
+> if index.php?c=product and a=grid > give action path final Action to be  made 
+
+> if button is PRODUCT > href given is > index.php?c=product&a=grid 
+> now get this in request.php with getParam method
+> with getParam method, get the exact names of controller and links with $_GET method 
+> now pass things into Front.php get the exact path to be fetched and call init() function in Index.php 
