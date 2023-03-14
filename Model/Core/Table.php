@@ -7,6 +7,21 @@ class Model_Core_Table{
 
     protected $adapter = null;
 
+
+    //------------------- set & get primarykey
+
+    public function setPrimaryKey($parameter){
+        $this->primaryKey = $parameter;
+        return $this;
+    }
+
+    public function getPrimaryKey(){
+        return $this->primaryKey;
+    }
+
+    
+
+
     //------------------- set & get tablename
 
     //as parameter, from product controller getModel() access, and Table extended in Product_Model
@@ -20,18 +35,6 @@ class Model_Core_Table{
     public function getTableName(){
         return $this->tableName;
     }
-
-    //------------------- set & get primarykey
-
-    public function setPrimaryKey($parameter){
-        $this->primaryKey = $parameter;
-        return $this;
-    }
-
-    public function getPrimaryKey(){
-        return $this->primaryKey;
-    }
-
 
     //------------------- set & get adapter
 

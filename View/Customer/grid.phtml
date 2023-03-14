@@ -1,0 +1,58 @@
+<?php
+$customers = $this->getCustomer();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
+    <title>Customer</title>
+</head>
+<body>
+<div class="maindiv">
+    <div class="subdiv">
+        <div class="headerr">
+            <?php require_once 'view/html/header.phtml'; ?>
+        </div>
+        <div class="headd">
+            <span>Customers</span>
+            <a href="index.php?c=customer&a=add">Add Customer</a>
+        </div>
+    </div>  
+
+    <!-- content -->
+    <div class="table">
+        <table border="1px" border-collapse= "collapse">    
+            <tr>
+                <th>Customer id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+                <th>Status</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+
+            <?php foreach($customers as $customer): ?>    
+                <tr>
+                    <td><?php echo $customer['customer_id'] ?></td>
+                    <td><?php echo $customer['first_name'] ?></td>
+                    <td><?php echo $customer['last_name'] ?></td>
+                    <td><?php echo $customer['email'] ?></td>
+                    <td><?php echo $customer['gender'] ?></td>
+                    <td><?php echo $customer['mobile'] ?></td>
+                    <td><?php echo $customer['status'] ?></td>
+                    <td><a href="index.php?c=customer&a=edit&id=<?php echo $customer['customer_id'] ?>">EDIT</a></td>
+                    <td><a href="index.php?c=customer&a=delete&id=<?php echo $customer['customer_id'] ?>">DELETE</a></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>
+</body>
+</html>

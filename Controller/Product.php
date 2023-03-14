@@ -21,7 +21,7 @@ class Controller_Product extends Contoller_Core_Action{
         return $this->productId;
     }    
 
-    //------------------------- set & get product
+    //------------------------- set & get product 
     public function setProduct($parameter){
         $this->product = $parameter;
         return $this;
@@ -54,7 +54,8 @@ class Controller_Product extends Contoller_Core_Action{
         echo "this is grid page and grid Action";
         //get direct data here
         $this->getModel()->setTableName("product");
-        $product = $this->getModel()->fetchAll();
+        $product = $this->getModel()->fetchAll(); //what fetchall returns from Model_core_Table
+        // print_r($product);
         //returned result from table fetchAll() is saved here in $product variable
         //now that returned result in ASSOCiatove array is saved in $this->product = [] > means product array
         $this->setProduct($product);
