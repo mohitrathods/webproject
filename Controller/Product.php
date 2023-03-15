@@ -2,7 +2,6 @@
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 
-echo "this is product controller";
 class Controller_Product extends Contoller_Core_Action{
 
     protected $product = [];
@@ -58,7 +57,6 @@ class Controller_Product extends Contoller_Core_Action{
         $this->setProduct($product);
 
         $this->getTemplate("product/grid.phtml");
-
     }
 
     public function addAction(){
@@ -70,6 +68,8 @@ class Controller_Product extends Contoller_Core_Action{
 
         $this->getModel()->insert($product);
         
+        $this->redirect("index.php?c=product&a=grid");
+
     }
 
     public function editAction(){
@@ -80,18 +80,24 @@ class Controller_Product extends Contoller_Core_Action{
         $this->setProduct($productRow);
 
         $this->getTemplate("product/edit.phtml");
+
     }
 
     public function updateAction(){
-        echo "This is update action when click on submit button";
 
         $productRow = $this->getRequest()->getPost('product');
         $this->getModel()->update($productRow);
+
+        $this->redirect("index.php?c=product&a=grid");
     }
 
     public function deleteAction(){
-        echo "This is delete action when click on delete button";
         
+        $deleteId = $this->getRequest()->getParam('id');
+        $this->getModel()->delete($deleteId);
+        
+        $this->redirect("index.php?c=product&a=grid");
     }
+    
 }
 ?>

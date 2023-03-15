@@ -7,12 +7,12 @@ class Contoller_Core_Front{
     public function init(){
         $request = new Model_Core_Request();
         $controllerName = $request->getControllerName();
-        print_r($controllerName); // product
-        echo "<br>";
+        // print_r($controllerName); // product
+        // echo "<br>";
 
         $controllerClassName = 'Controller_'.ucwords($controllerName,'_'); //Controller_ Product_ 
-        print_r($controllerClassName);
-        echo "<br>";
+        // print_r($controllerClassName);
+        // echo "<br>";
 
         $controllerPathName = 'Controller/'.ucfirst($controllerName).'.php'; //Controller/Product.php
 

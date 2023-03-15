@@ -1,5 +1,7 @@
 <?php
-class Model_Core_Table{
+
+// require_once 'Model/Core/Request.php';
+class Model_Core_Table extends Model_Core_Request{
     
     //table name > example product, primary key of table, model
     protected $tableName = null;
@@ -10,8 +12,8 @@ class Model_Core_Table{
 
     //------------------- set & get primarykey
 
-    public function setPrimaryKey($parameter){
-        $this->primaryKey = $parameter;
+    public function setPrimaryKey($primaryKey){
+        $this->primaryKey = $primaryKey;
         return $this;
     }
 
@@ -27,8 +29,8 @@ class Model_Core_Table{
     //as parameter, from product controller getModel() access, and Table extended in Product_Model
     //so all functions of Table are accessiblr to product > passing value product 
     //from Product controller through product model and setting it in setTableName as parameter
-    public function setTableName($parameter){
-        $this->tableName = $parameter;
+    public function setTableName($tablename){
+        $this->tableName = $tablename;
         return $this;
     }
 
@@ -81,24 +83,20 @@ class Model_Core_Table{
 
     public function update($data){
 
-        echo "<pre>";
-        $keys = array_keys($data);
-        $values = array_values($data);
-        print_r($data);
-        print_r($keys);
-        print_r($values);
-        echo "<pre>";
+        foreach ($data as $key => $value) {
+            $keys[] = "`$key` = '$value'";
+        }
 
-        $keyString = "`".implode('`,`',$keys)."`";
-        $valueString = "'".implode("','",$values)."'";
-        print_r($keyString);
-        print_r($valueString);
-        echo "<pre>";
-        
-        $query = "UPDATE `{$this->tableName}` SET ({$keyString} = {$valueString})";
-        // $query = "UPDATE `{$this->tableName}` SET ({$keyString} = {$valueString}) where x = y";
-        print_r($query);
+        $testString = implode(',',$keys);
+
+        $query = "UPDATE `{$this->tableName}` SET $testString WHERE `{$this->getPrimaryKey()}` = '{$this->getParam('id')}'";
+        $this->getAdapter()->update($query);
     }
     
+    public function delete($deleteId){
+
+        $query = "DELETE FROM `{$this->tableName}` WHERE `{$this->primaryKey}` = '{$deleteId}'";
+        $this->getAdapter()->delete($query);
+    }
 }
 ?>

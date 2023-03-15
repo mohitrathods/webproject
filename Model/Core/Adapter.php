@@ -60,5 +60,30 @@ class Adapter {
             return false;
         }
     }
+
+    //UPDATE 
+    public function update($query){
+        $connect = $this->connect();
+        $result = mysqli_query($connect, $query);
+
+        if($result){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function delete($query){
+        $connect = $this->connect();
+        $result = mysqli_query($connect, $query);
+
+        if($result){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 ?>
