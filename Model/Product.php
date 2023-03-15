@@ -2,8 +2,8 @@
 require_once 'Core/Table.php';
 
 class Model_Product extends Model_Core_Table{
-    protected $tableName = null;
+    protected $tableName = 'product';
 
-    protected $primaryKey = null;
+    protected $primaryKey = 'product_id';
 }
 ?>

@@ -7,7 +7,6 @@ class Model_Core_Request{
         if($key == null){
             return $_POST;
         }
-        print_r($_POST);
         if(array_key_exists($key, $_POST)){
             return $_POST[$key]; 
         }
@@ -20,27 +19,13 @@ class Model_Core_Request{
         if($key == null){
             return $_GET;
         }
-        print_r($_GET);
-        echo "<br>";
-        print_r($value);
-        echo "<br>";
+        
         if(array_key_exists($key, $_GET)){
             return $_GET[$key];
         }
         
         return $value;
     }
-
-    //----------------- getRequest 
-    public function getRequest($key = null, $value = null){
-        if($key == null){
-            return $_POST;
-        }
-        if(array_key_exists($key, $_POST)){
-            return $_POST[$key];
-        }
-    }
-
 
     //---------------- GET ACTION AND CONTROLLER NAMES
     public function getActionName(){

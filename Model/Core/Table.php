@@ -58,12 +58,46 @@ class Model_Core_Table{
 
     //------------------------------------------------------------
 
-    public function fetchAll(){
-        $tableName = $this->getTableName(); //or only tableName, because "product" is setted into tableName var
-
-        $query = "SELECT * FROM `$tableName` WHERE 1";
+    public function fetchAll($query){
+        
         return $this->getAdapter()->fetchAll($query); //return this result
         
+    }
+
+    public function insert($data){
+        $keys = array_keys($data);
+        $values = array_values($data);
+        
+        $keyString = "`".implode('`,`',$keys)."`";
+        $valueString = "'".implode("','",$values)."'";
+
+        $query = "INSERT INTO `{$this->tableName}` ({$keyString}) VALUES ({$valueString})";
+        $this->getAdapter()->insert($query);
+    }
+
+    public function fetchRow($query){
+        return $this->getAdapter()->fetchRow($query);
+    }
+
+    public function update($data){
+
+        echo "<pre>";
+        $keys = array_keys($data);
+        $values = array_values($data);
+        print_r($data);
+        print_r($keys);
+        print_r($values);
+        echo "<pre>";
+
+        $keyString = "`".implode('`,`',$keys)."`";
+        $valueString = "'".implode("','",$values)."'";
+        print_r($keyString);
+        print_r($valueString);
+        echo "<pre>";
+        
+        $query = "UPDATE `{$this->tableName}` SET ({$keyString} = {$valueString})";
+        // $query = "UPDATE `{$this->tableName}` SET ({$keyString} = {$valueString}) where x = y";
+        print_r($query);
     }
     
 }

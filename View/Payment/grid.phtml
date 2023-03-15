@@ -1,0 +1,55 @@
+<?php
+$payments = $this->getPayment();
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
+    <title>payment</title>
+</head>
+<body>
+<div class="maindiv">
+        <div class="subdiv">
+            <!-- header -->
+            <div class="headerr">
+                <?php require_once 'view/html/header.phtml'; ?>
+            </div>
+            <!-- head -->
+            <div class="headd">
+                <span>payment</span>
+                <a href="index.php?c=payment&a=add">Add payment</a>
+            </div>
+        </div>  
+        
+        <!-- data table -->
+        <div class="table">
+            <table border="1px" border-collapse= "collapse">
+                <tr>
+                    <th>payment id</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                </tr>
+                <?php foreach($payments as $payment): ?>
+                    <tr>
+                        <td><?php echo $payment['payment_method_id'] ?></td>
+                        <td><?php echo $payment['name'] ?></td>
+                        <td><?php echo $payment['amount'] ?></td>
+                        <td><?php echo $payment['status'] ?></td>
+                        <td><a href="index.php?c=payment&a=edit&id=<?php echo $payment['payment_method_id'] ?>">EDIT</a></td>
+                        <td><a href="index.php?c=payment&a=delete&id=<?php echo $payment['payment_method_id'] ?>">DELETE</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

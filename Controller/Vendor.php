@@ -36,10 +36,9 @@ class Controller_Vendor extends Contoller_Core_Action{
     }
 
     public function gridAction(){
-        echo "this is GRID OF VENDOR";
-        $this->getModel()->setTableName("vendor");
-
-        $vendor = $this->getModel()->fetchAll();
+         $query = "SELECT * FROM `vendor` WHERE 1";
+        $vendor = $this->getModel()->fetchAll($query);
+        
         $this->setVendor($vendor);
 
         $this->getTemplate("vendor/grid.phtml");

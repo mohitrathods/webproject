@@ -27,10 +27,38 @@ class Adapter {
         $connect = $this->connect();
         $result = mysqli_query($connect, $query);
 
+
         if ($result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
+        
         return $result;
+    }
+
+    //INSESRT
+    public function insert($query){
+        $connect = $this->connect();
+        $result = mysqli_query($connect, $query);
+
+        if($result){
+            return $connect->insert_id;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //FETCHROW
+    public function fetchRow($query){
+        $connect = $this->connect();
+        $result = mysqli_query($connect, $query);
+
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();
+        }
+        else {
+            return false;
+        }
     }
 }
 ?>

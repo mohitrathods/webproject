@@ -36,11 +36,9 @@ class Controller_Customer extends Contoller_Core_Action{
 
     
     public function gridAction(){
-        echo "GRID ACTION OF CUSTOMER";
-        $this->getModel()->setTableName("customer");
-
-        //get associative array
-        $customer = $this->getModel()->fetchAll();
+         $query = "SELECT * FROM `customer` WHERE 1";
+        $customer = $this->getModel()->fetchAll($query);
+        
         $this->setCustomer($customer);
 
         $this->getTemplate("customer/grid.phtml");

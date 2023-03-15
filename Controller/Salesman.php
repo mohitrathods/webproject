@@ -37,11 +37,9 @@ class Controller_Salesman extends Contoller_Core_Action{
     }
 
     public function gridAction(){
-        echo "GRID ACTION OF SALESMAN";
-
-        $this->getModel()->setTableName("salesman");
-
-        $salesman = $this->getModel()->fetchAll();
+         $query = "SELECT * FROM `salesman` WHERE 1";
+        $salesman = $this->getModel()->fetchAll($query);
+        
         $this->setSalesMan($salesman);
 
         $this->getTemplate("salesman/grid.phtml");

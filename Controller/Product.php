@@ -12,8 +12,8 @@ class Controller_Product extends Contoller_Core_Action{
     protected $model = null;
 
     //------------------------- set & get product ID
-    public function setProductId($parameter){
-        $this->productId = $parameter;
+    public function setProductId($product){
+        $this->productId = $product;
         return $this;
     }
 
@@ -22,8 +22,8 @@ class Controller_Product extends Contoller_Core_Action{
     }    
 
     //------------------------- set & get product 
-    public function setProduct($parameter){
-        $this->product = $parameter;
+    public function setProduct($product){
+        $this->product = $product;
         return $this;
     }
 
@@ -32,8 +32,8 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     //------------------------- set & get Model
-    // public function setModel($parameter){
-    //     $this->model = $parameter;
+    // public function setModel($product){
+    //     $this->model = $product;
     //     return $this;
     // }
 
@@ -51,41 +51,47 @@ class Controller_Product extends Contoller_Core_Action{
     //---------------------------------------------------------------
 
     public function gridAction(){
-        echo "this is grid page and grid Action";
-        //get direct data here
-        $this->getModel()->setTableName("product");
-        $product = $this->getModel()->fetchAll(); //what fetchall returns from Model_core_Table
-        // print_r($product);
-        //returned result from table fetchAll() is saved here in $product variable
-        //now that returned result in ASSOCiatove array is saved in $this->product = [] > means product array
-        $this->setProduct($product);
-        //now, getProduct in grid.phtml
 
-        // require_once "View/Product/grid.phtml";
+        $query = "SELECT * FROM `product` WHERE 1";
+        $product = $this->getModel()->fetchAll($query);
+
+        $this->setProduct($product);
 
         $this->getTemplate("product/grid.phtml");
-        // $this->redirect("index.php?c=product&a=grid");
 
     }
 
     public function addAction(){
-        echo "this is add page and add action";
+        $this->getTemplate("product/add.phtml");
     }
 
     public function insertAction(){
-        echo "this is insert action when click on submit";
+        $product = $this->getRequest()->getPost('product'); //from $_POST('product') give array of product
+
+        $this->getModel()->insert($product);
+        
     }
 
     public function editAction(){
-        echo "this is edit page and edit action";
+        
+        $query = "SELECT * FROM `product` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
+        $productRow = $this->getModel()->fetchRow($query);
+
+        $this->setProduct($productRow);
+
+        $this->getTemplate("product/edit.phtml");
     }
 
     public function updateAction(){
         echo "This is update action when click on submit button";
+
+        $productRow = $this->getRequest()->getPost('product');
+        $this->getModel()->update($productRow);
     }
 
     public function deleteAction(){
         echo "This is delete action when click on delete button";
+        
     }
 }
 ?>

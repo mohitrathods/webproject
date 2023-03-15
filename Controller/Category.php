@@ -38,9 +38,9 @@ class Controller_Category extends Contoller_Core_Action{
 
 
     public function gridAction(){
-        echo "grid action of CATEGORY";
-        $this->getModel()->setTableName("category");
-        $category = $this->getModel()->fetchAll(); //get from return > Adapter through Model
+        $query = "SELECT * FROM `category` WHERE 1";
+        $category = $this->getModel()->fetchAll($query);
+        
         $this->setCategory($category);
 
         $this->getTemplate("category/grid.phtml");
