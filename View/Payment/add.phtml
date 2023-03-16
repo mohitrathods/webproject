@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/edit.css?<?php echo time(); ?>">
+    <title>Add data</title>
+</head>
+<body>
+<form method="post" action="index.php?c=payment&a=insert">
+    <div class="mainadd">
+        <div class="eachdiv">
+            <div class="eachdiv">
+                <label>PAYMENT ID</label>
+                <input type="number" name="payment[payment_method_id]" value="" />
+            </div>
+
+            <div class="eachdiv">
+                <label>NAME</label>
+                <input type="text" name="payment[name]" value="" />
+            </div>
+
+            <div class="eachdiv">
+                <label>AMOUNT</label>
+                <input type="number" name="payment[amount]" value="" />
+            </div>
+
+            <div class="eachdiv">
+                <label>STATUS</label>
+                <select name="payment[status]">
+                    <option value="active">Active</option>
+                    <option value="inactive">inactive</option>
+                </select>
+            </div>
+
+            
+
+            <div class="eachdiv">
+                <input type="submit" class="submitbutton" />
+                <a href="index.php?c=payment&a=grid">CANCEL</a>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

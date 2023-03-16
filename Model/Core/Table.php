@@ -22,8 +22,6 @@ class Model_Core_Table extends Model_Core_Request{
     }
 
     
-
-
     //------------------- set & get tablename
 
     //as parameter, from product controller getModel() access, and Table extended in Product_Model
@@ -69,11 +67,11 @@ class Model_Core_Table extends Model_Core_Request{
     public function insert($data){
         $keys = array_keys($data);
         $values = array_values($data);
-        
+
         $keyString = "`".implode('`,`',$keys)."`";
         $valueString = "'".implode("','",$values)."'";
-
         $query = "INSERT INTO `{$this->tableName}` ({$keyString}) VALUES ({$valueString})";
+        
         $this->getAdapter()->insert($query);
     }
 

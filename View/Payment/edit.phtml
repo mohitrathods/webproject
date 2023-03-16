@@ -1,0 +1,45 @@
+<?php
+$payments = $this->getPayment();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/edit.css?<?php echo time(); ?>">
+    <title>Edit payment</title>
+</head>
+<body>
+<form action="index.php?c=payment&a=update&id=<?php echo $payments['payment_method_id'] ?>" method="post">
+    <div class="mainadd">
+
+        <div class="eachdiv">
+            <label>EDIT NAME</label>
+            <input type="text" name="payment[name]" value="<?php echo $payments['name'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>EDIT AMOUNT</label>
+            <input type="number" name="payment[amount]" value="<?php echo $payments['amount'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>EDIT STATUS</label>
+            <select name="payment[status]">
+                <option value="active" <?php if($payments['status'] == 'active' ){echo "selected";} ?>>Active</option>
+                <option value="inactive" <?php if($payments['status'] == 'inactive'){echo "selected";} ?>>Inactive</option>
+            </select>
+        </div>
+
+        
+
+        <div class="eachdiv">
+            <input type="submit" class="submitbutton" />
+            <a href="index.php?c=payment&a=grid">CANCEL</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

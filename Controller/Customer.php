@@ -44,5 +44,45 @@ class Controller_Customer extends Contoller_Core_Action{
         $this->getTemplate("customer/grid.phtml");
         
     }
+
+    public function addAction(){
+        $this->getTemplate("customer/add.phtml");
+    }
+
+    public function insertAction(){
+        $customer = $this->getRequest()->getPost('customer');
+        
+        $this->getModel()->insert($customer);
+
+        $this->redirect("index.php?c=customer&a=grid");
+
+    }
+
+    public function editAction(){
+
+        $query = "SELECT * FROM `customer` WHERE `customer_id` = '{$this->getRequest()->getParam('id')}'";
+
+        $customerRow = $this->getModel()->fetchRow($query);
+
+        $this->setCustomer($customerRow);
+
+        $this->getTemplate("customer/edit.phtml");
+    }
+
+    public function updateAction(){
+        $customer = $this->getRequest()->getPost('customer'); //$_POST > customer array
+        
+        $this->getModel()->update($customer);
+
+        $this->redirect("index.php?c=customer&a=grid");
+    }
+
+    public function deleteAction(){
+        $deleteId = $this->getRequest()->getParam('id');
+
+        $this->getModel()->delete($deleteId);
+
+        $this->redirect("index.php?c=customer&a=grid");
+    }
 }
 ?>

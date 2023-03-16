@@ -30,7 +30,11 @@ setControllername & getControllerName
 -----------------------------
 tasks 
 - created and updated at date time
-- in all apps, insert, update, delete
+- return->this ?
+- all methods of array , php funs and global vars, php loops > string array functions
+> class arrays string integer > 25 - 25 methods
+
+- understand > request, front, index, action, adapter 
 - validataion in all actions
 - in salesman > salesman price vadu 
 - in product > product media 

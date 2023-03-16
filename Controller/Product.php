@@ -1,6 +1,7 @@
 <?php
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
+require_once 'Model/Core/Url.php';
 
 class Controller_Product extends Contoller_Core_Action{
 
@@ -49,6 +50,8 @@ class Controller_Product extends Contoller_Core_Action{
 
     //---------------------------------------------------------------
 
+   
+
     public function gridAction(){
 
         $query = "SELECT * FROM `product` WHERE 1";
@@ -57,6 +60,10 @@ class Controller_Product extends Contoller_Core_Action{
         $this->setProduct($product);
 
         $this->getTemplate("product/grid.phtml");
+
+        $url = new Model_Core_Url();
+        $url->getCurrentUrl();
+        
     }
 
     public function addAction(){
@@ -64,7 +71,7 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     public function insertAction(){
-        $product = $this->getRequest()->getPost('product'); //from $_POST('product') give array of product
+        $product = $this->getRequest()->getPost('product'); //from $_POST('product','another array','array 3') give array of product
 
         $this->getModel()->insert($product);
         

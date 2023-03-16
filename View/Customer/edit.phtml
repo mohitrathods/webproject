@@ -1,0 +1,61 @@
+<?php
+$customers = $this->getCustomer();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/edit.css?<?php echo time(); ?>">
+    <title>Edit data</title>
+</head>
+<body>
+<form action="index.php?c=customer&a=update&id=<?php echo $customers['customer_id'] ?>" method="post">
+    <div class="mainadd">
+        <div class="eachdiv">
+            <label>FIRST NAME</label>
+            <input type="text" name="customer[first_name]" value="<?php echo $customers['first_name'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>LAST NAME</label>
+            <input type="text" name="customer[last_name]" value="<?php echo $customers['last_name'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>EMAIL</label>
+            <input type="email" name="customer[email]" value="<?php echo $customers['email'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>GENDER</label>
+            <select name="customer[gender]">
+                <option value="active <?php if($customers['gender'] == 'male'){echo 'selected';} ?>">male</option>
+                <option value="female <?php if($customers['gender'] == 'female'){echo 'selected';} ?>">female</option>
+            </select>
+        </div>
+
+        <div class="eachdiv">
+            <label>MOBILE</label>
+            <input type="tel" name="customer[mobile]" value="<?php echo $customers['mobile'] ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>STATUS</label>
+            <select name="customer[status]">
+                <option value="active <?php if($customers['status'] == 'active'){echo 'selected';} ?>">Active</option>
+                <option value="inactive <?php if($customers['status'] == 'inactive'){echo 'selected';} ?>">Inctive</option>
+            </select>
+        </div>
+
+        <div class="eachdiv">
+            <input type="submit" class="submitbutton" />
+            <a href="index.php?c=customer&a=grid">CANCEL</a>
+        </div>
+        
+    </div>
+</form>
+</body>
+</html>

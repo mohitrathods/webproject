@@ -49,6 +49,45 @@ class Controller_Shipping extends Contoller_Core_Action{
         $this->getTemplate("shipping/grid.phtml");
 
     }
+
+    public function addAction(){
+        $this->getTemplate("shipping/add.phtml");
+    }
+
+    public function insertAction(){
+        $shipping = $this->getRequest()->getPost('shipping');
+
+        $this->getModel()->insert($shipping);
+        
+        $this->redirect("index.php?c=shipping&a=grid");
+    }
+
+    public function editAction(){
+        $query = "SELECT * FROM `shipping` WHERE `shipping_method_id` = '{$this->getRequest()->getParam('id')}'";
+
+        $shippingRow = $this->getModel()->fetchRow($query);
+
+        $this->setShipping($shippingRow);
+
+        $this->getTemplate("shipping/edit.phtml");
+    }
+
+    public function updateAction(){
+        $shipping = $this->getRequest()->getPost('shipping');
+
+        $this->getModel()->update($shipping);
+
+        $this->redirect("index.php?c=shipping&a=grid");
+    }
+
+    public function deleteAction(){
+        $deleteId = $this->getRequest()->getParam('id');
+        
+        $this->getModel()->delete($deleteId);
+
+        $this->redirect("index.php?c=shipping&a=grid");
+        
+    }
 }
 
 ?>

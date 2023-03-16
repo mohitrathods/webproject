@@ -44,7 +44,44 @@ class Controller_Vendor extends Contoller_Core_Action{
         $this->getTemplate("vendor/grid.phtml");
     }
 
+    public function addAction(){
+        $this->getTemplate("vendor/add.phtml");
+    }
 
+    public function insertAction(){
+        $vendor = $this->getRequest()->getPost('vendor');
+
+        $this->getModel()->insert($vendor);
+
+        $this->redirect("index.php?c=vendor&a=grid");
+    }
+
+    public function editAction(){
+
+        $query = "SELECT * FROM `vendor` WHERE `vendor_id` = '{$this->getRequest()->getParam('id')}'";
+        
+        $vendorRow = $this->getModel()->fetchRow($query);
+
+        $this->setVendor($vendorRow);
+
+        $this->getTemplate("vendor/edit.phtml");
+    }
+
+    public function updateAction(){
+        $vendor = $this->getRequest()->getPost('vendor');
+
+        $this->getModel()->update($vendor);
+
+        $this->redirect("index.php?c=vendor&a=grid");
+    }
+
+    public function deleteAction(){
+        $deleteId = $this->getRequest()->getParam('id');
+
+        $this->getModel()->delete($deleteId);
+
+        $this->redirect("index.php?c=vendor&a=grid");
+    }
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once 'Controller/Core/Action.php';
-require_once 'Model/Product.php';
+require_once 'Model/Category.php';
+// require_once 'Model/Core/Request.php';
 
 class Controller_Category extends Contoller_Core_Action{
 
@@ -31,7 +32,7 @@ class Controller_Category extends Contoller_Core_Action{
         if($this->model){
             return $this->model;
         }
-        $model = new Model_Core_Table();
+        $model = new Model_Category();
         $this->model = $model;
         return $model;
     }
@@ -48,23 +49,44 @@ class Controller_Category extends Contoller_Core_Action{
     }
 
     public function addAction(){
-        echo "ADD ACTION OF category";
+        $this->getTemplate("category/add.phtml");
     }
 
     public function insertAction(){
-        echo "insert ACTION OF category";
+        $category = $this->getRequest()->getPost('category');
+        
+        $this->getModel()->insert($category);
+
+        $this->redirect("index.php?c=category&a=grid");
     }
 
     public function editAction(){
-        echo "edit ACTION OF category";
+
+        $query = "SELECT * FROM `category` WHERE `category_id` = '{$this->getRequest()->getParam('id')}'";
+
+        $categoryRow = $this->getModel()->fetchRow($query);
+
+        $this->setCategory($categoryRow);
+
+        $this->getTemplate("category/edit.phtml");
     }
 
     public function updateAction(){
-        echo "update ACTION OF category";
+        $category = $this->getModel()->getPost('category');
+        // print_r($category);
+
+        $this->getModel()->update($category);
+
+        $this->redirect("index.php?c=category&a=grid");
+
     }
 
     public function deleteAction(){
-        echo "delete ACTION OF category";
+        $deleteId = $this->getRequest()->getParam('id');
+
+        $this->getModel()->delete($deleteId);
+
+        $this->redirect("index.php?c=category&a=grid");
     }
 }
 ?>

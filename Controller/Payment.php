@@ -31,7 +31,7 @@ class Controller_Payment extends Contoller_Core_Action{
         if($this->model){
             return $this->model;
         }
-        $model = new Model_Core_Table();
+        $model = new Model_Payment();
         $this->model = $model;
         return $model;
     }
@@ -44,6 +44,44 @@ class Controller_Payment extends Contoller_Core_Action{
         $this->setPayment($payment);
 
         $this->getTemplate("payment/grid.phtml");
+    }
+
+    public function addAction(){
+        $this->getTemplate("payment/add.phtml");
+    }
+
+    public function insertAction(){
+        $payment = $this->getRequest()->getPost('payment');
+
+        $this->getModel()->insert($payment);
+
+        $this->redirect("index.php?c=payment&a=grid");
+    }
+
+    public function editAction(){
+        $query = "SELECT * FROM `payment` WHERE `payment_method_id` = '{$this->getRequest()->getParam('id')}'";
+
+        $paymentRow = $this->getModel()->fetchRow($query);
+
+        $this->setPayment($paymentRow);
+
+        $this->getTemplate("payment/edit.phtml");
+    }
+
+    public function updateAction(){
+        $payment = $this->getRequest()->getPost('payment');
+
+        $this->getModel()->update($payment);
+
+        $this->redirect("index.php?c=payment&a=grid");
+    }
+
+    public function deleteAction (){
+        $deleteId = $this->getRequest()->getParam('id');
+
+        $this->getModel()->delete($deleteId);
+
+        $this->redirect("index.php?c=payment&a=grid");
     }
 
 

@@ -2,9 +2,9 @@
 
 require_once 'Core/Table.php';
 
-class Model_Product extends Model_Core_Table{
-    protected $tableName = null;
+class Model_Payment extends Model_Core_Table{
+    protected $tableName = 'payment';
 
-    protected $primaryKey = null;
+    protected $primaryKey = 'payment_method_id';
 }
 ?>

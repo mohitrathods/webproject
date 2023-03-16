@@ -2,8 +2,8 @@
 require_once 'Core/Table.php';
 class Model_Customer extends Model_Core_Table{
 
-    protected $tableName = null;
-    protected $primaryKey = null;
+    protected $tableName = 'customer';
+    protected $primaryKey = 'customer_id';
 
 
 }
