@@ -3,6 +3,7 @@ require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
 
+
 class Controller_Product extends Contoller_Core_Action{
 
     protected $product = [];
@@ -54,6 +55,16 @@ class Controller_Product extends Contoller_Core_Action{
 
     public function gridAction(){
 
+        // $url = new Model_Core_Url();
+        // $url->getCurrentUrl();
+        // echo $url->getController();
+        // echo $url->getUrl(); //current url
+        // echo $url->getUrl('category','add',['name'=>'mohit','email'=>'email','id'=>1]);
+        // echo $url->getUrl(null, null,['id'=>5]); 
+        // die();
+
+
+
         $query = "SELECT * FROM `product` WHERE 1";
         $product = $this->getModel()->fetchAll($query);
 
@@ -61,8 +72,6 @@ class Controller_Product extends Contoller_Core_Action{
 
         $this->getTemplate("product/grid.phtml");
 
-        $url = new Model_Core_Url();
-        $url->getCurrentUrl();
         
     }
 

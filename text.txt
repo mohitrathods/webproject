@@ -1,40 +1,32 @@
-Product controller 
-get Product_Model > in that, Table is extended so, all methods of Table accessed in Product_Controller
-
-> getter setter in Product_Controller
-- of Model 
-- of setTableName for database query 
-- of setPrimaryKey for id to edit, delete etc 
-
-> getter setter in Table 
-- of Adapter 
-- of tableName to set into query and get into grid.phtml 
-- of primaryKey
-
-> adapter ma return thai ne e jase kya?
-
-----------------------------------------------------------
-> in Front > get access to request and get c and a with methods getParam and 
-setControllername & getControllerName
-
-> if index.php?c=product and a=grid > give action path final Action to be  made 
-
-> if button is PRODUCT > href given is > index.php?c=product&a=grid 
-> now get this in request.php with getParam method
-> with getParam method, get the exact names of controller and links with $_GET method 
-> now pass things into Front.php get the exact path to be fetched and call init() function in Index.php 
-
-
-
-
 -----------------------------
 tasks 
-- created and updated at date time
 - return->this ?
-- all methods of array , php funs and global vars, php loops > string array functions
-> class arrays string integer > 25 - 25 methods
+> class arrays string integer http query > 25 - 25 methods
+> loops arrays 
 
-- understand > request, front, index, action, adapter 
+> array vado task 
+
+- in all, fetch created_at  and updated_at and set updated_at and created_at
 - validataion in all actions
 - in salesman > salesman price vadu 
 - in product > product media 
+- category > parent category
+- understand > request, front, index, action, adapter 
+
+
+if($controllerName != 'prodctmedia'){
+            $resultClassName = new $strreplace();
+            print_r($resultClassName);
+        }
+
+
+ if($controllerName != 'productmedia'){
+            $strreplace = str_replace("Controller_Product_Media","Controller/Product/Media",$controllerClassName).'.php';
+        print_r($strreplace);
+        }
+
+if($controllerName != 'productmedia'){
+            
+        print_r($controllerClassName);
+        
+        }

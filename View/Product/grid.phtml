@@ -57,7 +57,7 @@ $products = $this->getProduct();
                         <td><?php echo $product['color'] ?></td>
                         <td><?php echo $product['status'] ?></td>
                         <td><?php echo $product['material'] ?></td>
-                        <td><a href="ProductMedia.php?a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td>
+                        <td><a href="index.php?c=product_media&a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td>
                         <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td>
                         <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td>
                 </tr>

@@ -1,7 +1,6 @@
 <?php
 class Model_Core_Request{
     
-    
     //----------- getPost > validate posted data
     public function getPost($key = null, $value = null){
         if($key == null){

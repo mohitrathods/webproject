@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="skin/css/mediaadd.css?<?php echo time(); ?>">
+    <title>Add Media</title>
+</head>
+<body>
+<form action="index.php?c=product_media&a=insert&id=<?php echo $this->getRequest()->getParam('id') ?>" method="post" enctype="multipart/form-data">
+<div class="maindivv">
+    <div class="topdivv">
+        <input type="submit" />
+        <a href="index.php?c=product_media&a=grid&id=<?php echo $this->getRequest()->getParam('id') ?>">CANCEL</a>
+    </div>
+
+    <div class="bottomdivv">
+        <div class="eachdivv">
+            <label>Product Name</label>
+            <input type="name" name="media[name]" placeholder="enter product name" required />
+        </div>
+
+        <div class="eachdivv">
+            <label>Product Status</label>
+            <select name="media[status]">
+                <option value="">Please Select</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
+        
+        <div class="eachdivv">
+            <label>select Image only</label>
+            <input type="file" name="media[image]" required />
+        </div>
+    </div>
+</div>
+</form>
+</body>
+</html>

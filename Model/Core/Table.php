@@ -38,10 +38,10 @@ class Model_Core_Table extends Model_Core_Request{
 
     //------------------- set & get adapter
 
-    // public function setAdapter($parameter){
-    //     $this->adapter = $parameter;
-    //     return $this;
-    // }
+    public function setAdapter($parameter){
+        $this->adapter = $parameter;
+        return $this;
+    }
 
     public function getAdapter(){
         //access to adapter class
@@ -73,6 +73,7 @@ class Model_Core_Table extends Model_Core_Request{
         $query = "INSERT INTO `{$this->tableName}` ({$keyString}) VALUES ({$valueString})";
         
         $this->getAdapter()->insert($query);
+
     }
 
     public function fetchRow($query){
@@ -95,6 +96,12 @@ class Model_Core_Table extends Model_Core_Request{
 
         $query = "DELETE FROM `{$this->tableName}` WHERE `{$this->primaryKey}` = '{$deleteId}'";
         $this->getAdapter()->delete($query);
+    }
+
+
+    //INSERT MEDIA
+    public function insertMedia($data){
+        print_r($data);
     }
 }
 ?>
