@@ -4,6 +4,7 @@ require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
 
 
+
 class Controller_Product extends Contoller_Core_Action{
 
     protected $product = [];
@@ -102,7 +103,12 @@ class Controller_Product extends Contoller_Core_Action{
     public function updateAction(){
 
         $productRow = $this->getRequest()->getPost('product');
-        $this->getModel()->update($productRow);
+
+        $productId = $this->getRequest()->getParam('id');
+
+        $condition['product_id'] = $productId;
+
+        $this->getModel()->update($productRow,$condition);
 
         $this->redirect("index.php?c=product&a=grid");
     }

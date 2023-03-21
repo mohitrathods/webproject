@@ -72,7 +72,7 @@ class Model_Core_Table extends Model_Core_Request{
         $valueString = "'".implode("','",$values)."'";
         $query = "INSERT INTO `{$this->tableName}` ({$keyString}) VALUES ({$valueString})";
         
-        $this->getAdapter()->insert($query);
+        return $this->getAdapter()->insert($query);
 
     }
 
@@ -80,7 +80,7 @@ class Model_Core_Table extends Model_Core_Request{
         return $this->getAdapter()->fetchRow($query);
     }
 
-    public function update($data){
+    public function update($data,$condition){
 
         foreach ($data as $key => $value) {
             $keys[] = "`$key` = '$value'";
@@ -88,20 +88,24 @@ class Model_Core_Table extends Model_Core_Request{
 
         $testString = implode(',',$keys);
 
-        $query = "UPDATE `{$this->tableName}` SET $testString WHERE `{$this->getPrimaryKey()}` = '{$this->getParam('id')}'";
-        $this->getAdapter()->update($query);
+        foreach($condition as $key => $value){
+            $conditionString[] = "`$key` = '$value'";
+        }
+
+        $implode = implode('AND',$conditionString);
+
+        $query = "UPDATE `{$this->tableName}` SET $testString WHERE $implode";
+        // print_r($query);
+
+        return $this->getAdapter()->update($query);
     }
     
     public function delete($deleteId){
 
         $query = "DELETE FROM `{$this->tableName}` WHERE `{$this->primaryKey}` = '{$deleteId}'";
-        $this->getAdapter()->delete($query);
+        return $this->getAdapter()->delete($query);
     }
 
 
-    //INSERT MEDIA
-    public function insertMedia($data){
-        print_r($data);
-    }
 }
 ?>

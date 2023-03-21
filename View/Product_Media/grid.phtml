@@ -13,7 +13,7 @@ $fetchedMedia = $this->getMedia();
     <title>Product Media</title>
 </head>
 <body>
-<form method="post" action="index.php?c=productmedia&a=update&id=<?php echo $link ?>">
+<form action="index.php?c=product_media&a=update&id=<?php echo $this->getRequest()->getParam('id') ?>" method="post" enctype="multipart/form-data">
 <div class="maindivision">
     <div class="topdiv">
         <span>Product Media</span>

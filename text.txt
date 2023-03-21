@@ -14,19 +14,3 @@ tasks
 - understand > request, front, index, action, adapter 
 
 
-if($controllerName != 'prodctmedia'){
-            $resultClassName = new $strreplace();
-            print_r($resultClassName);
-        }
-
-
- if($controllerName != 'productmedia'){
-            $strreplace = str_replace("Controller_Product_Media","Controller/Product/Media",$controllerClassName).'.php';
-        print_r($strreplace);
-        }
-
-if($controllerName != 'productmedia'){
-            
-        print_r($controllerClassName);
-        
-        }
