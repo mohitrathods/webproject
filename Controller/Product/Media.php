@@ -97,9 +97,52 @@ class Controller_Product_Media extends Contoller_Core_Action{
     public function updateAction(){
 
         echo "<pre>";
+
+        $productId = $this->getRequest()->getParam('id');
+
         $result = $this->getRequest()->getPost();
         print_r($result);
 
+        $baseId = $result['base'];
+        $smallId = $result['small'];
+        $thumbnailId = $result['thumbnail'];
+        $galleryId = $result['gallery'];
+        print_r($baseId);
+
+        $resetId['base'] = 0;
+        $resetId['small'] = 0;
+        $resetId['thumbnail'] = 0;
+        $resetId['gallery'] = 0;
+        //reset named array and stored 0 all values
+        $condition['product_id'] = $productId;
+        // print_r($condition);
+        //reset things
+        $resetIDs = $this->getModel()->update($resetId,$condition);
+        // print_r($resetIDs);
+        
+        
+        
+        $base['base'] = 1;
+        $condition['media_id'] = $baseId;
+        // print_r($condition);
+        $resetIDs = $this->getModel()->update($base, $condition);
+
+        $small['small'] = 1;
+        $condition['media_id'] = $smallId;
+        // print_r($condition);
+        $resetIDs = $this->getModel()->update($small, $condition);
+
+        $thumbnail['thumbnail'] = 1;
+        $condition['media_id'] = $thumbnailId;
+        // print_r($condition);
+        $resetIDs = $this->getModel()->update($thumbnail, $condition);
+
+        $gallery['gallery'] = 1;
+        $condition['media_id'] = $galleryId;
+        // print_r($condition);
+        $resetIDs = $this->getModel()->update($gallery, $condition);
+
+        $this->redirect("index.php?c=product_media&a=grid&id=$productId");
         
 
     }
