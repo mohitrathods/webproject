@@ -2,8 +2,7 @@
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
-
-
+require_once 'Model/Core/Session.php';
 
 class Controller_Product extends Contoller_Core_Action{
 
@@ -56,15 +55,24 @@ class Controller_Product extends Contoller_Core_Action{
 
     public function gridAction(){
 
-        // $url = new Model_Core_Url();
-        // $url->getCurrentUrl();
-        // echo $url->getController();
-        // echo $url->getUrl(); //current url
-        // echo $url->getUrl('category','add',['name'=>'mohit','email'=>'email','id'=>1]);
-        // echo $url->getUrl(null, null,['id'=>5]); 
+        // try {
+
+        //     throw new Exception("Error Processing Request", 1);
+        //     $_SESSION = [
+        //         "message" => [
+        //             "success" => null,
+        //             "failure" => null,
+        //             "notice" => null,
+        //         ]
+        //     ];
+        //     print_r($_SESSION);
+            
+        // } 
+        // catch (Exception $e1) {
+        //     echo "<pre>";
+        //     print_r($e1->getMessage());
+        // }
         // die();
-
-
 
         $query = "SELECT * FROM `product` WHERE 1";
         $product = $this->getModel()->fetchAll($query);
@@ -83,6 +91,10 @@ class Controller_Product extends Contoller_Core_Action{
     public function insertAction(){
         $product = $this->getRequest()->getPost('product'); //from $_POST('product','another array','array 3') give array of product
 
+        date_default_timezone_set("Asia/kolkata");
+		$dateTime = date("Y-m-d h:i:sA");
+		$product['created_at'] = $dateTime;
+        
         $this->getModel()->insert($product);
         
         $this->redirect("index.php?c=product&a=grid");
@@ -103,6 +115,10 @@ class Controller_Product extends Contoller_Core_Action{
     public function updateAction(){
 
         $productRow = $this->getRequest()->getPost('product');
+
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $productRow['updated_at'] = $dateTime;
 
         $productId = $this->getRequest()->getParam('id');
 

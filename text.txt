@@ -13,4 +13,11 @@ tasks
 - category > parent category
 - understand > request, front, index, action, adapter 
 
+--------------------------------------------------------
+
+- in all pass 2 params in update  in controllers
+- validations
+- functions
+- yesterday tasks 
+- setter getter make proper
 

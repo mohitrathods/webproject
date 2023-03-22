@@ -57,6 +57,10 @@ class Controller_Shipping extends Contoller_Core_Action{
     public function insertAction(){
         $shipping = $this->getRequest()->getPost('shipping');
 
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $shipping['created_at'] = $dateTime;
+
         $this->getModel()->insert($shipping);
         
         $this->redirect("index.php?c=shipping&a=grid");
@@ -75,7 +79,15 @@ class Controller_Shipping extends Contoller_Core_Action{
     public function updateAction(){
         $shipping = $this->getRequest()->getPost('shipping');
 
-        $this->getModel()->update($shipping);
+        date_default_timezone_set("Asia/Kolkata");
+        $dataTime = date("Y-m-d h:i:sA");
+        $shipping['updated_at'] = $dataTime;
+
+        $shippingId = $this->getRequest()->getParam('id');
+
+        $condition['shipping_method_id'] = $shippingId;
+
+        $this->getModel()->update($shipping , $condition);
 
         $this->redirect("index.php?c=shipping&a=grid");
     }

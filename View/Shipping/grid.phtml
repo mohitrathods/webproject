@@ -34,6 +34,8 @@ $shippings = $this->getShipping();
                     <th>Name</th>
                     <th>Amount</th>
                     <th>Status</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
                     
                     <th>EDIT</th>
                     <th>DELETE</th>
@@ -44,6 +46,8 @@ $shippings = $this->getShipping();
                         <td><?php echo $shipping['name'] ?></td>
                         <td><?php echo $shipping['amount'] ?></td>
                         <td><?php echo $shipping['status'] ?></td>
+                        <td><?php echo $shipping['created_at'] ?></td>
+                        <td><?php echo $shipping['updated_at'] ?></td>
                         <td><a href="index.php?c=shipping&a=edit&id=<?php echo $shipping['shipping_method_id'] ?>">EDIT</a></td>
                         <td><a href="index.php?c=shipping&a=delete&id=<?php echo $shipping['shipping_method_id'] ?>">DELETE</a></td>
                     </tr>

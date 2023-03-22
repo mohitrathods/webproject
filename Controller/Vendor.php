@@ -51,6 +51,10 @@ class Controller_Vendor extends Contoller_Core_Action{
     public function insertAction(){
         $vendor = $this->getRequest()->getPost('vendor');
 
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $vendor['created_at'] = $dateTime;
+
         $this->getModel()->insert($vendor);
 
         $this->redirect("index.php?c=vendor&a=grid");
@@ -70,7 +74,15 @@ class Controller_Vendor extends Contoller_Core_Action{
     public function updateAction(){
         $vendor = $this->getRequest()->getPost('vendor');
 
-        $this->getModel()->update($vendor);
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $vendor['updated_at'] = $dateTime;
+
+        $vendorId = $this->getRequest()->getParam('id');
+
+        $condition['vendor_id'] = $vendorId;
+
+        $this->getModel()->update($vendor , $condition);
 
         $this->redirect("index.php?c=vendor&a=grid");
     }

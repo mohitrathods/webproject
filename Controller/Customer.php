@@ -51,6 +51,10 @@ class Controller_Customer extends Contoller_Core_Action{
 
     public function insertAction(){
         $customer = $this->getRequest()->getPost('customer');
+
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $customer['created_at'] = $dateTime;
         
         $this->getModel()->insert($customer);
 
@@ -71,8 +75,16 @@ class Controller_Customer extends Contoller_Core_Action{
 
     public function updateAction(){
         $customer = $this->getRequest()->getPost('customer'); //$_POST > customer array
+
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $customer['updated_at'] = $dateTime;
+
+        $customerId = $this->getRequest()->getParam('id');
+
+        $condition['customer_id'] = $customerId;
         
-        $this->getModel()->update($customer);
+        $this->getModel()->update($customer, $condition);
 
         $this->redirect("index.php?c=customer&a=grid");
     }

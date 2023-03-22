@@ -53,6 +53,10 @@ class Controller_Payment extends Contoller_Core_Action{
     public function insertAction(){
         $payment = $this->getRequest()->getPost('payment');
 
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $payment['created_at'] = $dateTime;
+
         $this->getModel()->insert($payment);
 
         $this->redirect("index.php?c=payment&a=grid");
@@ -71,7 +75,15 @@ class Controller_Payment extends Contoller_Core_Action{
     public function updateAction(){
         $payment = $this->getRequest()->getPost('payment');
 
-        $this->getModel()->update($payment);
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime =  date("Y-m-d h:i:sA");
+        $payment['updated_at'] = $dateTime;
+
+        $paymentId = $this->getRequest()->getParam('id');
+
+        $condition['payment_method_id'] = $paymentId;
+
+        $this->getModel()->update($payment, $condition);
 
         $this->redirect("index.php?c=payment&a=grid");
     }

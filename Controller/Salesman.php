@@ -52,6 +52,10 @@ class Controller_Salesman extends Contoller_Core_Action{
     public function insertAction(){
         $salesman = $this->getRequest()->getPost('salesman');
 
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $salesman['created_at'] = $dateTime;
+
         $this->getModel()->insert($salesman);
 
         $this->redirect("index.php?c=salesman&a=grid");
@@ -70,8 +74,16 @@ class Controller_Salesman extends Contoller_Core_Action{
 
     public function updateAction(){
         $salesman = $this->getRequest()->getPost('salesman');
+
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $salesman['updated_at'] = $dateTime;
+
+        $salesmanId = $this->getRequest()->getParam('id');
+
+        $condition['salesman_id'] = $salesmanId;
         
-        $this->getModel()->update($salesman);
+        $this->getModel()->update($salesman, $condition);
 
         $this->redirect("index.php?c=salesman&a=grid");
     }

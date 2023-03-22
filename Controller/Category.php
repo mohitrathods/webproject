@@ -54,6 +54,10 @@ class Controller_Category extends Contoller_Core_Action{
 
     public function insertAction(){
         $category = $this->getRequest()->getPost('category');
+
+        date_default_timezone_set('Asia/Kolkata');
+        $dateTime = date("Y-m-d h:i:sA");
+        $category['created_at'] = $dateTime;
         
         $this->getModel()->insert($category);
 
@@ -73,9 +77,16 @@ class Controller_Category extends Contoller_Core_Action{
 
     public function updateAction(){
         $category = $this->getModel()->getPost('category');
-        // print_r($category);
 
-        $this->getModel()->update($category);
+        date_default_timezone_set("Asia/Kolkata");
+        $dateTime = date("Y-m-d h:i:sA");
+        $category['updated_at'] = $dateTime;
+        
+        $categoryId = $this->getRequest()->getParam('id');
+
+        $condition['category_id'] = $categoryId;
+
+        $this->getModel()->update($category,$condition);
 
         $this->redirect("index.php?c=category&a=grid");
 

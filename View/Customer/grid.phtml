@@ -34,6 +34,8 @@ $customers = $this->getCustomer();
                 <th>Gender</th>
                 <th>Mobile</th>
                 <th>Status</th>
+                <th>Created At</th>
+                <th>Updated At</th>
                 <th>EDIT</th>
                 <th>DELETE</th>
             </tr>
@@ -47,6 +49,8 @@ $customers = $this->getCustomer();
                     <td><?php echo $customer['gender'] ?></td>
                     <td><?php echo $customer['mobile'] ?></td>
                     <td><?php echo $customer['status'] ?></td>
+                    <td><?php echo $customer['created_at'] ?></td>
+                    <td><?php echo $customer['updated_at'] ?></td>
                     <td><a href="index.php?c=customer&a=edit&id=<?php echo $customer['customer_id'] ?>">EDIT</a></td>
                     <td><a href="index.php?c=customer&a=delete&id=<?php echo $customer['customer_id'] ?>">DELETE</a></td>
                 </tr>
