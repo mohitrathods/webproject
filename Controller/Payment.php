@@ -22,10 +22,10 @@ class Controller_Payment extends Contoller_Core_Action{
 
     //------------- set get  of model
 
-    // public function setModel($model){
-    //     $this->model = $model;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
 
     public function getModel(){
         if($this->model){

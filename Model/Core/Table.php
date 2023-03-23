@@ -70,7 +70,8 @@ class Model_Core_Table extends Model_Core_Request{
 
         $keyString = "`".implode('`,`',$keys)."`";
         $valueString = "'".implode("','",$values)."'";
-        $query = "INSERT INTO `{$this->tableName}` ({$keyString}) VALUES ({$valueString})";
+
+        $query = "INSERT INTO `{$this->getTableName()}` ({$keyString}) VALUES ({$valueString})";
         
         return $this->getAdapter()->insert($query);
 

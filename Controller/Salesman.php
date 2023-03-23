@@ -22,10 +22,10 @@ class Controller_Salesman extends Contoller_Core_Action{
     }
 
     //------------ get model and set model
-    // public function setModel($model){
-    //     $this->model = $model;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
 
     public function getModel(){
         if($this->model){

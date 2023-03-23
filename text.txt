@@ -14,10 +14,16 @@ tasks
 - understand > request, front, index, action, adapter 
 
 --------------------------------------------------------
-
-- in all pass 2 params in update  in controllers
+TO UPLOAD TOMORROW 
 - validations
-- functions
-- yesterday tasks 
+- salesman price 
+- urls
+- message class fully 
+- magic methods > row class 
+
+- object, array, variable setter getter diffrent types
+
+- array practice
+
 - setter getter make proper
 

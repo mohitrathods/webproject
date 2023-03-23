@@ -22,10 +22,11 @@ class Controller_Vendor extends Contoller_Core_Action{
     
     //-------------- getter setter of model
     
-    // public function setModel($model){
-    //     $this->model = $model;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
+    
     public function getModel(){
         if($this->model){
             return $this->model;

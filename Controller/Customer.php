@@ -21,10 +21,11 @@ class Controller_Customer extends Contoller_Core_Action{
 
     //------------- getter setter for model
 
-    // public function setModel($model){
-    //     $this->model = $model;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
+
     public function getModel(){
         if($this->model){
             return $this->model;

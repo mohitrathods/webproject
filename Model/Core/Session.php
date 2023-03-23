@@ -36,6 +36,14 @@ class Model_Core_Session {
 
 		return $this;
 	}
+
+	public function has($key){
+		if(array_key_exists($key, $_SESSION)){
+			return true;
+		}
+
+		return false;
+	}
 }
 
 ?>

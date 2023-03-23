@@ -3,6 +3,8 @@ require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
 require_once 'Model/Core/Session.php';
+require_once 'Model/Core/Message.php';
+require_once 'Model/Core/Table/Row.php';
 
 class Controller_Product extends Contoller_Core_Action{
 
@@ -11,6 +13,35 @@ class Controller_Product extends Contoller_Core_Action{
     protected $productId = null;
 
     protected $model = null;
+
+    protected $message = null;
+
+    //-------- setter getter of row
+    public function testAction(){
+        $row = new Model_Core_Table_Row();
+        // $array['name'] = "mohit";
+        // $array['email'] = "amc@gmail.com";
+        // echo "<pre>";
+
+        // $row->setData($array);
+        // print_r($row->getData('email'));
+        // print_r($row);
+
+        // print_r($row->addData("new","newwww"));
+
+        $row->email = 'mohit@mgsd.com';
+        $row->name = 'mohit';
+        $row->phone = '2356234';
+        $row->gender = 'alpha male';
+        $row->email = 'mohit';
+        print($row);
+
+        $row->save();
+        die();
+
+        //to remove unset it 
+        // $row->removeData("email");
+    }
 
     //------------------------- set & get product ID
     public function setProductId($product){
@@ -33,10 +64,10 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     //------------------------- set & get Model
-    // public function setModel($product){
-    //     $this->model = $product;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
 
     public function getModel(){
         //get access to model class
@@ -48,6 +79,25 @@ class Controller_Product extends Contoller_Core_Action{
         return $model;
     }
 
+    //------------------ message getter setter
+
+    // public function setMessage($message){
+    //     $this->message = $message;
+    //     return $this;
+    // }
+
+    // public function getMessage(){
+    //     if($this->message){
+    //         return $this->message;
+    //     }
+
+    //     $message = new Model_Core_Message();
+    //     $this->message = $message;
+    //     retrun $message;
+    // }
+
+    
+
 
     //---------------------------------------------------------------
 
@@ -55,24 +105,44 @@ class Controller_Product extends Contoller_Core_Action{
 
     public function gridAction(){
 
-        // try {
+        // echo "<pre>";
+        // $session = new Model_Core_Session();
+        // $session->start()->getId();
+        // $session->set('name','mohit')->set("email","rms@gmail.com")->set("id","111");
+        // print_r($_SESSION);
 
-        //     throw new Exception("Error Processing Request", 1);
-        //     $_SESSION = [
-        //         "message" => [
-        //             "success" => null,
-        //             "failure" => null,
-        //             "notice" => null,
-        //         ]
-        //     ];
-        //     print_r($_SESSION);
-            
-        // } 
-        // catch (Exception $e1) {
-        //     echo "<pre>";
-        //     print_r($e1->getMessage());
+        
+
+        // try {
+            // echo "<pre>";
+            // $message = new Model_Core_Message();
+            // $message->getSession();
+            // print_r($message);
+            // $message->addMessage("product added","success");
+            // $message->addMessage("product fail","failure");
+            // $message->clearMessage();
+            // $message->addMessage("product notice","notice");
+            // print_r($_SESSION);
         // }
+
+        // catch{
+
+        // }
+
+        // try{
+        //     $query = "SELECT * FROM `product` WHERE 1";
+        //     $product = $this->getModel()->fetchAll($query);
+        //     $this->setProduct($product);
+
+        //     if($product){
+        //         $this->getMessage()->getSession()->start();
+
+        //     }
+        // }
+        
+
         // die();
+
 
         $query = "SELECT * FROM `product` WHERE 1";
         $product = $this->getModel()->fetchAll($query);
@@ -85,16 +155,24 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     public function addAction(){
+        // print_r($this->getRequest()->getPost());
+        // print_r($this->getRequest()->getParam());
         $this->getTemplate("product/add.phtml");
     }
 
     public function insertAction(){
-        $product = $this->getRequest()->getPost('product'); //from $_POST('product','another array','array 3') give array of product
+
+        echo "<pre>";
+
+        // print_r($this->getRequest()->getPost());
+        // print_r($this->getRequest()->getParam());
+
+        $product = $this->getRequest()->getPost('product'); 
 
         date_default_timezone_set("Asia/kolkata");
 		$dateTime = date("Y-m-d h:i:sA");
 		$product['created_at'] = $dateTime;
-        
+
         $this->getModel()->insert($product);
         
         $this->redirect("index.php?c=product&a=grid");
@@ -102,6 +180,9 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     public function editAction(){
+
+        // print_r($this->getRequest()->getPost());
+        // print_r($this->getRequest()->getParam());
         
         $query = "SELECT * FROM `product` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
         $productRow = $this->getModel()->fetchRow($query);

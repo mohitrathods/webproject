@@ -23,10 +23,10 @@ class Controller_Category extends Contoller_Core_Action{
 
     //-------------------------- setter getter of model
 
-    // public function setModel($model){
-    //     $this->model = $model;
-    //     return $this;
-    // }
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
 
     public function getModel(){
         if($this->model){
