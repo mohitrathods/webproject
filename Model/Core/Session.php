@@ -2,12 +2,15 @@
 
 class Model_Core_Session {
 
-	public function getId(){
-		return session_id();
-	}
+	// public function getId(){
+	// 	return session_id();
+	// }
 
 	public function start() {
-		session_start();
+		
+		if(!isset($_SESSION)){
+			session_start();
+		}
 		return $this;
 	}
 
@@ -22,8 +25,8 @@ class Model_Core_Session {
 	}
 
 	public function get($key){
-		if(!array_key_exists($key,$_SESSION)){
-			return null;
+		if(!array_key_exists($key, $_SESSION)){
+			$_SESSION[$key] = null;	
 		}
 		return $_SESSION[$key];
 	}

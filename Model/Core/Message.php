@@ -3,18 +3,14 @@ require_once 'Model/Core/Session.php';
 
 
 class Model_Core_Message{
-
-
-
     protected $session = null;
 
+    const SUCCESS = 'Success';
+    const FAILURE = 'Failure';
+    const NOTICE = 'Notice';
 
-    public function __construct(){
-        $this->getSession();
-    }
-
-
-    public function setSession(Model_Core_Session $session){
+    //------------------- setter getter session
+    public function setSession($session){
         $this->session = $session;
         return $this;
     }
@@ -23,58 +19,60 @@ class Model_Core_Message{
         if($this->session){
             return $this->session;
         }
+
         $session = new Model_Core_Session();
-        $this->session = $session;
+        $this->setSession($session);
         return $session;
     }
 
+    public function __construct(){
+        $this->getSession();
+    }
 
-    //------------
-    public function addMessage($message, $type='success'){
 
-        $session = $this->getSession();
+
+    //----------------------------
+    public function addMessages($message, $type=null){
+
+        if (!$type) {
+			$type = self::SUCCESS;
+		}
 
         if($this->getSession()->has('message')){
             $this->getSession()->set('message',[]);
-            // return null;
         }
 
-        //check message's key or not
-        // if(!array_key_exists('message', $_SESSION)){
-        //     $_SESSION['message'] = [];
-        //     return null;
-        // }
-        // $_SESSION = [];
+        $messages = $this->getMessages();
+        $messages[$type] = $message;
 
-        // $_SESSION['message'][$type] = $message;
-        // print_r($_SESSION);
+        $this->getSession()->set('message', $messages);
+		return $this;
 
-        $messages = $this->getMessage();
-        $this->getSession()->set('message',$messages);
-        print_r($message);
+        // $messages = $this->getMessage();
+        // $this->getSession()->set('message',$messages);
+        // print_r($message);
+
         
-        // $this->getSession()->set($message);
-        return $this;
-
-
+        
+        // // $this->getSession()->set($message);
+        // return $this;
     }
 
     public function clearMessage(){
         // $_SESSION['message'] = [];
-        $this->getSession()->unset('message');
+        // $this->getSession()->unset('message');
         //or
-        // $this->getSession()->set('message',[]);
+        $this->getSession()->set('message',[]);
         return $this;
     }
 
 
-    public function getMessage(){
-
-        if(!array_key_exists('message',$_SESSION)){
-            return null;
-        }
-
-        return $_SESSION['message'];
+    public function getMessages(){
+        if (!$this->getSession()->has('message')) {
+			return null;
+		}
+		
+        return $this->getSession()->get('message');
     }
 }
 ?>

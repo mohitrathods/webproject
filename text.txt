@@ -19,7 +19,9 @@ TO UPLOAD TOMORROW
 - salesman price 
 - urls
 - message class fully 
-- magic methods > row class 
+- magic methods > row class
+
+- TABLE NI ANDAR ROW METHOD 
 
 - object, array, variable setter getter diffrent types
 
@@ -27,3 +29,55 @@ TO UPLOAD TOMORROW
 
 - setter getter make proper
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // echo "<pre>";
+        // $session = new Model_Core_Session();
+        // $session->start()->getId();
+        // $session->set('name','mohit')->set("email","rms@gmail.com")->set("id","111");
+        // print_r($_SESSION);
+
+        
+
+        // try {
+            // echo "<pre>";
+            // $message = new Model_Core_Message();
+            // $message->getSession();
+            // print_r($message);
+            // $message->addMessage("product added","success");
+            // $message->addMessage("product fail","failure");
+            // $message->clearMessage();
+            // $message->addMessage("product notice","notice");
+            // print_r($_SESSION);
+        // }
+
+        // catch{
+
+        // }
+
+        // try{
+        //     $query = "SELECT * FROM `product` WHERE 1";
+        //     $product = $this->getModel()->fetchAll($query);
+        //     $this->setProduct($product);
+
+        //     if($product){
+        //         $this->getMessage()->getSession()->start();
+
+        //     }
+        // }
+        
+
+        // die();

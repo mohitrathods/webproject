@@ -23,10 +23,6 @@ class Model_Core_Table extends Model_Core_Request{
 
     
     //------------------- set & get tablename
-
-    //as parameter, from product controller getModel() access, and Table extended in Product_Model
-    //so all functions of Table are accessiblr to product > passing value product 
-    //from Product controller through product model and setting it in setTableName as parameter
     public function setTableName($tablename){
         $this->tableName = $tablename;
         return $this;
@@ -49,12 +45,11 @@ class Model_Core_Table extends Model_Core_Request{
             return $this->adapter;
         }
         $adapter = new Adapter();
-        $this->adapter = $adapter;
-        return $adapter; //means $adapter->fetchAll($query);
+        $this->setAdapter($adapter);
+        return $adapter; 
 
     }
 
-    
 
     //------------------------------------------------------------
 
@@ -86,7 +81,7 @@ class Model_Core_Table extends Model_Core_Request{
         foreach ($data as $key => $value) {
             $keys[] = "`$key` = '$value'";
         }
-
+        
         $testString = implode(',',$keys);
 
         foreach($condition as $key => $value){
@@ -96,17 +91,21 @@ class Model_Core_Table extends Model_Core_Request{
         $implode = implode('AND',$conditionString);
 
         $query = "UPDATE `{$this->tableName}` SET $testString WHERE $implode";
-        // print_r($query);
 
         return $this->getAdapter()->update($query);
     }
     
     public function delete($deleteId){
-
         $query = "DELETE FROM `{$this->tableName}` WHERE `{$this->primaryKey}` = '{$deleteId}'";
         return $this->getAdapter()->delete($query);
     }
 
-
+    public function load($value, $column = null)
+	{
+		$column = (!$column) ? $this->getPrimaryKey() : $column;
+		$query = "SELECT * FROM `{$this->tableName}` WHERE `{$column}` = $value";
+		$row = $this->getAdapter()->fetchRow($query);
+		return $row;	
+	}
 }
 ?>

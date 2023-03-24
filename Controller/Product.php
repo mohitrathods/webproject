@@ -2,7 +2,6 @@
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
-require_once 'Model/Core/Session.php';
 require_once 'Model/Core/Message.php';
 require_once 'Model/Core/Table/Row.php';
 
@@ -14,7 +13,82 @@ class Controller_Product extends Contoller_Core_Action{
 
     protected $model = null;
 
-    protected $message = null;
+    protected $productUrl = null;
+
+    protected $row = null;
+
+    //---------- setter getter product url
+
+    public function setProductUrl($productUrl){
+        $this->productUrl = $productUrl;
+        return $this;
+    }
+
+    public function getProductUrl(){
+        if($this->productUrl){
+            return $this->productUrl;
+        }
+
+        $productUrl = new Model_Core_Url();
+        $this->setProductUrl($productUrl);
+        return $productUrl;
+    }
+
+    //------------------------- set & get Model
+    public function setModel($model){
+        $this->model = $model;
+        return $this;
+    }
+
+    public function getModel(){
+        //get access to model class
+        if($this->model){
+            return $this->model;
+        }
+        $model = new Model_Product();
+        $this->setModel($model);
+        return $model;
+    }
+
+    //------------------------- set & get product ID
+    public function setProductId($product){
+        $this->productId = $product;
+        return $this;
+    }
+
+    public function getProductId(){
+        return $this->productId;
+    }    
+
+    //------------------------- set & get product 
+    public function setProduct($product){
+        $this->product = $product;
+        return $this;
+    }
+
+    public function getProduct(){
+        return $this->product;
+    }
+
+    //------------------------ setter getter of row
+    public function setRow($row){
+        $this->row = $row;
+        return $this;
+    }
+
+    public function getRow(){
+        if($this->row){
+            return $this->row;
+        }
+        $row = new Model_Core_Table_Row();
+        $this->setRow($row);
+        return $row;
+    }
+
+    
+
+
+
 
     //-------- setter getter of row
     public function testAction(){
@@ -39,134 +113,63 @@ class Controller_Product extends Contoller_Core_Action{
         $row->save();
         die();
 
-        //to remove unset it 
-        // $row->removeData("email");
+        
     }
-
-    //------------------------- set & get product ID
-    public function setProductId($product){
-        $this->productId = $product;
-        return $this;
-    }
-
-    public function getProductId(){
-        return $this->productId;
-    }    
-
-    //------------------------- set & get product 
-    public function setProduct($product){
-        $this->product = $product;
-        return $this;
-    }
-
-    public function getProduct(){
-        return $this->product;
-    }
-
-    //------------------------- set & get Model
-    public function setModel($model){
-        $this->model = $model;
-        return $this;
-    }
-
-    public function getModel(){
-        //get access to model class
-        if($this->model){
-            return $this->model;
-        }
-        $model = new Model_Product();
-        $this->model = $model;
-        return $model;
-    }
-
-    //------------------ message getter setter
-
-    // public function setMessage($message){
-    //     $this->message = $message;
-    //     return $this;
-    // }
-
-    // public function getMessage(){
-    //     if($this->message){
-    //         return $this->message;
-    //     }
-
-    //     $message = new Model_Core_Message();
-    //     $this->message = $message;
-    //     retrun $message;
-    // }
-
-    
-
 
     //---------------------------------------------------------------
 
-   
-
     public function gridAction(){
+        // $query = "SELECT * FROM `product` WHERE 1";
+        // $product = $this->getModel()->fetchAll($query);
 
-        // echo "<pre>";
-        // $session = new Model_Core_Session();
-        // $session->start()->getId();
-        // $session->set('name','mohit')->set("email","rms@gmail.com")->set("id","111");
-        // print_r($_SESSION);
+        // $this->setProduct($product);
 
-        
+        try {
+            $this->getMessage()->getSession()->start();
+            $query = "SELECT * FROM `product` WHERE 1";
+            $product = $this->getModel()->fetchAll($query);
+            $this->setProduct($product);
 
-        // try {
-            // echo "<pre>";
-            // $message = new Model_Core_Message();
-            // $message->getSession();
-            // print_r($message);
-            // $message->addMessage("product added","success");
-            // $message->addMessage("product fail","failure");
-            // $message->clearMessage();
-            // $message->addMessage("product notice","notice");
-            // print_r($_SESSION);
-        // }
+            if(!$product){
+                throw new Exception("Data not found",1);
+            }
+        } 
+        catch (Exception $object) {
+            $this->getMessage()->addMessages($object->getMessage(), Model_Core_Message::FAILURE);
+        }
 
-        // catch{
+        //----------------------------------------- urls
+        // $urlClass= new Model_Core_Url();
+        // print_r($urlClass->getUrl());
+        // print_r($urlClass->getUrl());
+        // $urlClass->getUrl();
 
-        // }
+      
 
-        // try{
-        //     $query = "SELECT * FROM `product` WHERE 1";
-        //     $product = $this->getModel()->fetchAll($query);
-        //     $this->setProduct($product);
+        // $url = new Model_Core_Url();
+        // echo $url->getUrl();
+		// $url->getUrl(null,'customer');
+		// $url->getUrl();
+		// $url->getUrl('edit', null);
+		// $url->getUrl('customer', 'edit', ['id' => '5', 'tab' => 'address'] );
+		// $url->getUrl('customer', 'edit', ['tab' => 'address'] );
+		// $url->getUrl('customer', 'edit', ['id' =>null, 'tab' => 'address'] );
+		// $url->getUrl('edit', 'customer', ['id' => null, 'tab' => 'address']);
+		// $url->getUrl('edit', 'customer', ['tab' => 'address']);
+		// $url->getUrl('edit', 'customer', ['id' => 5, 'tab' => 'null']);
+		// print_r($url);
+		// die();
+        //----------------------------------------- urls
 
-        //     if($product){
-        //         $this->getMessage()->getSession()->start();
-
-        //     }
-        // }
-        
-
-        // die();
-
-
-        $query = "SELECT * FROM `product` WHERE 1";
-        $product = $this->getModel()->fetchAll($query);
-
-        $this->setProduct($product);
 
         $this->getTemplate("product/grid.phtml");
-
-        
     }
 
     public function addAction(){
-        // print_r($this->getRequest()->getPost());
-        // print_r($this->getRequest()->getParam());
         $this->getTemplate("product/add.phtml");
     }
 
     public function insertAction(){
-
-        echo "<pre>";
-
-        // print_r($this->getRequest()->getPost());
-        // print_r($this->getRequest()->getParam());
-
         $product = $this->getRequest()->getPost('product'); 
 
         date_default_timezone_set("Asia/kolkata");
@@ -174,27 +177,25 @@ class Controller_Product extends Contoller_Core_Action{
 		$product['created_at'] = $dateTime;
 
         $this->getModel()->insert($product);
-        
-        $this->redirect("index.php?c=product&a=grid");
 
+        //this product controller extends action so redirect
+        $this->redirect(null,'grid');
+		// $this->redirect(null,'sdv');
+
+        
+        // $this->redirect("index.php?c=product&a=grid");
     }
 
     public function editAction(){
-
-        // print_r($this->getRequest()->getPost());
-        // print_r($this->getRequest()->getParam());
-        
         $query = "SELECT * FROM `product` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
         $productRow = $this->getModel()->fetchRow($query);
 
         $this->setProduct($productRow);
 
         $this->getTemplate("product/edit.phtml");
-
     }
 
     public function updateAction(){
-
         $productRow = $this->getRequest()->getPost('product');
 
         date_default_timezone_set("Asia/Kolkata");
@@ -207,15 +208,16 @@ class Controller_Product extends Contoller_Core_Action{
 
         $this->getModel()->update($productRow,$condition);
 
-        $this->redirect("index.php?c=product&a=grid");
+        $this->redirect(null,'grid',[],true);
+        // $this->redirect("index.php?c=product&a=grid");
     }
 
     public function deleteAction(){
-        
         $deleteId = $this->getRequest()->getParam('id');
         $this->getModel()->delete($deleteId);
         
-        $this->redirect("index.php?c=product&a=grid");
+        $this->redirect(null,'grid',[],true);
+        // $this->redirect("index.php?c=product&a=grid");
     }
     
 }

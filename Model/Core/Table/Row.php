@@ -71,6 +71,9 @@ class Model_Core_Table_Row{
 
     //fetchrow, all, load, update, delete
     // aa class ma table name and primary key variable
+    public function fetchAll(){
+        // $this->
+    }
 }
 
 ?>

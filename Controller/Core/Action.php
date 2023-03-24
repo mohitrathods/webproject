@@ -2,12 +2,16 @@
 
 require_once 'Model/Core/Adapter.php';
 require_once 'Model/Core/Request.php';
-
+require_once 'Model/Core/Message.php';
 
 class Contoller_Core_Action{
     
     protected $request = null;
     protected $adapter = null;
+
+    protected $urlObj = null;
+
+    protected $message = null;
 
     //----------- set get of request
 
@@ -38,9 +42,49 @@ class Contoller_Core_Action{
     }
 
 
+    //-------------- setter getter of Url
+    public function setUrlObj($urlObj){
+        $this->urlObj = $urlObj;
+        return $this;
+    }
+
+    public function getUrlObj(){
+        if($this->urlObj){
+            return $this->urlObj;
+        }
+        $urlObj = new Model_Core_Url();
+        $this->setUrlObj($urlObj);
+        return $urlObj;
+    }
+
+    //------------------ setter getter of message
+    public function setMessage($message){
+        $this->message = $message;
+        return $this;
+    }
+
+    public function getMessage(){
+        if($this->message){
+            return $this->message;
+        }
+        $message = new Model_Core_Message();
+        $this->setMessage($message);
+        return $message;
+    }
+
+    //-------------------------------------
+
     //redirect dynamic
-    public function redirect($url){
+    // public function redirect($url){
+    //     header("location:{$url}");
+    //     exit();
+    // }
+
+    public function redirect($controller = null, $action = null, $parameter = [], $reset = false){
+        $url = $this->getUrlObj()->getUrl($controller,$action,$parameter,$reset);
+        print_r($url);
         header("location:{$url}");
+
         exit();
     }
 
