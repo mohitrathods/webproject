@@ -81,7 +81,7 @@ class Contoller_Core_Action{
     // }
 
     public function redirect($controller = null, $action = null, $parameter = [], $reset = false){
-        $url = $this->getUrlObj()->getUrl($controller,$action,$parameter,$reset);
+        $url = $this->getUrlObj()->getUrl($controller, $action, $parameter, $reset);
         // print_r($url);
         header("location:{$url}");
 

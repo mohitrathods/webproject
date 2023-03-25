@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 require_once 'Model/Core/Request.php';
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Salesman/Price.php';
@@ -50,7 +53,6 @@ class Controller_Salesman_Price extends Contoller_Core_Action {
     //-------------------------------------------------------- METHODS
 
     public function gridAction(){
-        echo "<pre>";
 
         $salesmanId = $this->getRequest()->getParam('id');
         $this->setSalesmanPriceId($salesmanId);
@@ -76,14 +78,18 @@ class Controller_Salesman_Price extends Contoller_Core_Action {
     public function updateAction() {
         $salesmanId = $this->getRequest()->getParam('id');
         $salesmanPricePost = $this->getRequest()->getPost('sprice');
-        // print_r($salesmanPricePost);
+        print_r($salesmanPricePost);
 
         foreach ($salesmanPricePost as $productId => $salesmanPrice) {
+
+            echo "<pre>";
+
             $query = "SELECT * FROM `salesman_price` WHERE `salesman_id` = {$salesmanId} AND `product_id` = {$productId}";
 			$result = $this->getSalesmanPriceModel()->fetchRow($query);
+            print_r($result);
 
-            if ($result['salesman_price'] == null ) {
-				if($salesmanPrice != ''){
+            if (!is_null($result['salesman_price'])) {  
+				if(!is_null($salesmanPrice)){
 					$salesmanPriceInsert['salesman_id'] = $salesmanId;
 					$salesmanPriceInsert['product_id'] = $productId;
 					$salesmanPriceInsert['salesman_price'] = $salesmanPrice;
@@ -99,7 +105,9 @@ class Controller_Salesman_Price extends Contoller_Core_Action {
 			}
         }
 
-		$this->redirect("index.php?c=salesman&a=grid");
+		// $this->redirect('index.php?c=salesman_price&a=grid');
+        $this->redirect("index.php?c=product&a=grid");
+
 
     }
 

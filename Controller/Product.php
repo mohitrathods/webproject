@@ -143,48 +143,10 @@ class Controller_Product extends Contoller_Core_Action{
     //---------------------------------------------------------------
 
     public function gridAction(){
-        // $query = "SELECT * FROM `product` WHERE 1";
-        // $product = $this->getModel()->fetchAll($query);
+        $query = "SELECT * FROM `product` WHERE 1";
+        $product = $this->getModel()->fetchAll($query);
 
-        // $this->setProduct($product);
-
-        try {
-            $this->getMessage()->getSession()->start();
-            $query = "SELECT * FROM `product` WHERE 1";
-            $product = $this->getModel()->fetchAll($query);
-            $this->setProduct($product);
-
-            if(!$product){
-                throw new Exception("Data not found",1);
-            }
-        } 
-        catch (Exception $object) {
-            $this->getMessage()->addMessages($object->getMessage(), Model_Core_Message::FAILURE);
-        }
-
-        //----------------------------------------- urls
-        $urlClass= new Model_Core_Url();
-        // print_r($urlClass->getUrl());
-        // print_r($urlClass->getUrl());
-        // print_r($this);
-
-      
-
-        // $url = new Model_Core_Url();
-        // echo $url->getUrl();
-		// $url->getUrl(null,'customer');
-		// $url->getUrl();
-		// $url->getUrl('edit', null);
-		// $url->getUrl('customer', 'edit', ['id' => '5', 'tab' => 'address'] );
-		// $url->getUrl('customer', 'edit', ['tab' => 'address'] );
-		// $url->getUrl('customer', 'edit', ['id' =>null, 'tab' => 'address'] );
-		// $url->getUrl('edit', 'customer', ['id' => null, 'tab' => 'address']);
-		// $url->getUrl('edit', 'customer', ['tab' => 'address']);
-		// $url->getUrl('edit', 'customer', ['id' => 5, 'tab' => 'null']);
-		// print_r($url);
-		// die();
-        //----------------------------------------- urls
-
+        $this->setProduct($product);
 
         $this->getTemplate("product/grid.phtml");
     }
@@ -205,9 +167,6 @@ class Controller_Product extends Contoller_Core_Action{
         //this product controller extends action so redirect
         $this->redirect(null,'grid');
 
-		// $this->redirect(null,'sdv');
-
-        
         // $this->redirect("index.php?c=product&a=grid");
     }
 
