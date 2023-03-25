@@ -91,29 +91,53 @@ class Controller_Product extends Contoller_Core_Action{
 
 
     //-------- setter getter of row
-    public function testAction(){
-        $row = new Model_Core_Table_Row();
-        // $array['name'] = "mohit";
-        // $array['email'] = "amc@gmail.com";
-        // echo "<pre>";
+    // public function testAction(){
+    //     $row = new Model_Core_Table_Row();
+    //     // $array['name'] = "mohit";
+    //     // $array['email'] = "amc@gmail.com";
+    //     // echo "<pre>";
 
-        // $row->setData($array);
-        // print_r($row->getData('email'));
-        // print_r($row);
+    //     // $row->setData($array);
+    //     // print_r($row->getData('email'));
+    //     // print_r($row);
 
-        // print_r($row->addData("new","newwww"));
+    //     // print_r($row->addData("new","newwww"));
 
-        $row->email = 'mohit@mgsd.com';
-        $row->name = 'mohit';
-        $row->phone = '2356234';
-        $row->gender = 'alpha male';
-        $row->email = 'mohit';
-        print($row);
+    //     $row->email = 'mohit@mgsd.com';
+    //     $row->name = 'mohit';
+    //     $row->phone = '2356234';
+    //     $row->gender = 'alpha male';
+    //     $row->email = 'mohit';
+    //     print($row);
 
-        $row->save();
-        die();
+    //     $row->save();
+    //     die();
 
         
+    // }
+
+    //--------- 24 MARCH
+    public function testAction(){
+        // echo "<pre>";
+
+        // $row = new Model_Core_Table_Row();
+        // // print_r($productRow);
+        // $product = $row->load(2);
+        // // $product = $row->fetchAll(); //gets array
+        // print_r($product);
+        // // print_r($row->name);
+        // print_r($this);
+        // //$row is $this > $this : returns $row > $row = $this
+        
+        // //load function ma 4 data variable ma store karavya and return $this aakho atle 4 variable
+        // //return krse object ni andar so aakho object male emathi jotu hoy e lai levu
+        // $products = [$product, $product, $product, $product];
+        // print_r($products);
+
+        // //save method ma data malse 
+
+        
+
     }
 
     //---------------------------------------------------------------
@@ -139,10 +163,10 @@ class Controller_Product extends Contoller_Core_Action{
         }
 
         //----------------------------------------- urls
-        // $urlClass= new Model_Core_Url();
+        $urlClass= new Model_Core_Url();
         // print_r($urlClass->getUrl());
         // print_r($urlClass->getUrl());
-        // $urlClass->getUrl();
+        // print_r($this);
 
       
 
@@ -180,6 +204,7 @@ class Controller_Product extends Contoller_Core_Action{
 
         //this product controller extends action so redirect
         $this->redirect(null,'grid');
+
 		// $this->redirect(null,'sdv');
 
         

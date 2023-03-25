@@ -43,7 +43,7 @@ class Contoller_Core_Action{
 
 
     //-------------- setter getter of Url
-    public function setUrlObj($urlObj){
+    public function setUrlObj(Model_Core_Url $urlObj){
         $this->urlObj = $urlObj;
         return $this;
     }
@@ -82,7 +82,7 @@ class Contoller_Core_Action{
 
     public function redirect($controller = null, $action = null, $parameter = [], $reset = false){
         $url = $this->getUrlObj()->getUrl($controller,$action,$parameter,$reset);
-        print_r($url);
+        // print_r($url);
         header("location:{$url}");
 
         exit();

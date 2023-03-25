@@ -36,6 +36,7 @@ $salesmans = $this->getSalesMan();
                     <th>Company</th>
                     <th>Created At</th>
                     <th>Updated At</th>
+                    <th>Prices</th>
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>
@@ -52,6 +53,9 @@ $salesmans = $this->getSalesMan();
                         <td><?php echo $eachitem['company'] ?></td>
                         <td><?php echo $eachitem['created_at'] ?></td>
                         <td><?php echo $eachitem['updated_at'] ?></td>
+                        
+                        <td><a href="index.php?c=salesman_price&a=grid&id=<?php echo $eachitem['salesman_id'] ?>">SALESMAN PRICES</a></td>
+                        
                         <td><a href="index.php?c=salesman&a=edit&id=<?php echo $eachitem['salesman_id'] ?>">EDIT</a></td>
                         <td><a href="index.php?c=salesman&a=delete&id=<?php echo $eachitem['salesman_id'] ?>">DELETE</a></td>
                 </tr>

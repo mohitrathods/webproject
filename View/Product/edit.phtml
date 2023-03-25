@@ -11,7 +11,8 @@ $productsRow = $this->getProduct();
     <title>Edit Data</title>
 </head> 
 <body>
-    <form action="index.php?c=product&a=update&id=<?php echo $productsRow['product_id'] ?>" method="post">
+    <!-- <form action="index.php?c=product&a=update&id=<?php echo $productsRow['product_id'] ?>" method="post"> -->
+    <form action="<?php echo $this->getUrlObj()->getUrl('product', 'update', ['product_id' => $productsRow['product_id']]) ?>" method="post">
         <div class="mainadd">
 
             <div class="eachdiv">
@@ -71,7 +72,8 @@ $productsRow = $this->getProduct();
 
             <div class="eachdiv">
                 <input type="submit" class="submitbutton" />
-                <a href="index.php?c=product&a=grid">CANCEL</a>
+                <!-- <a href="index.php?c=product&a=grid">CANCEL</a> -->
+                <a href="<?php echo $this->getUrlObj()->getUrl('product', 'grid' ,[], true); ?>">CANCEL</a>
             </div>
         </div>
     </form>

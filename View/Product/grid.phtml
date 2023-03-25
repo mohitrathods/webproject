@@ -21,7 +21,8 @@ $products = $this->getProduct();
             <!-- head -->
             <div class="headd">
                 <span>Products</span>
-                <a href="index.php?c=product&a=add">Add product</a>
+                <!-- <a href="index.php?c=product&a=add">Add product</a> -->
+                <a href="<?php echo $this->getUrlObj()->getUrl('product','add'); ?>">Add product</a>
             </div>
         </div>  
         
@@ -61,9 +62,14 @@ $products = $this->getProduct();
                         <td><?php echo $product['material'] ?></td>
                         <td><?php echo $product['created_at'] ?></td>
                         <td><?php echo $product['updated_at'] ?></td>
-                        <td><a href="index.php?c=product_media&a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td>
-                        <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td>
+                        <!-- <td><a href="index.php?c=product_media&a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td> -->
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['product_id' => $product['product_id']]) ?>">MEDIA</a></td>
+
+                        <!-- <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td> -->
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['product_id' => $product['product_id']]) ?>">EDIT</a></td>
+                       
+                        <!-- <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td> -->
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['product_id' => $product['product_id']]) ?>">DELETE</a></a></td>
                 </tr>
 
                     <?php

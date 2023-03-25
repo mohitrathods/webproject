@@ -16,18 +16,6 @@ tasks
 --------------------------------------------------------
 TO UPLOAD TOMORROW 
 - validations
-- salesman price 
-- urls
-- message class fully 
-- magic methods > row class
-
-- TABLE NI ANDAR ROW METHOD 
-
-- object, array, variable setter getter diffrent types
-
-- array practice
-
-- setter getter make proper
 
 
 

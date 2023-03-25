@@ -2,7 +2,9 @@
 class Model_Core_Table_Row{
     protected $data = [];
 
-    protected $class = null;
+    protected $tableName = 'product';
+    protected $primaryKey = '';
+
 
     //--- set data get data
     public function setData($data){
@@ -69,10 +71,40 @@ class Model_Core_Table_Row{
         print_r($this->data);
     }
 
+    public function load($id, $column = 'product_id'){
+        if(!$column){
+            //$column = $this->getPrimaryKey();            
+        }
+        $query = "SELECT * FROM `product` WHERE `{$column}` = {$id}";
+        $table = new Model_Core_Table();
+        // $productRow = $table->fetchRow($query);
+        $productRow = $table->fetchRow($query);
+        if($productRow){
+            $this->data = $productRow;
+        }
+        return $this;
+    }
+
     //fetchrow, all, load, update, delete
     // aa class ma table name and primary key variable
-    public function fetchAll(){
-        // $this->
+    public function fetchRow($query){
+        // $result = $this->getTable()->fetchRow($query);
+
+        $table = new Model_Core_Table();
+        $result = $table->fetchRow($query);
+        if($query){
+            $this->data = $query;
+        }
+        return $this;
+    }
+
+    public function fetchAll($query){
+        $table = new Model_Core_Table();
+        $result = $table->fetchRow($query);
+        if($query){
+            $this->data = $query;
+        }
+        return $this;
     }
 }
 
