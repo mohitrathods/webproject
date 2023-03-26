@@ -19,7 +19,7 @@ $vendors = $this->getVendor();
         </div>
         <div class="headd">
             <span>Vendors</span>
-            <a href="index.php?c=vendor&a=add">Add Vendor</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'add') ?>">Add Vendor</a>
         </div>
 
         <!-- tqble data content -->
@@ -52,8 +52,9 @@ $vendors = $this->getVendor();
                         <td><?php echo $eachitem['company'] ?></td>
                         <td><?php echo $eachitem['created_at'] ?></td>
                         <td><?php echo $eachitem['updated_at'] ?></td>
-                        <td><a href="index.php?c=vendor&a=edit&id=<?php echo $eachitem['vendor_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=vendor&a=delete&id=<?php echo $eachitem['vendor_id'] ?>">DELETE</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'edit' , ['id' => $eachitem['vendor_id']]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'delete' ,['id' => $eachitem['vendor_id']]) ?>">DELETE</a></td>
+
                 </tr>
                 <?php endforeach; ?>
             </table>

@@ -12,7 +12,7 @@ $vendors = $this->getVendor();
     <title>Edit data</title>
 </head>
 <body>
-<form method="post" action="index.php?c=vendor&a=update&id=<?php echo $vendors['vendor_id'] ?>">
+<form method="post" action="<?php echo $this->getUrlObj()->getUrl('vendor', 'update' , ['id' => $vendors['vendor_id']]) ?>">
     <div class="mainadd">
         <div class="eachdiv">
             <label>FIRST NAME</label>
@@ -57,7 +57,7 @@ $vendors = $this->getVendor();
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="index.php?c=vendor&a=grid">CANCEL</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'grid',[], true) ?>">CANCEL</a>
         </div>
     </div>
 </form>

@@ -1,7 +1,7 @@
 <?php
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Category.php';
-// require_once 'Model/Core/Request.php';
+require_once 'Model/Core/Url.php';
 
 class Controller_Category extends Contoller_Core_Action{
 
@@ -61,7 +61,7 @@ class Controller_Category extends Contoller_Core_Action{
         
         $this->getModel()->insert($category);
 
-        $this->redirect("index.php?c=category&a=grid");
+        $this->redirect('category', 'grid');
     }
 
     public function editAction(){
@@ -88,7 +88,8 @@ class Controller_Category extends Contoller_Core_Action{
 
         $this->getModel()->update($category,$condition);
 
-        $this->redirect("index.php?c=category&a=grid");
+        // $this->redirect("index.php?c=category&a=grid");
+        $this->redirect('category', 'grid' , [] , true);
 
     }
 
@@ -97,7 +98,8 @@ class Controller_Category extends Contoller_Core_Action{
 
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=category&a=grid");
+        // $this->redirect("index.php?c=category&a=grid");
+        $this->redirect('category', 'grid', [], true);
     }
 }
 ?>

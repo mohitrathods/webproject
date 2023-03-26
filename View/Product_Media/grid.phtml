@@ -13,13 +13,13 @@ $fetchedMedia = $this->getMedia();
     <title>Product Media</title>
 </head>
 <body>
-<form action="index.php?c=product_media&a=update&id=<?php echo $this->getRequest()->getParam('id') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $this->getUrlObj()->getUrl('product_media' , 'update' , ['id' => $this->getRequest()->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
 <div class="maindivision">
     <div class="topdiv">
         <span>Product Media</span>
-        <a href="index.php?c=product_media&a=add&id=<?php echo $this->getRequest()->getParam('id') ?>">ADD</a>
-        <a href="index.php?c=product&a=grid">CANCEL</a>
-        <a href="index.php?c=productmedia&a=delete&id=<?php echo $this->getRequest()->getParam('id') ?>">DELETE</a>
+        <a href="<?php echo $this->getUrlObj()->getUrl('product_media', 'add' , ['id' => $this->getRequest()->getParam('id')]) ?>">ADD</a>
+        <a href="<?php echo $this->getUrlObj()->getUrl('product','grid') ?>">CANCEL</a>
+        <a href="<?php echo $this->getUrlObj()->getUrl('product_media' ,'delete' ,['id' => $this->getRequest()->getParam('id')]) ?>">DELETE</a>
         <button>UPDATE</button>
     </div>
 

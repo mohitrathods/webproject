@@ -12,7 +12,7 @@ $categories = $this->getCategory();
     <title>Edit category</title>
 </head>
 <body>
-<form action="index.php?c=category&a=update&id=<?php echo $categories['category_id'] ?>" method="post">
+<form action="<?php echo $this->getUrlObj()->getUrl('category', 'update', ['id' => $categories['category_id']]); ?>" method="post">
     <div class="mainadd">
         <div class="eachdiv">
             <label>EDIT NAME</label>
@@ -34,7 +34,7 @@ $categories = $this->getCategory();
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="index.php?c=category&a=grid">CANCEL</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('category', 'grid',[], true); ?>">CANCEL</a>
         </div>
     </div>
 </form>

@@ -8,7 +8,7 @@
     <title>Add data</title>
 </head>
 <body>
-<form method="post" action="index.php?c=salesman&a=insert">
+<form method="post" action="<?php echo $this->getUrlObj()->getUrl('salesman' , 'insert') ?>">
     <div class="mainadd">
         <div class="eachdiv">
                 <label>FIRST NAME</label>
@@ -53,7 +53,7 @@
 
             <div class="eachdiv">
                 <input type="submit" class="submitbutton" />
-                <a href="index.php?c=salesman&a=grid">CANCEL</a>
+                <a href="<?php echo $this->getUrlObj()->getUrl('salesman', 'grid',[], true) ?>">CANCEL</a>
             </div>
         </div>
     </div>

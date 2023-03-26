@@ -22,7 +22,7 @@ $shippings = $this->getShipping();
             <!-- head -->
             <div class="headd">
                 <span>Shipping</span>
-                <a href="index.php?c=shipping&a=add">Add Shipping</a>
+                <a href="<?php echo $this->getUrlObj()->getUrl('shipping', 'add') ?>">Add Shipping</a>
             </div>
         </div>  
         
@@ -48,8 +48,8 @@ $shippings = $this->getShipping();
                         <td><?php echo $shipping['status'] ?></td>
                         <td><?php echo $shipping['created_at'] ?></td>
                         <td><?php echo $shipping['updated_at'] ?></td>
-                        <td><a href="index.php?c=shipping&a=edit&id=<?php echo $shipping['shipping_method_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=shipping&a=delete&id=<?php echo $shipping['shipping_method_id'] ?>">DELETE</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('shipping' , 'edit' , ['id' => $shipping['shipping_method_id']]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('shipping' , 'delete' , ['id' => $shipping['shipping_method_id']]) ?>">DELETE</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

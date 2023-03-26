@@ -19,7 +19,7 @@ $customers = $this->getCustomer();
         </div>
         <div class="headd">
             <span>Customers</span>
-            <a href="index.php?c=customer&a=add">Add Customer</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('customer', 'add') ?>">Add Customer</a>
         </div>
     </div>  
 
@@ -51,8 +51,8 @@ $customers = $this->getCustomer();
                     <td><?php echo $customer['status'] ?></td>
                     <td><?php echo $customer['created_at'] ?></td>
                     <td><?php echo $customer['updated_at'] ?></td>
-                    <td><a href="index.php?c=customer&a=edit&id=<?php echo $customer['customer_id'] ?>">EDIT</a></td>
-                    <td><a href="index.php?c=customer&a=delete&id=<?php echo $customer['customer_id'] ?>">DELETE</a></td>
+                    <td><a href="<?php echo $this->getUrlObj()->getUrl('customer', 'edit', ['id' => $customer['customer_id']]) ?>">EDIT</a></td>
+                    <td><a href="<?php echo $this->getUrlObj()->getUrl('customer', 'delete', ['id' => $customer['customer_id']]) ?>">DELETE</a></td>
                 </tr>
             <?php endforeach; ?>
         </table>

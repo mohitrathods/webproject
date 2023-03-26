@@ -12,7 +12,7 @@ $shippings = $this->getShipping();
     <title>Edit SHIPPING</title>
 </head>
 <body>
-<form action="index.php?c=shipping&a=update&id=<?php echo $shippings['shipping_method_id'] ?>" method="post">
+<form action="<?php echo $this->getUrlObj()->getUrl('shipping' , 'update' , ['id' => $shippings['shipping_method_id']]) ?>" method="post">
     <div class="mainadd">
 
         <div class="eachdiv">
@@ -37,7 +37,7 @@ $shippings = $this->getShipping();
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="index.php?c=shipping&a=grid">CANCEL</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('shipping' , 'grid',[], true) ?>">CANCEL</a>
         </div>
     </div>
 </form>

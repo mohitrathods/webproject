@@ -21,7 +21,8 @@ $categories = $this->getCategory();
             <!-- head -->
             <div class="headd">
                 <span>Category</span>
-                <a href="index.php?c=category&a=add">Add Category</a>
+                <!-- <a href="index.php?c=category&a=add">Add Category</a> -->
+                <a href="<?php echo $this->getUrlObj()->getUrl('category', 'add') ?>">Add Category</a>
             </div>
         </div>  
         
@@ -46,8 +47,10 @@ $categories = $this->getCategory();
                         <td><?php echo $category['description'] ?></td>
                         <td><?php echo $category['created_at'] ?></td>
                         <td><?php echo $category['updated_at'] ?></td>
-                        <td><a href="index.php?c=category&a=edit&id=<?php echo $category['category_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=category&a=delete&id=<?php echo $category['category_id'] ?>">DELETE</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('category', 'edit' , ['id' => $category['category_id']]); ?>">EDIT</a></td>
+
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('category', 'delete', ['id' => $category['category_id']]); ?>">DELETE</a></td>
+
                     </tr>
                 <?php endforeach; ?>
             </table>

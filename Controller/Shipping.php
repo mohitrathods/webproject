@@ -3,6 +3,8 @@
 require_once "Controller/Core/Action.php";
 
 require_once 'Model/Shipping.php';
+require_once 'Model/Core/Url.php';
+
 
 class Controller_Shipping extends Contoller_Core_Action{
 
@@ -63,7 +65,7 @@ class Controller_Shipping extends Contoller_Core_Action{
 
         $this->getModel()->insert($shipping);
         
-        $this->redirect("index.php?c=shipping&a=grid");
+        $this->redirect('shipping', 'grid');
     }
 
     public function editAction(){
@@ -89,7 +91,7 @@ class Controller_Shipping extends Contoller_Core_Action{
 
         $this->getModel()->update($shipping , $condition);
 
-        $this->redirect("index.php?c=shipping&a=grid");
+        $this->redirect('shipping', 'grid', [] , true);
     }
 
     public function deleteAction(){
@@ -97,8 +99,7 @@ class Controller_Shipping extends Contoller_Core_Action{
         
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=shipping&a=grid");
-        
+        $this->redirect('shipping', 'grid', [] , true);
     }
 }
 

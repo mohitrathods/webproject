@@ -2,6 +2,8 @@
 
 require_once 'Model/Vendor.php';
 require_once 'Controller/Core/Action.php';
+require_once 'Model/Core/Url.php';
+
 
 class Controller_Vendor extends Contoller_Core_Action{
     protected $vendor = [];
@@ -58,7 +60,7 @@ class Controller_Vendor extends Contoller_Core_Action{
 
         $this->getModel()->insert($vendor);
 
-        $this->redirect("index.php?c=vendor&a=grid");
+        $this->redirect('vendor', 'grid');
     }
 
     public function editAction(){
@@ -85,7 +87,7 @@ class Controller_Vendor extends Contoller_Core_Action{
 
         $this->getModel()->update($vendor , $condition);
 
-        $this->redirect("index.php?c=vendor&a=grid");
+        $this->redirect('vendor', 'grid', [], true);
     }
 
     public function deleteAction(){
@@ -93,7 +95,7 @@ class Controller_Vendor extends Contoller_Core_Action{
 
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=vendor&a=grid");
+        $this->redirect('vendor', 'grid', [], true);
     }
 }
 

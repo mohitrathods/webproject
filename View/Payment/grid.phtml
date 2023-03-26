@@ -22,7 +22,7 @@ $payments = $this->getPayment();
             <!-- head -->
             <div class="headd">
                 <span>payment</span>
-                <a href="index.php?c=payment&a=add">Add payment</a>
+                <a href="<?php echo $this->getUrlObj()->getUrl('payment' , 'add') ?>">Add payment</a>
             </div>
         </div>  
         
@@ -48,8 +48,8 @@ $payments = $this->getPayment();
                         <td><?php echo $payment['status'] ?></td>
                         <td><?php echo $payment['created_at'] ?></td>
                         <td><?php echo $payment['updated_at'] ?></td>
-                        <td><a href="index.php?c=payment&a=edit&id=<?php echo $payment['payment_method_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=payment&a=delete&id=<?php echo $payment['payment_method_id'] ?>">DELETE</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('payment', 'edit' ,['id' => $payment['payment_method_id']]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('payment' , 'delete' , ['id' => $payment['payment_method_id']]) ?>">DELETE</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

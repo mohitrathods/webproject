@@ -8,11 +8,11 @@
     <title>Add Media</title>
 </head>
 <body>
-<form action="index.php?c=product_media&a=insert&id=<?php echo $this->getRequest()->getParam('id') ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo $this->getUrlObj()->getUrl('product_media' ,'insert' ,['id' => $this->getRequest()->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
 <div class="maindivv">
     <div class="topdivv">
         <input type="submit" />
-        <a href="index.php?c=product_media&a=grid&id=<?php echo $this->getRequest()->getParam('id') ?>">CANCEL</a>
+        <a href="<?php echo $this->getUrlObj()->getUrl('product_media' , 'grid' , ['id' => $this->getRequest()->getParam('id')]) ?>">CANCEL</a>
     </div>
 
     <div class="bottomdivv">

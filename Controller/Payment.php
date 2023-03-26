@@ -2,6 +2,7 @@
 
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Payment.php';
+require_once 'Model/Core/Url.php';
 
 class Controller_Payment extends Contoller_Core_Action{
 
@@ -59,7 +60,7 @@ class Controller_Payment extends Contoller_Core_Action{
 
         $this->getModel()->insert($payment);
 
-        $this->redirect("index.php?c=payment&a=grid");
+        $this->redirect('payment' , 'grid');
     }
 
     public function editAction(){
@@ -85,7 +86,7 @@ class Controller_Payment extends Contoller_Core_Action{
 
         $this->getModel()->update($payment, $condition);
 
-        $this->redirect("index.php?c=payment&a=grid");
+        $this->redirect('payment' , 'grid' ,[] , true);
     }
 
     public function deleteAction (){
@@ -93,7 +94,7 @@ class Controller_Payment extends Contoller_Core_Action{
 
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=payment&a=grid");
+        $this->redirect('payment', 'grid', [], true );
     }
 
 

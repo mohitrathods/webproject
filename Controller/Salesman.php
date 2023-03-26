@@ -2,6 +2,7 @@
 
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Salesman.php';
+require_once 'Model/Core/Url.php';
 
 class Controller_Salesman extends Contoller_Core_Action{
     protected $salesman = [];
@@ -58,7 +59,7 @@ class Controller_Salesman extends Contoller_Core_Action{
 
         $this->getModel()->insert($salesman);
 
-        $this->redirect("index.php?c=salesman&a=grid");
+        $this->redirect('salesman', 'grid');
 
     }
 
@@ -85,7 +86,7 @@ class Controller_Salesman extends Contoller_Core_Action{
         
         $this->getModel()->update($salesman, $condition);
 
-        $this->redirect("index.php?c=salesman&a=grid");
+        $this->redirect('salesman' ,'grid' , [] , true);
     }
 
     public function deleteAction (){
@@ -93,7 +94,8 @@ class Controller_Salesman extends Contoller_Core_Action{
 
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=salesman&a=grid");
+        $this->redirect('salesman' ,'grid' , [] , true);
+
     }
 
     

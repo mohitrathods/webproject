@@ -19,7 +19,7 @@ $salesmans = $this->getSalesMan();
         </div>
         <div class="headd">
             <span>Salesman</span>
-            <a href="index.php?c=salesman&a=add">Add Salesman</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('salesman' , 'add') ?>">Add Salesman</a>
         </div>
 
         <!-- tqble data content -->
@@ -54,10 +54,12 @@ $salesmans = $this->getSalesMan();
                         <td><?php echo $eachitem['created_at'] ?></td>
                         <td><?php echo $eachitem['updated_at'] ?></td>
                         
-                        <td><a href="index.php?c=salesman_price&a=grid&id=<?php echo $eachitem['salesman_id'] ?>">SALESMAN PRICES</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('salesman_price' , 'grid' , ['id' => $eachitem['salesman_id']]) ?>">SALESMAN PRICES</a></td>
                         
-                        <td><a href="index.php?c=salesman&a=edit&id=<?php echo $eachitem['salesman_id'] ?>">EDIT</a></td>
-                        <td><a href="index.php?c=salesman&a=delete&id=<?php echo $eachitem['salesman_id'] ?>">DELETE</a></td>
+                        
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('salesman', 'edit' , ['id' => $eachitem['salesman_id']]) ?>">EDIT</a></td>
+
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('salesman', 'delete' , ['id' => $eachitem['salesman_id']]) ?>">DELETE</a></td>
                 </tr>
                 <?php endforeach; ?>
             </table>

@@ -2,6 +2,7 @@
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Product.php';
 require_once 'Model/Core/Url.php';
+
 require_once 'Model/Core/Message.php';
 require_once 'Model/Core/Table/Row.php';
 
@@ -148,6 +149,9 @@ class Controller_Product extends Contoller_Core_Action{
 
         $this->setProduct($product);
 
+        $a = $this->getProductUrl()->getUrl();
+        print_r($a);
+
         $this->getTemplate("product/grid.phtml");
     }
 
@@ -156,6 +160,7 @@ class Controller_Product extends Contoller_Core_Action{
     }
 
     public function insertAction(){
+
         $product = $this->getRequest()->getPost('product'); 
 
         date_default_timezone_set("Asia/kolkata");
@@ -163,7 +168,7 @@ class Controller_Product extends Contoller_Core_Action{
 		$product['created_at'] = $dateTime;
 
         $this->getModel()->insert($product);
-
+        
         //this product controller extends action so redirect
         $this->redirect(null,'grid');
 

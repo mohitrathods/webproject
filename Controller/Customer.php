@@ -1,6 +1,7 @@
 <?php 
 require_once 'Model/Customer.php';
 require_once 'Controller/Core/Action.php';
+require_once 'Model/Core/Url.php';
 class Controller_Customer extends Contoller_Core_Action{
 
     protected $customer = [];
@@ -59,7 +60,7 @@ class Controller_Customer extends Contoller_Core_Action{
         
         $this->getModel()->insert($customer);
 
-        $this->redirect("index.php?c=customer&a=grid");
+        $this->redirect('customer', 'grid');
 
     }
 
@@ -87,7 +88,7 @@ class Controller_Customer extends Contoller_Core_Action{
         
         $this->getModel()->update($customer, $condition);
 
-        $this->redirect("index.php?c=customer&a=grid");
+        $this->redirect('customer', 'grid' , [] , true);
     }
 
     public function deleteAction(){
@@ -95,7 +96,8 @@ class Controller_Customer extends Contoller_Core_Action{
 
         $this->getModel()->delete($deleteId);
 
-        $this->redirect("index.php?c=customer&a=grid");
+        $this->redirect('customer', 'grid' , [] , true);
+
     }
 }
 ?>

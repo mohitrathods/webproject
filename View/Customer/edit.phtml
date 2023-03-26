@@ -12,7 +12,7 @@ $customers = $this->getCustomer();
     <title>Edit data</title>
 </head>
 <body>
-<form action="index.php?c=customer&a=update&id=<?php echo $customers['customer_id'] ?>" method="post">
+<form action="<?php echo $this->getUrlObj()->getUrl('customer', 'update' ,['id' => $customers['customer_id']] ) ?>" method="post">
     <div class="mainadd">
         <div class="eachdiv">
             <label>FIRST NAME</label>
@@ -52,7 +52,7 @@ $customers = $this->getCustomer();
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="index.php?c=customer&a=grid">CANCEL</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('customer', 'grid',[], true) ?>">CANCEL</a>
         </div>
         
     </div>

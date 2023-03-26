@@ -63,13 +63,13 @@ $products = $this->getProduct();
                         <td><?php echo $product['created_at'] ?></td>
                         <td><?php echo $product['updated_at'] ?></td>
                         <!-- <td><a href="index.php?c=product_media&a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['product_id' => $product['product_id']]) ?>">MEDIA</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['id' => $product['product_id']]) ?>">MEDIA</a></td>
 
                         <!-- <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['product_id' => $product['product_id']]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['id' => $product['product_id']]) ?>">EDIT</a></td>
                        
                         <!-- <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['product_id' => $product['product_id']]) ?>">DELETE</a></a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['id' => $product['product_id']]) ?>">DELETE</a></td>
                 </tr>
 
                     <?php

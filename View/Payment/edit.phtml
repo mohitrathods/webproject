@@ -12,7 +12,7 @@ $payments = $this->getPayment();
     <title>Edit payment</title>
 </head>
 <body>
-<form action="index.php?c=payment&a=update&id=<?php echo $payments['payment_method_id'] ?>" method="post">
+<form action="<?php echo $this->getUrlObj()->getUrl('payment' , 'update' , ['id' => $payments['payment_method_id']]) ?>" method="post">
     <div class="mainadd">
 
         <div class="eachdiv">
@@ -37,7 +37,7 @@ $payments = $this->getPayment();
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="index.php?c=payment&a=grid">CANCEL</a>
+            <a href="<?php echo $this->getUrlObj()->getUrl('payment' ,'grid') ?>">CANCEL</a>
         </div>
     </div>
 </form>

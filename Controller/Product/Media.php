@@ -2,7 +2,7 @@
 
 require_once 'Model/Product/Media.php';
 require_once 'Controller/Core/Action.php';
-
+require_once 'Model/Core/Url.php';
 require_once 'Model/Core/Table.php';
 
 class Controller_Product_Media extends Contoller_Core_Action{
@@ -90,7 +90,8 @@ class Controller_Product_Media extends Contoller_Core_Action{
         move_uploaded_file($_FILES['image']['tmp_name'],"images/".$file_name);
 
         
-        $this->redirect("index.php?c=product_media&a=grid&id=$productId");
+        // $this->redirect("index.php?c=product_media&a=grid&id=$productId");
+        $this->redirect('product_media','grid',['id' => $productId]);
 
     }
 
@@ -142,13 +143,22 @@ class Controller_Product_Media extends Contoller_Core_Action{
         // print_r($condition);
         $resetIDs = $this->getModel()->update($gallery, $condition);
 
-        $this->redirect("index.php?c=product_media&a=grid&id=$productId");
+        // $this->redirect("index.php?c=product_media&a=grid&id=$productId");
+        $this->redirect('product_media', 'grid' ,['id' => $productId]);
         
 
     }
 
     public function deleteAction(){
         echo "inside delete";
+        $productId = $this->getRequest()->getParam('product_id');
+		$mediaId = $this->getRequest()->getParam('media_id');
+		$condition['product_id'] = $productId;
+		$condition['media_id'] = $mediaId;
+
+		$result = $this->getModel()->delete($condition);
+		// $this->redirect($this->getUrlObj()->getUrl('product_media','grid', ['id' => $productId, 'media_id' => null]));
+
     }
 }
 ?>
