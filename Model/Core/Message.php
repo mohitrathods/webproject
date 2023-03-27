@@ -5,9 +5,9 @@ require_once 'Model/Core/Session.php';
 class Model_Core_Message{
     protected $session = null;
 
-    const SUCCESS = 'Success';
-    const FAILURE = 'Failure';
-    const NOTICE = 'Notice';
+    const SUCCESS = 'success';
+    const FAILURE = 'failure';
+    const NOTICE = 'notice';
 
     //------------------- setter getter session
     public function setSession($session){
@@ -25,14 +25,9 @@ class Model_Core_Message{
         return $session;
     }
 
-    public function __construct(){
-        $this->getSession();
-    }
-
-
-
     //----------------------------
     public function addMessages($message, $type=null){
+        //"data not found", 'failure'
 
         if (!$type) {
 			$type = self::SUCCESS;
@@ -44,26 +39,17 @@ class Model_Core_Message{
 
         $messages = $this->getMessages();
         $messages[$type] = $message;
+        // $messages['failure'] = 'data not found';
 
         $this->getSession()->set('message', $messages);
 		return $this;
-
-        // $messages = $this->getMessage();
-        // $this->getSession()->set('message',$messages);
-        // print_r($message);
-
-        
-        
-        // // $this->getSession()->set($message);
-        // return $this;
     }
 
     public function clearMessage(){
         // $_SESSION['message'] = [];
         // $this->getSession()->unset('message');
         //or
-        $this->getSession()->set('message',[]);
-        return $this;
+        $this->getSession()->unset('message');
     }
 
 
@@ -73,6 +59,7 @@ class Model_Core_Message{
 		}
 		
         return $this->getSession()->get('message');
+        //$_SESSION[$key] = 'message' > values = 'data not found' => 'failure'
     }
 }
 ?>

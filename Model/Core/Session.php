@@ -7,10 +7,7 @@ class Model_Core_Session {
 	// }
 
 	public function start() {
-		
-		if(!isset($_SESSION)){
-			session_start();
-		}
+		session_start();
 		return $this;
 	}
 
@@ -25,15 +22,16 @@ class Model_Core_Session {
 	}
 
 	public function get($key){
-		if(!array_key_exists($key, $_SESSION)){
+		if(!$this->has($key)){
 			$_SESSION[$key] = null;	
 		}
+		// print_r($_SESSION);
 		return $_SESSION[$key];
 	}
 
 	public function unset($key){
 
-		if(array_key_exists($key,$_SESSION)){
+		if($this->has($key)){
 			unset($_SESSION[$key]);
 		}
 

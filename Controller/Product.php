@@ -86,73 +86,32 @@ class Controller_Product extends Contoller_Core_Action{
         return $row;
     }
 
-    
-
-
-
-
-    //-------- setter getter of row
-    // public function testAction(){
-    //     $row = new Model_Core_Table_Row();
-    //     // $array['name'] = "mohit";
-    //     // $array['email'] = "amc@gmail.com";
-    //     // echo "<pre>";
-
-    //     // $row->setData($array);
-    //     // print_r($row->getData('email'));
-    //     // print_r($row);
-
-    //     // print_r($row->addData("new","newwww"));
-
-    //     $row->email = 'mohit@mgsd.com';
-    //     $row->name = 'mohit';
-    //     $row->phone = '2356234';
-    //     $row->gender = 'alpha male';
-    //     $row->email = 'mohit';
-    //     print($row);
-
-    //     $row->save();
-    //     die();
-
-        
-    // }
-
-    //--------- 24 MARCH
-    public function testAction(){
-        // echo "<pre>";
-
-        // $row = new Model_Core_Table_Row();
-        // // print_r($productRow);
-        // $product = $row->load(2);
-        // // $product = $row->fetchAll(); //gets array
-        // print_r($product);
-        // // print_r($row->name);
-        // print_r($this);
-        // //$row is $this > $this : returns $row > $row = $this
-        
-        // //load function ma 4 data variable ma store karavya and return $this aakho atle 4 variable
-        // //return krse object ni andar so aakho object male emathi jotu hoy e lai levu
-        // $products = [$product, $product, $product, $product];
-        // print_r($products);
-
-        // //save method ma data malse 
-
-        
-
-    }
-
     //---------------------------------------------------------------
 
     public function gridAction(){
-        $query = "SELECT * FROM `product` WHERE 1";
-        $product = $this->getModel()->fetchAll($query);
+        // $query = "SELECT * FROM `product` WHERE 1";
+        // $product = $this->getModel()->fetchAll($query);
 
-        $this->setProduct($product);
+        // $this->setProduct($product);
 
-        $a = $this->getProductUrl()->getUrl();
-        print_r($a);
+        // $this->getTemplate("product/grid.phtml");
+
+        try {
+            $this->getMessage()->getSession()->start();
+            $query = "SELECT * FROM `product` WHERE 1";
+            $product = $this->getModel()->fetchAll($query);
+            if(!$product){
+                throw new Exception("Data not found", 1);
+            }
+            $this->setProduct($product);
+        
+
+        } catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+        }
 
         $this->getTemplate("product/grid.phtml");
+
     }
 
     public function addAction(){
@@ -161,51 +120,138 @@ class Controller_Product extends Contoller_Core_Action{
 
     public function insertAction(){
 
-        $product = $this->getRequest()->getPost('product'); 
+        // $product = $this->getRequest()->getPost('product'); 
 
-        date_default_timezone_set("Asia/kolkata");
-		$dateTime = date("Y-m-d h:i:sA");
-		$product['created_at'] = $dateTime;
+        // date_default_timezone_set("Asia/kolkata");
+		// $dateTime = date("Y-m-d h:i:sA");
+		// $product['created_at'] = $dateTime;
 
-        $this->getModel()->insert($product);
+        // $this->getModel()->insert($product);
+        try {
+            $this->getMessage()->getSession()->start();
+            $product = $this->getRequest()->getPost('product');
+            
+            date_default_timezone_set("Asia/Kolkata");
+            $datetime = date('y-m-d h:i:sA');
+            $product['created_at'] = $datetime;
+
+            $this->getModel()->insert($product);
+            
+            if(!$product){
+                throw new Exception("data not inserted");
+            }
+            else {
+                $this->getMessage()->addMessages('Data added successfully' , Model_Core_Message::SUCCESS);
+            }
+
+        } catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+        }
         
-        //this product controller extends action so redirect
-        $this->redirect(null,'grid');
-
+        
+        $this->redirect('product','grid');
         // $this->redirect("index.php?c=product&a=grid");
     }
 
     public function editAction(){
-        $query = "SELECT * FROM `product` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
+        // $query = "SELECT * FROM `product` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
+        // $productRow = $this->getModel()->fetchRow($query);
+
+        // $this->setProduct($productRow);
+
+       try {
+        $this->getMessage()->getSession()->start();
+        $productId = $this->getRequest()->getParam('id');
+        $query = "SELECT * FROM `product` WHERE `product_id` = $productId";
         $productRow = $this->getModel()->fetchRow($query);
 
+        if(!$productId){
+            throw new Exception("id not found", 1);
+        }
+        else{
+            $this->getMessage()->addMessages("id found" , Model_Core_Message::SUCCESS);
+        }
+
+        if(!$productRow){
+            throw new Exception("id not found" ,  1);
+        }
+        else{
+            $this->getMessage()->addMessages("ID found here is fetched row" , Model_Core_Message::SUCCESS);
+        }
+       
         $this->setProduct($productRow);
+
+        
+       } catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+       } 
 
         $this->getTemplate("product/edit.phtml");
     }
 
     public function updateAction(){
-        $productRow = $this->getRequest()->getPost('product');
+        // $productRow = $this->getRequest()->getPost('product');
 
-        date_default_timezone_set("Asia/Kolkata");
-        $dateTime = date("Y-m-d h:i:sA");
-        $productRow['updated_at'] = $dateTime;
+        // date_default_timezone_set("Asia/Kolkata");
+        // $dateTime = date("Y-m-d h:i:sA");
+        // $productRow['updated_at'] = $dateTime;
 
-        $productId = $this->getRequest()->getParam('id');
+        // $productId = $this->getRequest()->getParam('id');
 
-        $condition['product_id'] = $productId;
+        // $condition['product_id'] = $productId;
 
-        $this->getModel()->update($productRow,$condition);
+        // $this->getModel()->update($productRow,$condition);
 
-        $this->redirect(null,'grid',[],true);
+        try {
+            $this->getMessage()->getSession()->start();
+            $productRow = $this->getRequest()->getPost('product');
+
+            if(!$productRow){
+                throw new Exception("data update operation fail",1);
+            }
+            else {
+                $this->getMessage()->addMessages('Data updated successfully' , Model_Core_Message::SUCCESS); 
+            }
+
+            date_default_timezone_set("Asia/Kolkata");
+            $dateTime = date("Y-m-d h:i:sA");
+            $productRow['updated_at'] = $dateTime;
+
+            $productId = $this->getRequest()->getParam('id');
+            $condition['product_id'] = $productId;
+
+            $this->getModel()->update($productRow,$condition);
+
+        } catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+        }
+
+        $this->redirect('product','grid',[],true);
         // $this->redirect("index.php?c=product&a=grid");
     }
 
     public function deleteAction(){
         $deleteId = $this->getRequest()->getParam('id');
         $this->getModel()->delete($deleteId);
+
+        try {
+            $this->getMessage()->getSession()->start();
+            $deleteId = $this->getRequest()->getParam('id');
+
+            if(!$deleteId){
+                throw new Exception("data is not deleted" , 1);
+            }
+            else {
+                $this->getMessage()->addMessages("data deleted successfully" , Model_Core_Message::SUCCESS);
+            }
+
+            $this->getModel()->delete($deleteId);
+
+        } catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
         
-        $this->redirect(null,'grid',[],true);
+        $this->redirect('product','grid',[],true);
         // $this->redirect("index.php?c=product&a=grid");
     }
     

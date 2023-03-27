@@ -3,6 +3,9 @@ require_once 'Controller/Core/Action.php';
 require_once 'Model/Category.php';
 require_once 'Model/Core/Url.php';
 
+require_once 'Model/Core/Message.php';
+
+
 class Controller_Category extends Contoller_Core_Action{
 
     protected $category = [];
@@ -39,6 +42,7 @@ class Controller_Category extends Contoller_Core_Action{
 
 
     public function gridAction(){
+        $this->getMessage()->getSession()->start();
         $query = "SELECT * FROM `category` WHERE 1";
         $category = $this->getModel()->fetchAll($query);
         
