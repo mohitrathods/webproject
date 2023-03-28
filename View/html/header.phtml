@@ -73,11 +73,14 @@
     <div>
         <?php 
             $messages = $this->getMessage()->getMessages();
+            //array('datanot => 'fail)
 
-            foreach ($messages as $type => $message) {
+            if($messages){
+                foreach($messages as $type => $message) {
                 ?>
         		    <p class="<?php echo $type ?>"><?php echo $message; ?></p>
                 <?php
+            }
             }
 
             $this->getMessage()->clearMessage();

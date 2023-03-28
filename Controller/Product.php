@@ -96,6 +96,14 @@ class Controller_Product extends Contoller_Core_Action{
 
         // $this->getTemplate("product/grid.phtml");
 
+        // echo "<pre>";
+
+        // $object = new Model_Core_Table_Row();
+        // print_r($object);
+
+
+        // die();
+
         try {
             $this->getMessage()->getSession()->start();
             $query = "SELECT * FROM `product` WHERE 1";

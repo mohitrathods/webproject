@@ -4,6 +4,7 @@ require_once 'Model/Product/Media.php';
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Core/Url.php';
 require_once 'Model/Core/Table.php';
+require_once 'Model/Core/Message.php';
 
 class Controller_Product_Media extends Contoller_Core_Action{
     
@@ -45,14 +46,22 @@ class Controller_Product_Media extends Contoller_Core_Action{
 
 
     public function gridAction(){
+        $this->getMessage()->getSession()->start();
         $query = "SELECT * FROM `product_media` WHERE `product_id` = {$this->getRequest()->getParam('id')}";
-        
         $fetchedMedia = $this->getModel()->fetchAll($query);
 
-        $this->setMedia($fetchedMedia);
-        $this->getTemplate("Product_Media/grid.phtml");
+        try {
+            if(!$fetchedMedia){
+                throw new Exception("data not found" , 1);
+            }
 
-        
+            $this->setMedia($fetchedMedia);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
+
+        $this->getTemplate("Product_Media/grid.phtml");
     }
 
     public function addAction(){

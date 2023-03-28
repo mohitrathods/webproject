@@ -3,6 +3,7 @@
 require_once 'Model/Vendor.php';
 require_once 'Controller/Core/Action.php';
 require_once 'Model/Core/Url.php';
+require_once 'Model/Core/Message.php';
 
 
 class Controller_Vendor extends Contoller_Core_Action{
@@ -39,10 +40,20 @@ class Controller_Vendor extends Contoller_Core_Action{
     }
 
     public function gridAction(){
-         $query = "SELECT * FROM `vendor` WHERE 1";
+        $this->getMessage()->getSession()->start();
+        $query = "SELECT * FROM `vendor` WHERE 1";
         $vendor = $this->getModel()->fetchAll($query);
-        
-        $this->setVendor($vendor);
+
+        try {
+            if(!$vendor){
+                throw new Exception("data not found", 1);
+            }
+            
+            $this->setVendor($vendor);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
 
         $this->getTemplate("vendor/grid.phtml");
     }
@@ -52,48 +63,103 @@ class Controller_Vendor extends Contoller_Core_Action{
     }
 
     public function insertAction(){
+        $this->getMessage()->getSession()->start();
         $vendor = $this->getRequest()->getPost('vendor');
 
-        date_default_timezone_set("Asia/Kolkata");
-        $dateTime = date("Y-m-d h:i:sA");
-        $vendor['created_at'] = $dateTime;
+        try {
+            if(!$vendor){
+                throw new Exception("vendor data not found",1);
+            }
+            else {
+                $this->getMessage()->addMessages("vendor inserted successfully" ,Model_Core_Message::SUCCESS);
+            }
 
-        $this->getModel()->insert($vendor);
+            date_default_timezone_set("Asia/Kolkata");
+            $dateTime = date("Y-m-d h:i:sA");
+            $vendor['created_at'] = $dateTime;
+            $this->getModel()->insert($vendor);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }   
 
         $this->redirect('vendor', 'grid');
     }
 
     public function editAction(){
-
+        $this->getMessage()->getSession()->start();
         $query = "SELECT * FROM `vendor` WHERE `vendor_id` = '{$this->getRequest()->getParam('id')}'";
-        
         $vendorRow = $this->getModel()->fetchRow($query);
 
-        $this->setVendor($vendorRow);
+        try {
+            if(!$vendorRow){
+                throw new Exception("vendor row not found" , 1);
+            }
+
+            $this->setVendor($vendorRow);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
 
         $this->getTemplate("vendor/edit.phtml");
     }
 
     public function updateAction(){
+        $this->getMessage()->getSession()->start();
         $vendor = $this->getRequest()->getPost('vendor');
+
+        try {
+            if(!$vendor){
+                throw new Exception("data not inserted" , 1);
+            }
+            else {
+                $this->getMessage()->addMessages("data updated successfully" , Model_Core_Message::SUCCESS);
+            }
 
         date_default_timezone_set("Asia/Kolkata");
         $dateTime = date("Y-m-d h:i:sA");
         $vendor['updated_at'] = $dateTime;
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
+        
 
         $vendorId = $this->getRequest()->getParam('id');
 
-        $condition['vendor_id'] = $vendorId;
+        try {
+            if(!$vendorId){
+                throw new Exception("vendor id not found" , 1);
+            }
 
-        $this->getModel()->update($vendor , $condition);
+            $condition['vendor_id'] = $vendorId;
+            $this->getModel()->update($vendor , $condition);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
 
         $this->redirect('vendor', 'grid', [], true);
     }
 
     public function deleteAction(){
+        $this->getMessage()->getSession()->start();
         $deleteId = $this->getRequest()->getParam('id');
 
-        $this->getModel()->delete($deleteId);
+        try {
+            if(!$deleteId){
+                throw new Exception("delete id not found" , 1);
+            }
+            else {
+                $this->getMessage()->addMessages("data deleted successfully" , Model_Core_Message::SUCCESS);
+            }
+
+            $this->getModel()->delete($deleteId);
+        } 
+        catch (Exception $e) {
+            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+        }
 
         $this->redirect('vendor', 'grid', [], true);
     }
