@@ -5,12 +5,21 @@ MESSAGE CLASS
 MEDIA BAKI 
 ROW CLASS
 - product, category, customer, vendor, shipping, payment 
-MEDIA BAKI 
+MEDIA BAKI (getModel() -> replace -> getModelProduct())
+- if double id in url, change product_id to id in edit.phtml
+
+> 2 or 3 module ma sathe revu
+
+> getmodel getsingleton methods
+> autoloader conceppt
+> removed primary key and tablename from rowclass
+> view model
 
 
 MY TASKS 
 - array file practice, loops all types clearance
 - fully
+- ispost as in image
 
 
 TASK BY OFFICE
@@ -21,5 +30,8 @@ TASK BY OFFICE
 REMINING
 - salesman price without errors
 - custoemr addresss 
+- load method thi id load krvanu
+- category wise paths
+- remove seeeions if any
 
 --------------------------------------------------------

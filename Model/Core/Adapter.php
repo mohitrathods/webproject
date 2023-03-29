@@ -32,7 +32,8 @@ class Adapter {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
         
-        return $result;
+        // return $result;
+        return false;
     }
 
     //INSESRT

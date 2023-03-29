@@ -51,26 +51,23 @@ $products = $this->getProduct();
                     foreach($products as $product){
                     ?>
                 <tr>
-                        <td><?php echo $product['product_id'] ?></td>
-                        <td><?php echo $product['name'] ?></td>
-                        <td><?php echo $product['sku'] ?></td>
-                        <td><?php echo $product['cost'] ?></td>
-                        <td><?php echo $product['price'] ?></td>
-                        <td><?php echo $product['quantity'] ?></td>
-                        <td><?php echo $product['description'] ?></td>
-                        <td><?php echo $product['color'] ?></td>
-                        <td><?php echo $product['status'] ?></td>
-                        <td><?php echo $product['material'] ?></td>
-                        <td><?php echo $product['created_at'] ?></td>
-                        <td><?php echo $product['updated_at'] ?></td>
-                        <!-- <td><a href="index.php?c=product_media&a=grid&id=<?php echo $product['product_id'] ?>">MEDIA</a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['id' => $product['product_id']]) ?>">MEDIA</a></td>
+                        <td><?php echo $product->product_id ?></td>
+                        <td><?php echo $product->name ?></td>
+                        <td><?php echo $product->sku ?></td>
+                        <td><?php echo $product->cost ?></td>
+                        <td><?php echo $product->price ?></td>
+                        <td><?php echo $product->quantity ?></td>
+                        <td><?php echo $product->description ?></td>
+                        <td><?php echo $product->color ?></td>
+                        <td><?php echo $product->status ?></td>
+                        <td><?php echo $product->material ?></td>
+                        <td><?php echo $product->created_at ?></td>
+                        <td><?php echo $product->updated_at ?></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['id' => $product->product_id]) ?>">MEDIA</a></td>
 
-                        <!-- <td><a href="index.php?c=product&a=edit&id=<?php echo $product['product_id'] ?>">EDIT</a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['id' => $product['product_id']]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['id' => $product->product_id]) ?>">EDIT</a></td>
                        
-                        <!-- <td><a href="index.php?c=product&a=delete&id=<?php echo $product['product_id'] ?>">DELETE</a></a></td> -->
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['id' => $product['product_id']]) ?>">DELETE</a></td>
+                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['id' => $product->product_id]) ?>">DELETE</a></td>
                 </tr>
 
                     <?php

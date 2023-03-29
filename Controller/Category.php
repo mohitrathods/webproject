@@ -4,13 +4,17 @@ require_once 'Model/Category.php';
 require_once 'Model/Core/Url.php';
 
 require_once 'Model/Core/Message.php';  
-
+require_once 'Model/Core/Table/Row.php';
 
 class Controller_Category extends Contoller_Core_Action{
 
     protected $category = [];
+
     protected $categoryId = null;
+
     protected $model = null;
+
+    protected $row = null;
 
     //------------ setter getter category
     public function setCategory($category){
@@ -22,7 +26,15 @@ class Controller_Category extends Contoller_Core_Action{
         return $this->category;
     }
 
-    //------------ setter getter categoryID
+    //------------------------- set & get category ID
+    public function setCategoryId($category){
+        $this->categoryId = $category;
+        return $this;
+    }
+
+    public function getCategoryId(){
+        return $this->categoryId;
+    }   
 
     //-------------------------- setter getter of model
 
@@ -40,7 +52,11 @@ class Controller_Category extends Contoller_Core_Action{
         return $model;
     }
 
+    //------------------ set get row
+    
 
+
+    //----------------------------
     public function gridAction(){
         
         $this->getMessage()->getSession()->start();
@@ -143,7 +159,7 @@ class Controller_Category extends Contoller_Core_Action{
             $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
 
-        $this->redirect('category', 'grid' , [] , true);
+        // $this->redirect('category', 'grid' , [] , true);
     }
 
     public function deleteAction(){

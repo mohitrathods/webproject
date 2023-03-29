@@ -84,13 +84,20 @@ class Model_Core_Table extends Model_Core_Request{
         
         $testString = implode(',',$keys);
 
-        foreach($condition as $key => $value){
-            $conditionString[] = "`$key` = '$value'";
+        if(is_array($condition)){
+            foreach($condition as $key => $value){
+                $conditionString[] = "`$key` = '$value'";
+            }
+            $implode = implode('AND',$conditionString);
+            $query = "UPDATE `{$this->tableName}` SET $testString WHERE $implode";
         }
 
-        $implode = implode('AND',$conditionString);
+        
+        $query = "UPDATE `{$this->tableName}` SET $testString WHERE $condition";
+        print_r($query);
+        
 
-        $query = "UPDATE `{$this->tableName}` SET $testString WHERE $implode";
+
 
         return $this->getAdapter()->update($query);
     }
