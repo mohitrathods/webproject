@@ -26,6 +26,15 @@ TASK BY OFFICE
 - combine add  and edit (edit only) add na case ma blank row lai avi
 - save method only 
 
+MAIN TASKS
+- message class implement in admin
+- admin status active inactive setting
+- admin like pages > payment, shipping and product set those
+- remining pages
+  > product MEDIA
+  > vendor, customer  address 
+  > category wise paths 
+  > salesman prices
 
 REMINING
 - salesman price without errors
@@ -33,5 +42,6 @@ REMINING
 - load method thi id load krvanu
 - category wise paths
 - remove seeeions if any
+- insert update in save
 
 --------------------------------------------------------

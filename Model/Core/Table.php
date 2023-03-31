@@ -10,7 +10,13 @@ class Model_Core_Table extends Model_Core_Request{
     protected $adapter = null;
 
 
+    function __construct()
+	{
+		
+	} 
+
     //------------------- set & get primarykey
+    
 
     public function setPrimaryKey($primaryKey){
         $this->primaryKey = $primaryKey;
@@ -91,13 +97,9 @@ class Model_Core_Table extends Model_Core_Request{
             $implode = implode('AND',$conditionString);
             $query = "UPDATE `{$this->tableName}` SET $testString WHERE $implode";
         }
-
-        
-        $query = "UPDATE `{$this->tableName}` SET $testString WHERE $condition";
-        print_r($query);
-        
-
-
+        else{
+            $query = "UPDATE `{$this->tableName}` SET $testString WHERE $condition";
+        }
 
         return $this->getAdapter()->update($query);
     }

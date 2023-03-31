@@ -68,11 +68,12 @@
         <a href="index.php?c=salesman&a=grid">Salesman</a>
         <a href="index.php?c=shipping&a=grid">Shipping</a>
         <a href="index.php?c=payment&a=grid">Payment</a>
+        <a href="index.php?c=admin&a=grid">Admin</a>
     </div>
 
     <div>
         <?php 
-            $messages = $this->getMessage()->getMessages();
+            $messages = Ccc::getModel('Core_Message')->getMessages();
             //array('datanot => 'fail)
 
             if($messages){
@@ -83,7 +84,9 @@
             }
             }
 
-            $this->getMessage()->clearMessage();
+            // $this->getMessage()->clearMessage();
+            Ccc::getModel('Core_Message')->clearMessage();
+            
 	        // $this->getMessage()->getSession()->destroy();
         ?>
     </div>

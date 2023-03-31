@@ -3,9 +3,9 @@
 require_once 'Model/Core/Table/Row.php';
 
 class Model_Product_Row extends Model_Core_Table_Row{
-    protected $tableName = 'product';
+    // protected $tableName = 'product';
 
-    protected $primaryKey = 'product_id';
+    // protected $primaryKey = 'product_id';
 
     protected $tableClass = 'Model_Product';
 

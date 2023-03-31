@@ -13,6 +13,26 @@ class Contoller_Core_Action{
 
     protected $message = null;
 
+    protected $view = null;
+
+    //----------- set get of view
+    public function setView(Model_Core_View $view)
+	{
+		$this->view = $view;
+		return $this;
+	}
+
+	public function getView()
+	{
+		if($this->view){
+			return $this->view;
+		}
+
+		$view = new Model_Core_View();
+		$this->setView($view);
+		return $view;
+	}
+
     //----------- set get of request
 
     public function setRequest($request){

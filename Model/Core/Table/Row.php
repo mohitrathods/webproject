@@ -1,19 +1,25 @@
 <?php
 
-
+require_once 'Model/Core/Table.php';
 class Model_Core_Table_Row {
-    protected $tableClass = null;
     protected $data = [];
 	
-    protected $tableName = null;
-	
-    protected $primaryKey = null;//aa and tablename bey  ne get table modelmathi model product matehi levu
-	
     protected $table = null;
+    protected $tableClass = null;
+
+    function __construct(){
+
+    }
 	
 
 
     //--------------------- set get  table 
+
+    public function setTableClass($tableClass)
+    {
+		$this->tableClass = $tableClass;
+		return $this;
+	}
     public function setTable($table){
         $this->table = $table;
         return $this;
@@ -31,23 +37,16 @@ class Model_Core_Table_Row {
 
 
     //------------------- set get tablename
-    public function setTableName($tablename){
-        $this->tableName = $tablename;
-        return $this;
-    }
 
     public function getTableName(){
-        return $this->tableName;
+        return $this->getTable()->getTableName();
     }
 
     //----------------------- set get primary key
-    public function setPrimaryKey($primarykey){
-        $this->primaryKey = $primarykey;
-        return $this;
-    }
 
     public function getPrimaryKey(){
-        return $this->primaryKey;
+        return $this->getTable()->getPrimaryKey();
+        
     }
 
 
@@ -68,6 +67,7 @@ class Model_Core_Table_Row {
 
         return null;
     }
+
 
     /*------------------------magic methods------------------------------*/
     public function __set($key, $value) 
@@ -113,19 +113,30 @@ class Model_Core_Table_Row {
     /*--------------------------- load and save methods ------------------------ */
 
     public function load($id, $column = null){
-        if($column == null){
-            $column = $this->getPrimaryKey();
-        }
+        // if($column == null){
+        //     $column = $this->getPrimaryKey();
+        // }
 
-        $tableName = $this->getTableName();
-        $query = "SELECT * FROM `{$tableName}` WHERE `{$column}` = {$id}";
-        $result = $this->getTable()->fetchRow($query);
-        // print_r($id);
+        // $tableName = $this->getTableName();
+        // $query = "SELECT * FROM `{$tableName}` WHERE `{$column}` = {$id}";
+        // $result = $this->getTable()->fetchRow($query);
+        // // print_r($id);
 
-        if($result){
-            $this->data = $result;
-        }
-        return $this;
+        // if($result){
+        //     $this->data = $result;
+        // }
+        // return $this;
+
+        if (!$column) {
+			$column = $this->getPrimaryKey();
+		}
+		$query = "SELECT * FROM `{$this->getTableName()}` WHERE `{$column}` = {$id}";
+
+		$result = $this->getTable()->fetchRow($query);
+		if ($result) {
+			$this->data = $result;
+		}
+		return $this;
 
     }
 
@@ -133,7 +144,7 @@ class Model_Core_Table_Row {
         //check if array key exists in data = []
         if(!array_key_exists($this->getPrimaryKey(), $this->data)){//no primary key = producu_id whille insert
             $id = $this->getTable()->insert($this->data);
-        
+            
             if($id){
                 $this->load($id);
                 return $this;
@@ -144,9 +155,13 @@ class Model_Core_Table_Row {
 
         else {
             $id = $this->getData($this->getPrimaryKey());
-            unset($this->data[$this->primaryKey]);
+            // print_r($id);
+            $condition[$this->getPrimaryKey()] = $id;
+            // unset($this->data[$this->getPrimaryKey()]);
+            
 
-            $result = $this->getTable()->update($this->data, $id);
+
+            $result = $this->getTable()->update($this->data, $condition);
             if($result){
                 $this->load($id);
                 return true;
@@ -185,26 +200,18 @@ class Model_Core_Table_Row {
         $id = $this->getData($this->getPrimaryKey()); //no direct use $this->getPrimarykey();
 		// $condition[$this->primaryKey] = $id;
         // print_r($id);
+        // if(!$id){
+        //     echo "null";
+        // }
 
         $result = $this->getTable()->delete($id);
+        
         if($result){
             return true;
         }
 
         return false;
     }
-
-    // public function delete(){
-    //     $id = $this->getData($this->primaryKey); //no direct use $this->getPrimarykey();
-	// 	$condition[$this->primaryKey] = $id;
-
-    //     $result = $this->getTable()->delete($condition);
-    //     if($result){
-    //         return true;
-    //     }
-
-    //     return false;
-    // }
 
 }
 

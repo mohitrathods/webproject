@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Model/Core/Request.php';
+// require_once 'Model/Core/Request.php';
 
 class Contoller_Core_Front{
     
@@ -11,12 +11,12 @@ class Contoller_Core_Front{
         $controllerClassName = 'Controller_'.ucwords($controllerName,'_'); //Controller_ Product_ 
         
 
-        if($controllerName = 'product_media'){
+        // if($controllerName = 'product_media'){
             $controllerPathName = str_replace("_","/",$controllerClassName).".php";
-        }
-        else {
-            $controllerPathName = 'Controller/'.ucfirst($controllerName).'.php'; //Controller/Product.php
-        }
+        // }
+        // else {
+        //     $controllerPathName = 'Controller/'.ucfirst($controllerName).'.php'; //Controller/Product.php
+        // }
 
         
         require_once $controllerPathName; //Controller/Product.php
