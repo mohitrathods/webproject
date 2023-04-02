@@ -1,7 +1,6 @@
 <?php
-$productsRow = $this->getModelProductRow();
-// echo "<pre>";
-// print_r($productsRow);
+$productsRow = $this->$products;
+
 ?>
 
 <html lang="en">
@@ -10,10 +9,10 @@ $productsRow = $this->getModelProductRow();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="skin/css/edit.css?<?php echo time(); ?>">
-    <title>Edit Data</title>
+    <title>Add / Edit Products</title>
 </head> 
 <body>
-    <form action="<?php echo $this->getUrlObj()->getUrl('product', 'update', ['id' => $productsRow->product_id]) ?>" method="post">
+    <form action="<?php echo $this->getUrlObj()->getUrl('product', 'save', ['id' => $productsRow->product_id]) ?>" method="post">
         <div class="mainadd">
 
             <div class="eachdiv">

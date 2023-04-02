@@ -113,19 +113,6 @@ class Model_Core_Table_Row {
     /*--------------------------- load and save methods ------------------------ */
 
     public function load($id, $column = null){
-        // if($column == null){
-        //     $column = $this->getPrimaryKey();
-        // }
-
-        // $tableName = $this->getTableName();
-        // $query = "SELECT * FROM `{$tableName}` WHERE `{$column}` = {$id}";
-        // $result = $this->getTable()->fetchRow($query);
-        // // print_r($id);
-
-        // if($result){
-        //     $this->data = $result;
-        // }
-        // return $this;
 
         if (!$column) {
 			$column = $this->getPrimaryKey();

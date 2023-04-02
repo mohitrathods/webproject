@@ -1,5 +1,6 @@
 <?php
-$products = $this->getProduct();
+$products = $this->products;
+// print_r($products);
 
 
 ?>
@@ -22,8 +23,7 @@ $products = $this->getProduct();
             <!-- head -->
             <div class="headd">
                 <span>Products</span>
-                <!-- <a href="index.php?c=product&a=add">Add product</a> -->
-                <a href="<?php echo $this->getUrlObj()->getUrl('product','add'); ?>">Add product</a>
+                <a href="<?php echo Ccc::getModel("Core_Url")->getUrl('product' , 'add') ?>">Add product</a>
             </div>
         </div>  
         
@@ -63,11 +63,11 @@ $products = $this->getProduct();
                         <td><?php echo $product->material ?></td>
                         <td><?php echo $product->created_at ?></td>
                         <td><?php echo $product->updated_at ?></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product_media','grid', ['id' => $product->product_id]) ?>">MEDIA</a></td>
+                        <td><a href="<?php echo Ccc::getModel("Core_Url")->getUrl('product_media','grid', ['id' => $product->product_id]) ?>">MEDIA</a></td>
 
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'edit', ['id' => $product->product_id]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo Ccc::getModel("Core_Url")->getUrl('product', 'edit', ['id' => $product->product_id]) ?>">EDIT</a></td>
                        
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('product', 'delete', ['id' => $product->product_id]) ?>">DELETE</a></td>
+                        <td><a href="<?php echo Ccc::getModel("Core_Url")->getUrl('product', 'delete', ['id' => $product->product_id]) ?>">DELETE</a></td>
                 </tr>
 
                     <?php
