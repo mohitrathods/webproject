@@ -86,7 +86,7 @@
 
             // $this->getMessage()->clearMessage();
             Ccc::getModel('Core_Message')->clearMessage();
-            
+            Ccc::getModel('Core_Message')->getSession()->destroy();
 	        // $this->getMessage()->getSession()->destroy();
         ?>
     </div>

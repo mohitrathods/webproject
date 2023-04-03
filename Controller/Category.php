@@ -1,5 +1,23 @@
 <?php
 require_once 'Controller/Core/Action.php';
+
+class Controller_Category extends Contoller_Core_Action{
+    public function gridAction() {
+        // Ccc::getModel('Core_Message')->getSession()->start();
+        // $this->getMessage()->getSession()->start();
+        $query = "SELECT * FROM `category`";
+        $categories = Ccc::getModel('Category_Row')->fetchAll($query);
+        // print_r($categories);
+        $this->getView()->setTemplate('category/grid.phtml')->setData(['category' => $categories])->render();
+
+    }
+
+
+}
+?>
+
+<!-- 
+require_once 'Controller/Core/Action.php';
 require_once 'Model/Category.php';
 require_once 'Model/Core/Url.php';
 
@@ -183,4 +201,4 @@ class Controller_Category extends Contoller_Core_Action{
         $this->redirect('category', 'grid', [], true);
     }
 }
-?>
+?> -->

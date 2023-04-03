@@ -1,5 +1,7 @@
 <?php
-$categories = $this->getCategory();
+$categories = $this->category;
+print_r($categories);
+// die;
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +15,7 @@ $categories = $this->getCategory();
 </head>
 <body>
 <div class="maindiv">
-        <div class="subdiv">
+    <div class="subdiv">
             <!-- header -->
             <div class="headerr">
                 <?php require_once 'view/html/header.phtml'; ?>
@@ -21,44 +23,9 @@ $categories = $this->getCategory();
             <!-- head -->
             <div class="headd">
                 <span>Category</span>
-                <!-- <a href="index.php?c=category&a=add">Add Category</a> -->
-                <a href="<?php echo $this->getUrlObj()->getUrl('category', 'add') ?>">Add Category</a>
+                <a href="<?php echo Ccc::getModel("Core_Url")->getUrl('category' , 'add') ?>">Add product</a>
             </div>
-        </div>  
-        
-        <!-- data table -->
-        <div class="table">
-            <table border="1px" border-collapse= "collapse">
-                <tr>
-                    <th>Category id</th>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Description</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>EDIT</th>
-                    <th>DELETE</th>
-                </tr>
-                <?php foreach($categories as $category): ?>
-                    <tr>
-                        <td><?php echo $category['category_id'] ?></td>
-                        <td><?php echo $category['name'] ?></td>
-                        <td><?php echo $category['status'] ?></td>
-                        <td><?php echo $category['description'] ?></td>
-                        <td><?php echo $category['created_at'] ?></td>
-                        <td><?php echo $category['updated_at'] ?></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('category', 'edit' , ['id' => $category['category_id']]); ?>">EDIT</a></td>
-
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('category', 'delete', ['id' => $category['category_id']]); ?>">DELETE</a></td>
-
-                    </tr>
-                <?php endforeach; ?>
-            </table>
         </div>
-
-        <div>
-            <?php require_once 'View/html/footer.phtml' ?>
-        </div>
-    </div>
+</div>
 </body>
 </html>

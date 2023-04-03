@@ -1,5 +1,9 @@
 <?php
-$payments = $this->getPayment();
+$payments = $this->payments;
+
+// echo "<pre>";
+// print_r($payments);
+// die;
 ?>
 
 
@@ -22,7 +26,7 @@ $payments = $this->getPayment();
             <!-- head -->
             <div class="headd">
                 <span>payment</span>
-                <a href="<?php echo $this->getUrlObj()->getUrl('payment' , 'add') ?>">Add payment</a>
+                <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment' , 'add') ?>">Add payment</a>
             </div>
         </div>  
         
@@ -42,14 +46,14 @@ $payments = $this->getPayment();
                 </tr>
                 <?php foreach($payments as $payment): ?>
                     <tr>
-                        <td><?php echo $payment['payment_method_id'] ?></td>
-                        <td><?php echo $payment['name'] ?></td>
-                        <td><?php echo $payment['amount'] ?></td>
-                        <td><?php echo $payment['status'] ?></td>
-                        <td><?php echo $payment['created_at'] ?></td>
-                        <td><?php echo $payment['updated_at'] ?></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('payment', 'edit' ,['id' => $payment['payment_method_id']]) ?>">EDIT</a></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('payment' , 'delete' , ['id' => $payment['payment_method_id']]) ?>">DELETE</a></td>
+                        <td><?php echo $payment->payment_method_id; ?></td>
+                        <td><?php echo $payment->name; ?></td>
+                        <td><?php echo $payment->amount; ?></td>
+                        <td><?php echo $payment->status; ?></td>
+                        <td><?php echo $payment->created_at; ?></td>
+                        <td><?php echo $payment->updated_at; ?></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment', 'edit', ['id' => $payment->payment_method_id ]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment', 'delete', ['id' => $payment->payment_method_id ]) ?>">DELETE</a></td>
                     </tr>
                 <?php endforeach; ?>
             </table>

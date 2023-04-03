@@ -2,11 +2,16 @@
 require_once 'Core/Table.php';
 
 class Model_Product extends Model_Core_Table{
-    protected $tableName = 'product';
+    // protected $tableName = 'product';
 
-    protected $primaryKey = 'product_id';
+    // protected $primaryKey = 'product_id';
 
 
-    
+    function __construct()
+	{
+		parent::__construct();
+		
+		$this->setTableName('admin')->setPrimaryKey('admin_id');
+	}
 }
 ?>

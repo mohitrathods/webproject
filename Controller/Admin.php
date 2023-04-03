@@ -27,10 +27,21 @@ class Controller_Admin extends Contoller_Core_Action{
     }
 
     public function editAction(){
+        $this->getMessage()->getSession()->start();
         $id = $this->getRequest()->getParam('id');
         $adminRow = Ccc::getModel('Admin_Row')->load($id);
 
-        $this->getView()->setTemplate('admin/edit.phtml')->setData(['admins' => $adminRow])->render();
+        try {
+            if(!$id){
+                throw new Exception("id not found",1);
+            }
+
+            $this->getView()->setTemplate('admin/edit.phtml')->setData(['admins' => $adminRow])->render();
+        }
+        catch(Exception $e){
+            CcC::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+        }
+
     }
 
     public function saveAction(){
