@@ -11,7 +11,7 @@ class Model_Product extends Model_Core_Table{
 	{
 		parent::__construct();
 		
-		$this->setTableName('admin')->setPrimaryKey('admin_id');
+		$this->setTableName('product')->setPrimaryKey('product_id');
 	}
 }
 ?>

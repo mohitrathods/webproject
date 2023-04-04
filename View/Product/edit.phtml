@@ -1,5 +1,7 @@
 <?php
-$products = $this->$products;
+$products = $this->products;
+// print_r($products);
+
 
 ?>
 
@@ -13,6 +15,7 @@ $products = $this->$products;
 </head> 
 <body>
     <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product', 'save', ['id' => $products->product_id]) ?>" method="post">
+    
         <div class="mainadd">
 
             <div class="eachdiv">
