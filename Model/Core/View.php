@@ -5,6 +5,10 @@ class Model_Core_View
 	protected $template = null;
 	protected $data = [];
 
+	public function __construct(){
+		
+	}
+
 	public function setTemplate($template)
 	{
 		$this->template = $template;

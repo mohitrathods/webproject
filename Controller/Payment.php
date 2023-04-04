@@ -3,7 +3,39 @@
 require_once 'Controller/Core/Action.php';
 
 class Controller_Payment extends Contoller_Core_Action{
+
+
+
+
+
     public function gridAction() {
+
+        echo "<pre>";
+        // $abstract  = new Block_Core_Abstracts();
+        // print_r($abstract);
+        // echo $abstract->removeChild('th3');
+        // print_r($abstract->getChildren());
+        $content = new Block_Html_Content();
+
+        $layout = new Block_Core_Layout();
+        // $layout->addChild("layout", "value");
+        // $layout->addChild('content', $content); //pass conntent here
+
+        $layout->prepareChildren();//rather than adding manually, make dynamic
+
+        // print_r($layout);
+        // $layouot->setTemplate('core/layout/3columns.phtml')->render();
+        $layout->render(); //we can direct render when set in Layout
+
+        // print_r($content);
+        // $content->render();
+
+
+
+        die;
+
+    //-------------------------------------------------------
+
         $this->getMessage()->getSession()->start();
         $query = "SELECT * FROM `payment`";
         $payments = Ccc::getModel('Payment_Row')->fetchAll($query);

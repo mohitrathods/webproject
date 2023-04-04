@@ -50,7 +50,17 @@ MY TASKS
 - status active inactive
 - all applications
 - add bootstrap
+- array file practice 
 
+- new > setter getter of layout in action as i get View
+- grid object ne content ma nakhvo
+
+- build layout conceppt with block 
+- build children conceppt
+- add children 
+- complete 1 application 
+- Block_Product_Grid
+- View_Product_Grid
 -------------------------------------------------------------
 Erors 
 - if data is 0 then remove edit and del urls
