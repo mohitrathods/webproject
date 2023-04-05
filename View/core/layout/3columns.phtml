@@ -7,24 +7,31 @@
     <title>Layout</title>
 </head>
 <body>
-<?php print_r($this) ?>
-<?php print_r($this->getChild('content')) ?>
+<?php 
+// echo "<pre>";
+// print_r($this); ?>
 <table border="1px" border-collapse= "collapse" width="100%">
    
     <tr height=100px align-items="center">
-        <td colspan="3">Header</td>
+        <td colspan="3">
+            <?php $this->getChild('header')->render(); ?>
+        </td>
     </tr>
     <tr height=20px>
-        <td colspan="3">Message</td>
+        <td colspan="3">
+            <?php $this->getChild('message')->render(); ?>
+        </td>
     </tr>
     <tr height=200px>
         <td>Left</td>
         <!-- <td>Content</td> -->
-        <td><?php $this->getChild('content')->render() ?></td>
+        <td><?php $this->getChild('content')->render(); ?></td>
         <td>Right</td>
     </tr>
     <tr height=100px>
-        <td colspan="3">Footer</td>
+        <td colspan="3">
+            <?php $this->getChild('footer')->render(); ?>
+        </td>
     </tr>
 </table>
 </body>
