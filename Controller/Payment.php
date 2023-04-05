@@ -4,65 +4,42 @@ require_once 'Controller/Core/Action.php';
 
 class Controller_Payment extends Contoller_Core_Action{
 
-
-
-
-
     public function gridAction() {
 
-       
-
-        // $this->getMessage()->getSession()->start();
-        echo "<pre>";
-
-
-        
-        $layout = new Block_Core_Layout();
-        $payment =  new Block_Payment_Grid();
-
-        $layout->addChild('content',$payment);
-        print_r($layout); //print to see all
-        $layout->render();
-        die;
-
-    //-------------------------------------------------------
-
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `payment`";
-        $payments = Ccc::getModel('Payment_Row')->fetchAll($query);
-        
         try {
-            if(!$payments){
-                throw new Exception("payment data not found",1);
+            $paymentGrid =  new Block_Payment_Grid();
+            $this->getLayout()->addChild('content',$paymentGrid);
+            $this->getLayout()->render();
+        }
+        catch (Exception $e) {
+        }
+
+    }    
+
+    public function addAction(){
+        $paymentEdit =  new Block_Payment_Edit();
+        $this->getLayout()->addChild('content',$paymentEdit);
+        $this->getLayout()->render();
+        // $paymentRow = Ccc::getModel('Payment_Row');
+        // $this->getView()->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow])->render();
+    }
+
+    public function editAction(){
+        $id = $this->getRequest()->getParam('id');
+
+        try {
+            if(!$id){
+                throw new Exception("id not found",1);  
             }
 
-            $this->getView()->setTemplate('payment/grid.phtml')->setData(['payments' => $payments])->render();
+            $paymentEdit = new Block_Payment_Edit();
+            $this->getLayout()->addChild('content',$paymentEdit);
+            $this->getLayout()->render();
         } 
         catch (Exception $e) {
             Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
-    }    
 
-    public function addAction(){
-        $paymentRow = Ccc::getModel('Payment_Row');
-        $this->getView()->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow])->render();
-    }
-
-    public function editAction(){
-        $this->getMessage()->getSession()->start();
-        $id = $this->getRequest()->getParam('id');
-        $paymentRow = Ccc::getModel('Payment_Row')->load($id);
-
-        try {
-            if(!$id){
-                throw new Exception("data not found",1);
-            }
-
-            $this->getView()->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow])->render();
-        } 
-        catch (Exception $e) {
-            Ccc::getModel('Core_Message')->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
     }
 
     public function saveAction(){

@@ -44,6 +44,10 @@ $payments = $this->payments;
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>
+                <?php if(!$payments): ?>
+                    <tr><td colspan="8">no data available</td></tr>
+                
+                <?php else: ?>
                 <?php foreach($payments as $payment): ?>
                     <tr>
                         <td><?php echo $payment->payment_method_id; ?></td>
@@ -56,6 +60,7 @@ $payments = $this->payments;
                         <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment', 'delete', ['id' => $payment->payment_method_id ]) ?>">DELETE</a></td>
                     </tr>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
 

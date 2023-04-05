@@ -38,7 +38,7 @@ $payments = $this->payments;
 
         <div class="eachdiv">
             <input type="submit" class="submitbutton" />
-            <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment' ,'grid') ?>">CANCEL</a>
+            <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('payment' ,'grid',[],true) ?>">CANCEL</a>
         </div>
     </div>
 </form>

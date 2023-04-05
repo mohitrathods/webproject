@@ -15,6 +15,24 @@ class Contoller_Core_Action{
 
     protected $view = null;
 
+    protected $layout = null;
+
+    //----------- set get of layout
+    public function setLayout($layout){
+        $this->layout = $layout;
+        return $this;
+    }
+
+    public function getLayout(){
+        if($this->layout){
+            return $this->layout;
+        }
+
+        $layout = new Block_Core_Layout();
+        $this->layout = $layout;
+        return $layout;
+    }
+
     //----------- set get of view
     public function setView(Model_Core_View $view)
 	{
