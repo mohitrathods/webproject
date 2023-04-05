@@ -1,3 +1,11 @@
+<?php
+$array = $this->getChildren();
+
+foreach ($array as $eachitem => $x) {
+    $x->render();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +15,6 @@
     <title>Content</title>
 </head>
 <body>
-    <h2>content</h2>
+    <!-- <h2>content</h2> -->
 </body>
 </html>

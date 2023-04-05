@@ -1,66 +1,15 @@
------------------------------
-tasks 
-MESSAGE CLASS
-- product, category, customer, vendor, shipping, payment 
-MEDIA BAKI 
-ROW CLASS
-- product, category, customer, vendor, shipping, payment 
-MEDIA BAKI (getModel() -> replace -> getModelProduct())
-- if double id in url, change product_id to id in edit.phtml
 
-> 2 or 3 module ma sathe revu
-
-> getmodel getsingleton methods
-> autoloader conceppt
-> removed primary key and tablename from rowclass
-> view model
-
-
-MY TASKS 
-- array file practice, loops all types clearance
-- fully
-- ispost as in image
-
-
-TASK BY OFFICE
-- combine add  and edit (edit only) add na case ma blank row lai avi
-- save method only 
-
-MAIN TASKS
-- message class implement in admin
-- admin status active inactive setting
-- admin like pages > payment, shipping and product set those
-- remining pages
-  > product MEDIA
-  > vendor, customer  address 
-  > category wise paths 
-  > salesman prices
-
-REMINING
-- salesman price without errors
-- custoemr addresss 
-- load method thi id load krvanu
-- category wise paths
-- remove seeeions if any
-- insert update in save
 
 --------------------------------------------------------
 MY TASKS 
-- product controller and full understand
-- status active inactive
-- all applications
-- add bootstrap
-- array file practice 
 
-- new > setter getter of layout in action as i get View
-- grid object ne content ma nakhvo
+- COMPLETE bootstrap
+- GET SESSION ERRORS 
+- ACTIVE inactive method
+- complete all apps 
+- array file practice and with loops 
 
-- build layout conceppt with block 
-- build children conceppt
-- add children 
-- complete 1 application 
-- Block_Product_Grid
-- View_Product_Grid
+
 -------------------------------------------------------------
 Erors 
 - if data is 0 then remove edit and del urls

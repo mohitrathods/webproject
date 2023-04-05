@@ -7,9 +7,19 @@ class Controller_Payment extends Contoller_Core_Action{
     public function gridAction() {
 
         try {
-            $paymentGrid =  new Block_Payment_Grid();
-            $this->getLayout()->addChild('content',$paymentGrid);
+            $paymentGrid = new Block_Payment_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $paymentGrid);
+            $paymentGrid->getCollection();
             $this->getLayout()->render();
+            // die;
+
+            // $paymentGrid =  new Block_Payment_Grid();
+            // $this->getLayout()->addChild('content',$paymentGrid);
+            // $paymentGrid->getCollection();
+            // $this->getLayout()->render();
+
+            // echo "<pre>";
+            // print_r($this->getLayout());
         }
         catch (Exception $e) {
         }
@@ -18,8 +28,13 @@ class Controller_Payment extends Contoller_Core_Action{
 
     public function addAction(){
         $paymentEdit =  new Block_Payment_Edit();
-        $this->getLayout()->addChild('content',$paymentEdit);
+        $this->getLayout()->getChild('content')->addChild('add',$paymentEdit);
+        $paymentEdit->getCollection();
         $this->getLayout()->render();
+
+        // $this->getLayout()->addChild('content',$paymentEdit);
+        // $this->getLayout()->render();
+        
         // $paymentRow = Ccc::getModel('Payment_Row');
         // $this->getView()->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow])->render();
     }
@@ -33,8 +48,13 @@ class Controller_Payment extends Contoller_Core_Action{
             }
 
             $paymentEdit = new Block_Payment_Edit();
-            $this->getLayout()->addChild('content',$paymentEdit);
+
+            $this->getLayout()->getChild('content')->addChild('edit',$paymentEdit);
+            $paymentEdit->getCollection();
             $this->getLayout()->render();
+
+            // $this->getLayout()->addChild('content',$paymentEdit);
+            // $this->getLayout()->render();
         } 
         catch (Exception $e) {
             Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
