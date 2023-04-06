@@ -1,23 +1,11 @@
 <?php
 $admins = $this->admins;
-// print_r($admins);
-
 ?>
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
-    <title>Admin page</title>
-</head>
 <body>
 <div class="maindiv">
         <div class="subdiv">
             <!-- header -->
             <div class="headerr">
-                <?php require_once 'view/html/header.phtml'; ?>
             </div>
             <!-- head -->
             <div class="headd">
@@ -38,6 +26,10 @@ $admins = $this->admins;
                     <th colspan="2">
                         OPERATIONS</th>
                 </tr>
+                <?php if(!$admins): ?>
+                    <tr><td colspan="8">no data available</td></tr>
+                <?php else: ?>
+
                     <?php
                     foreach($admins as $admin){
                     ?>
@@ -54,11 +46,11 @@ $admins = $this->admins;
                     <?php
                     }
                     ?>
+                    <?php endif; ?>
             </table>
         </div>
 
         <div>
-            <?php require_once 'View/html/footer.phtml' ?>
         </div>
     </div>
 </body>

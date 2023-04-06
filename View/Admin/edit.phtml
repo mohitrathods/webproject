@@ -1,44 +1,35 @@
 <?php
-$admin = $this->admins;
-// print_r($admin);
-
+$admins = $this->admins;
 ?>
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="skin/css/edit.css?<?php echo time(); ?>">
-    <title>Add / Edit Admin</title>
-</head> 
 <body>
-    <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('admin','save') ?>" method="post">
-        <div class="mainadd">
-            <div class="eachdiv">
-                <label>EMAIL</label>
-                <td><input type="text" name="admin[email]" value="<?php  echo $admin->email ?>"></td>
-                <!-- <td><input type="text" name="admin[email]" value=""></td> -->
-            </div>
-                
-            <div class="eachdiv">
-                <label>STATUS</label>
-        		<td><input type="text" name="admin[status]" value="<?php  echo $admin->status ?>"></td>
-        		<!-- <td><input type="text" name="admin[status]" value=""></td> -->
-            </div>
-                
-            <div class="eachdiv">
-                <label>PASSWORD</label>
-        		<td><input type="text" name="admin[password]" value="<?php  echo $admin->password ?>"></td>
-        		<!-- <td><input type="password" name="admin[password]" value=""></td> -->
-            </div>
+<form action="<?php echo Ccc::getModel('Core_Url')->getUrl('admin' , 'save' , ['id' => $admins->admin_id]) ?>" method="post">
+    <div class="mainadd">
 
-
-            <div class="eachdiv">
-                <input type="submit" class="submitbutton" />
-                <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('admin', 'grid') ?>">CANCEL</a>
-            </div>
+        <div class="eachdiv">
+            <label>email</label>
+            <input type="text" name="admin[email]" value="<?php echo $admins->name ?>" />
         </div>
-    </form>
+
+        <div class="eachdiv">
+            <label>pASSwORD</label>
+            <input type="number" name="admin[password]" value="<?php echo $admins->password ?>" />
+        </div>
+
+        <div class="eachdiv">
+            <label>sTATUS</label>
+            <select name="admin[status]">
+                <option value="active" <?php if($admins->status == 'active' ){echo "selected";} ?>>Active</option>
+                <option value="inactive" <?php if($admins->status == 'inactive'){echo "selected";} ?>>Inactive</option>
+            </select>
+        </div>
+
+        
+
+        <div class="eachdiv">
+            <input type="submit" class="submitbutton" />
+            <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('admin' , 'grid',[], true) ?>">CANCEL</a>
+        </div>
+    </div>
+</form>
 </body>
 </html>

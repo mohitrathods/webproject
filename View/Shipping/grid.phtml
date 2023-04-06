@@ -1,28 +1,16 @@
 <?php
-$shippings = $this->getShipping();
+$shippings = $this->shippings;
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
-    <title>Shipping</title>
-</head>
 <body>
 <div class="maindiv">
         <div class="subdiv">
             <!-- header -->
             <div class="headerr">
-                <?php require_once 'view/html/header.phtml'; ?>
             </div>
             <!-- head -->
             <div class="headd">
                 <span>Shipping</span>
-                <a href="<?php echo $this->getUrlObj()->getUrl('shipping', 'add') ?>">Add Shipping</a>
+                <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('shipping', 'add') ?>">Add Shipping</a>
             </div>
         </div>  
         
@@ -40,23 +28,27 @@ $shippings = $this->getShipping();
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>
+                <?php if(!$shippings): ?>
+                    <tr><td colspan="8">no data available</td></tr>
+                <?php else: ?>
+
                 <?php foreach($shippings as $shipping): ?>
                     <tr>
-                        <td><?php echo $shipping['shipping_method_id'] ?></td>
-                        <td><?php echo $shipping['name'] ?></td>
-                        <td><?php echo $shipping['amount'] ?></td>
-                        <td><?php echo $shipping['status'] ?></td>
-                        <td><?php echo $shipping['created_at'] ?></td>
-                        <td><?php echo $shipping['updated_at'] ?></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('shipping' , 'edit' , ['id' => $shipping['shipping_method_id']]) ?>">EDIT</a></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('shipping' , 'delete' , ['id' => $shipping['shipping_method_id']]) ?>">DELETE</a></td>
+                        <td><?php echo $shipping->shipping_method_id ?></td>
+                        <td><?php echo $shipping->name ?></td>
+                        <td><?php echo $shipping->amount ?></td>
+                        <td><?php echo $shipping->status ?></td>
+                        <td><?php echo $shipping->created_at ?></td>
+                        <td><?php echo $shipping->updated_at ?></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('shipping' , 'edit' , ['id' => $shipping->shipping_method_id]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('shipping' , 'delete' ,['id' => $shipping->shipping_method_id]) ?>">DELETE</a></td>
                     </tr>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
 
         <div>
-            <?php require_once 'View/html/footer.phtml' ?>
         </div>        
     </div>
 </body>

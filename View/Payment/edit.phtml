@@ -1,17 +1,6 @@
 <?php
 $payments = $this->payments;
-// print_r($payments);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/edit.css?<?php echo time(); ?>">
-    <title>Edit payment</title>
-</head>
 <body>
 <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('payment' , 'save' , ['id' => $payments->payment_method_id]) ?>" method="post">
     <div class="mainadd">

@@ -26,7 +26,20 @@ class Ccc {
         return new $className();
     }
 
-    
+    //---------- get singleton
+
+    //---------- register
+    public static function Register($key, $value){
+        $GLOBALS[$key] = $value;
+    }
+
+    public static function getRegistry($key){
+        if(array_key_exists($key, $GLOBALS)){
+
+            return $GLOBALS[$key];
+        }
+        return null;
+    }
 }
 
 Ccc::init();

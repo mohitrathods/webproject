@@ -1,16 +1,65 @@
 
+Error LOG
+- jo ola ni error aave to set ne unset kravvuprimary key ne 
+- grid and edit ma edit vadhu krvanu avse 
+- grid ma if else of no data availbale 
+
+- if data is 0 then remove edit and del urls
+- any other error occurs i think same url error 
+
 
 --------------------------------------------------------
 MY TASKS 
 
-- COMPLETE bootstrap
-- GET SESSION ERRORS 
+- bootstrap
+- get product in any using getregistry method
+- remove heads in grid and edit phtml
+
+- product media 
+- vendor address
+- salesman price
+- customer address 
+
 - ACTIVE inactive method
-- complete all apps 
 - array file practice and with loops 
 
 
+
 -------------------------------------------------------------
-Erors 
-- if data is 0 then remove edit and del urls
-- any other error occurs i think same url error 
+NEW 
+----------
+> SALES SYATEM
+
+- table class will be resource class or resource model 
+- row class will become main class or main model 
+- collection model all NEW 
+
+Tables 
+- quote (cart) 
+- quote item 
+- quote address 
+----------------------
+- order
+- order item 
+- order address 
+- order payment
+- order payment transaction (no of transactions)
+- order shipment 
+- order shipment item 
+- order invoice
+---------------
+> Entity attribute value (EAV) SYSTEM
+
+Tables 
+- product (main table)
+- attribute (shows which attribute for which table)
+    -> input tyes > text box, select, multi select, radio, checkbox, textarea
+    -> Backend type > int, text, decimal, datetime, varchar 
+
+------------------- 
+FILES
+- model core table row > model core table 
+- Table.php > resource.php > model core table resource 
+
+> make model > collection jya resource file chhe tya collection ni pn rese 
+- nothing to extend in collection 

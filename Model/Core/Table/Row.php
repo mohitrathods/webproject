@@ -142,11 +142,8 @@ class Model_Core_Table_Row {
 
         else {
             $id = $this->getData($this->getPrimaryKey());
-            // print_r($id);
             $condition[$this->getPrimaryKey()] = $id;
-            // unset($this->data[$this->getPrimaryKey()]);
-            
-
+            unset($this->data[$this->getPrimaryKey()]);
 
             $result = $this->getTable()->update($this->data, $condition);
             if($result){
@@ -185,11 +182,6 @@ class Model_Core_Table_Row {
 
     public function delete(){
         $id = $this->getData($this->getPrimaryKey()); //no direct use $this->getPrimarykey();
-		// $condition[$this->primaryKey] = $id;
-        // print_r($id);
-        // if(!$id){
-        //     echo "null";
-        // }
 
         $result = $this->getTable()->delete($id);
         

@@ -1,8 +1,7 @@
 <?php 
 class Block_Payment_Edit extends Block_Core_Abstracts{
     public function __construct(){
-        
-
+        parent::__construct();
 
     }
 

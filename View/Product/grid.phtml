@@ -4,7 +4,7 @@ $products = $this->products;
 
 
 ?>
-
+<!-- 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,12 +13,11 @@ $products = $this->products;
     <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
     <title>Product page</title>
 </head>
-<body>
+<body> -->
 <div class="maindiv">
         <div class="subdiv">
             <!-- header -->
             <div class="headerr">
-                <?php require_once 'view/html/header.phtml'; ?>
             </div>
             <!-- head -->
             <div class="headd">
@@ -47,6 +46,10 @@ $products = $this->products;
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>
+                <?php if(!$products): ?>
+                    <tr><td colspan="8">no data available</td></tr>
+                <?php else: ?>
+
                     <?php
                     foreach($products as $product){
                     ?>
@@ -73,11 +76,11 @@ $products = $this->products;
                     <?php
                     }
                     ?>
+                <?php endif; ?>
             </table>
         </div>
 
         <div>
-            <?php require_once 'View/html/footer.phtml' ?>
         </div>
     </div>
 </body>

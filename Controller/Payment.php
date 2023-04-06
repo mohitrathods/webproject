@@ -5,19 +5,14 @@ require_once 'Controller/Core/Action.php';
 class Controller_Payment extends Contoller_Core_Action{
 
     public function gridAction() {
+        Ccc::getModel('Core_Session')->start();
 
         try {
             $paymentGrid = new Block_Payment_Grid();
             $this->getLayout()->getChild('content')->addChild('grid', $paymentGrid);
             $paymentGrid->getCollection();
             $this->getLayout()->render();
-            // die;
-
-            // $paymentGrid =  new Block_Payment_Grid();
-            // $this->getLayout()->addChild('content',$paymentGrid);
-            // $paymentGrid->getCollection();
-            // $this->getLayout()->render();
-
+            
             // echo "<pre>";
             // print_r($this->getLayout());
         }
@@ -27,19 +22,16 @@ class Controller_Payment extends Contoller_Core_Action{
     }    
 
     public function addAction(){
+        Ccc::getModel('Core_Session')->start();
+
         $paymentEdit =  new Block_Payment_Edit();
         $this->getLayout()->getChild('content')->addChild('add',$paymentEdit);
         $paymentEdit->getCollection();
         $this->getLayout()->render();
-
-        // $this->getLayout()->addChild('content',$paymentEdit);
-        // $this->getLayout()->render();
-        
-        // $paymentRow = Ccc::getModel('Payment_Row');
-        // $this->getView()->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow])->render();
     }
 
     public function editAction(){
+        Ccc::getModel('Core_Session')->start();
         $id = $this->getRequest()->getParam('id');
 
         try {
@@ -52,9 +44,6 @@ class Controller_Payment extends Contoller_Core_Action{
             $this->getLayout()->getChild('content')->addChild('edit',$paymentEdit);
             $paymentEdit->getCollection();
             $this->getLayout()->render();
-
-            // $this->getLayout()->addChild('content',$paymentEdit);
-            // $this->getLayout()->render();
         } 
         catch (Exception $e) {
             Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
@@ -63,7 +52,7 @@ class Controller_Payment extends Contoller_Core_Action{
     }
 
     public function saveAction(){
-        $this->getMessage()->getSession()->start();
+        Ccc::getModel('Core_Session')->start();
         $id = $this->getRequest()->getParam('id');
 
         if(!$id){
@@ -101,7 +90,8 @@ class Controller_Payment extends Contoller_Core_Action{
                     $row = Ccc::getModel('Payment_Row')->setData($updatePayment);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
-                    $row->created_at = $datetime;
+                    $row->updated_at = $datetime;
+                    $row->payment_method_id = $id;
                     $row->save();
 
                     Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
@@ -116,7 +106,7 @@ class Controller_Payment extends Contoller_Core_Action{
     }
 
     public function deleteAction() {
-        $this->getMessage()->getSession()->start();
+        Ccc::getModel('Core_Session')->start();
         $deleteId = $this->getRequest()->getParam('id');
 
         try {

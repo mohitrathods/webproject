@@ -30,6 +30,14 @@ class Block_Core_Layout extends Block_Core_Abstracts {
         $right = new Block_Html_Right();
         $this->addChild('right',$right);
     }
+
+    public function createBlock($blockname){
+        // $head = new Block_Html_Head(); //make above dynamic 
+        $class = 'Block_Html_'.$blockname;
+        $result = new $class;
+        $this->addChild('block',$result);//render block by calling function in content
+        return $result;
+    }
 }
 
 ?>

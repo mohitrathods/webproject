@@ -4,7 +4,7 @@ $products = $this->products;
 
 
 ?>
-
+<!-- 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@ $products = $this->products;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="skin/css/edit.css?<?php echo time(); ?>">
     <title>Add / Edit Products</title>
-</head> 
+</head>  -->
 <body>
     <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product', 'save', ['id' => $products->product_id]) ?>" method="post">
     

@@ -2,41 +2,42 @@
 require_once 'Controller/Core/Action.php';
 
 class Controller_Admin extends Contoller_Core_Action{
-    public function gridAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `admin` ORDER BY `admin_id` ASC";
-        $admins = Ccc::getModel('Admin_Row')->fetchAll($query);
-        
-        try {
-            if(!$admins){
-                throw new Exception("admin data not found" ,1);
-            }
+    public function gridAction() {
+        Ccc::getModel('Core_Session')->start();
 
-            $this->getView()->setTemplate('admin/grid.phtml')->setData(['admins' => $admins])->render();
+        try {
+            $adminGrid = new Block_Admin_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $adminGrid);
+            $adminGrid->getCollection();
+            $this->getLayout()->render();
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            
         }
-
-        $this->redirect('admin', 'grid');
     }
 
     public function addAction(){
-        $adminRow = Ccc::getModel('Admin_Row');
-        $this->getView()->setTemplate('admin/edit.phtml')->setData(['admins' => $adminRow])->render();
+        Ccc::getModel('Core_Session')->start();
+
+        $adminAdd = new Block_Admin_Edit();
+        $this->getLayout()->getChild('content')->addChild('add', $adminAdd);
+        $adminAdd->getCollection();
+        $this->getLayout()->render();
     }
 
     public function editAction(){
-        $this->getMessage()->getSession()->start();
+        Ccc::getModel('Core_Session')->start();
         $id = $this->getRequest()->getParam('id');
-        $adminRow = Ccc::getModel('Admin_Row')->load($id);
 
         try {
             if(!$id){
                 throw new Exception("id not found",1);
             }
 
-            $this->getView()->setTemplate('admin/edit.phtml')->setData(['admins' => $adminRow])->render();
+            $adminEdit = new Block_Admin_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit', $adminEdit);
+            $adminEdit->getCollection();
+            $this->getLayout()->render();
         }
         catch(Exception $e){
             CcC::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
@@ -45,7 +46,7 @@ class Controller_Admin extends Contoller_Core_Action{
     }
 
     public function saveAction(){
-        $this->getMessage()->getSession()->start();
+        Ccc::getModel('Core_Session')->start();
         $id = $this->getRequest()->getParam('id');
 
         if(!$id){
@@ -60,7 +61,7 @@ class Controller_Admin extends Contoller_Core_Action{
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->created_at = $datetime;
-                    $result = $row->save();
+                    $row->save();
 
                     $this->getMessage()->addMessages("admin row inserted succesffully", Model_Core_Message::SUCCESS);
                 }
@@ -72,8 +73,6 @@ class Controller_Admin extends Contoller_Core_Action{
         }
 
         else {
-            echo "<pre>";
-            print_r("update");
             $updateAdmin = $this->getRequest()->getPost('admin');
 
             try {
@@ -86,7 +85,7 @@ class Controller_Admin extends Contoller_Core_Action{
                     $datetime = date("Y:m:d h:i:sA");
                     $row->updated_at = $datetime;
                     $row->admin_id = $id;
-                    $result = $row->save();
+                    $row->save();
 
                     $this->getMessage()->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
                 }
@@ -103,7 +102,7 @@ class Controller_Admin extends Contoller_Core_Action{
 
     
     public function deleteAction(){
-        $this->getMessage()->getSession()->start();
+        Ccc::getModel('Core_Session')->start();
         $deleteId = $this->getRequest()->getParam('id');
 
         try {

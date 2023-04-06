@@ -4,9 +4,6 @@ class Block_Core_Abstracts extends Model_Core_View{
     // protected $children = ['on1' => 'one', 'tw2' => 'two'];
     protected $children = [];
 
-    
-
-
     public function __construct(){
         parent::__construct();
 	}
