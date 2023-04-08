@@ -97,4 +97,22 @@ MODIFICATIONS
 - edit grid .phtml 
 - controller, edit, grid .php > Row remove 
 - add resource and collection 
+- return from getcollection 
 - remove row 
+
+
+-----------------------------
+- all application today and with media
+- category, salesman price 
+- vendor, customer address
+- add statustext in all things 
+- remove no needed html heads and comments from all files after understanding
+- eav attribute with jquery
+
+External
+- make new application with 1 by understanding 
+- make second totally modhe
+- array and forloops practice with examples
+
+BOOTSTRAP 
+- add bootstrap 

@@ -61,7 +61,7 @@ class Controller_Product extends Contoller_Core_Action {
                 }
 
                 else{
-                    $row = Ccc::getModel('Product_Row')->setData($addProduct);
+                    $row = Ccc::getModel('Product')->setData($addProduct);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->created_at = $datetime;
@@ -83,7 +83,7 @@ class Controller_Product extends Contoller_Core_Action {
                 }
 
                 else{
-                    $row = Ccc::getModel('Product_Row')->setData($updateProduct);
+                    $row = Ccc::getModel('Product')->setData($updateProduct);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->updated_at = $datetime;
@@ -110,7 +110,7 @@ class Controller_Product extends Contoller_Core_Action {
                 throw new Exception("delete id not found data not deletd",1);
             }
             else{
-                Ccc::getModel('Product_Row')->load($deleteId)->delete();
+                Ccc::getModel('Product')->load($deleteId)->delete();
                 Ccc::getModel('Core_Message')->addMessages("data deleted successfully",Model_Core_Message::SUCCESS);
             }
         } 

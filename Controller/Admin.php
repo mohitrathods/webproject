@@ -64,11 +64,11 @@ class Controller_Admin extends Contoller_Core_Action{
                     $row->created_at = $datetime;
                     $row->save();
 
-                    $this->getMessage()->addMessages("admin row inserted succesffully", Model_Core_Message::SUCCESS);
+                    Ccc::getModel('Core_Message')->addMessages("admin row inserted succesffully", Model_Core_Message::SUCCESS);
                 }
             } 
             catch (Exception $e) {
-                $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
             }
             
         }
@@ -88,11 +88,11 @@ class Controller_Admin extends Contoller_Core_Action{
                     $row->admin_id = $id;
                     $row->save();
 
-                    $this->getMessage()->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
+                    Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
                 }
             } 
             catch (Exception $e) {
-                $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
             }
             
         }
@@ -112,12 +112,12 @@ class Controller_Admin extends Contoller_Core_Action{
             }
             else{
                 Ccc::getModel('Admin')->load($deleteId)->delete();
-                $this->getMessage()->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
+                Ccc::getModel('Core_Message')->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
             }
 
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
         }
 
         

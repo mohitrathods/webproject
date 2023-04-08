@@ -1,25 +1,12 @@
 <?php
-$vendors = $this->getVendor();
+$vendors = $this->getCollection()->getData();
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
-    <title>Vendor</title>
-</head>
 <body>
 <div class="maindiv">
     <div class="subdiv">
-        <div class="headerr">
-            <?php require_once 'view/html/header.phtml'; ?>
-        </div>
         <div class="headd">
             <span>Vendors</span>
-            <a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'add') ?>">Add Vendor</a>
+            <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('vendor', 'add') ?>">Add Vendor</a>
         </div>
 
         <!-- tqble data content -->
@@ -40,29 +27,30 @@ $vendors = $this->getVendor();
                     <th>DELETE</th>
                 </tr>
 
-                <?php foreach($vendors as $eachitem): ?>
+                <?php if(!$vendors): ?>
+                <tr><td colspan="8">no data available</td></tr>
+                <?php else: ?>
+
+                <?php foreach($vendors as $vendor): ?>
                     <tr>
-                        <td><?php echo $eachitem['vendor_id'] ?></td>
-                        <td><?php echo $eachitem['first_name'] ?></td>
-                        <td><?php echo $eachitem['last_name'] ?></td>
-                        <td><?php echo $eachitem['email'] ?></td>
-                        <td><?php echo $eachitem['gender'] ?></td>
-                        <td><?php echo $eachitem['mobile'] ?></td>
-                        <td><?php echo $eachitem['status'] ?></td>
-                        <td><?php echo $eachitem['company'] ?></td>
-                        <td><?php echo $eachitem['created_at'] ?></td>
-                        <td><?php echo $eachitem['updated_at'] ?></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'edit' , ['id' => $eachitem['vendor_id']]) ?>">EDIT</a></td>
-                        <td><a href="<?php echo $this->getUrlObj()->getUrl('vendor', 'delete' ,['id' => $eachitem['vendor_id']]) ?>">DELETE</a></td>
+                        <td><?php echo $vendor->vendor_id; ?></td>
+                        <td><?php echo $vendor->first_name; ?></td>
+                        <td><?php echo $vendor->last_name; ?></td>
+                        <td><?php echo $vendor->email; ?></td>
+                        <td><?php echo $vendor->gender; ?></td>
+                        <td><?php echo $vendor->mobile; ?></td>
+                        <td><?php echo $vendor->status; ?></td>
+                        <td><?php echo $vendor->company; ?></td>
+                        <td><?php echo $vendor->created_at; ?></td>
+                        <td><?php echo $vendor->updated_at; ?></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('vendor', 'edit' , ['id' => $vendor->vendor_id]) ?>">EDIT</a></td>
+                        <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('vendor', 'delete' ,['id' => $vendor->vendor_id]) ?>">DELETE</a></td>
 
                 </tr>
                 <?php endforeach; ?>
+                <?php endif; ?>
             </table>
         </div>
-    </div>
-
-    <div>
-        <?php require_once 'View/html/footer.phtml' ?>
     </div>
 </div>
 </body>

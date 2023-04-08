@@ -10,8 +10,9 @@ class Block_Product_Grid extends Block_Core_Abstracts {
 
     public function getCollection(){
         $query = "SELECT * FROM `product`";
-        $products = Ccc::getModel('Product_Row')->fetchAll($query);
+        $products = Ccc::getModel('Product')->fetchAll($query);
         $this->setTemplate('product/grid.phtml')->setData(['products' => $products]);
+        return $products;
     }
     
 

@@ -11,14 +11,15 @@ class Block_Product_Edit extends Block_Core_Abstracts{
         $id = Ccc::getModel('Core_Request')->getParam('id');
 
         if(!$id){
-            $productRow = Ccc::getModel('Product_Row');
+            $productRow = Ccc::getModel('Product');
             $this->setTemplate('product/edit.phtml')->setData(['products' => $productRow]);
         }
 
         else {
-            $productRow = Ccc::getModel('Product_Row')->load($id);
+            $productRow = Ccc::getModel('Product')->load($id);
             $this->setTemplate('product/edit.phtml')->setData(['products' => $productRow]);
         }
+        return $productRow;
     }
 }
 

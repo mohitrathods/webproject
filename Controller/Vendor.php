@@ -1,167 +1,172 @@
 <?php
-
-require_once 'Model/Vendor.php';
 require_once 'Controller/Core/Action.php';
-require_once 'Model/Core/Url.php';
-require_once 'Model/Core/Message.php';
+class Controller_Vendor extends Contoller_Core_Action {
 
-
-class Controller_Vendor extends Contoller_Core_Action{
-    protected $vendor = [];
-
-    protected $vendorId = null;
-
-    protected $model = null;
-
-    //-------------- getter setter of vendor
-    public function setVendor($vendor){
-        $this->vendor = $vendor;
-        return $this;
-    }
-
-    public function getVendor(){
-        return $this->vendor;
-    }
-    
-    //-------------- getter setter of model
-    
-    public function setModel($model){
-        $this->model = $model;
-        return $this;
-    }
-    
-    public function getModel(){
-        if($this->model){
-            return $this->model;
-        }   
-        $model = new Model_Vendor();
-        $this->model = $model;
-        return $model;
-    }
-
-    public function gridAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `vendor` WHERE 1";
-        $vendor = $this->getModel()->fetchAll($query);
+    public function gridAction() {
+        Ccc::getModel('Core_Session')->start();
 
         try {
-            if(!$vendor){
-                throw new Exception("data not found", 1);
-            }
+            $grid = new Block_Vendor_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $grid);
+            $grid->getCollection();
+            $this->getLayout()->render();
             
-            $this->setVendor($vendor);
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            
         }
-
-        $this->getTemplate("vendor/grid.phtml");
     }
 
     public function addAction(){
-        $this->getTemplate("vendor/add.phtml");
+        Ccc::getModel('Core_Session')->start();
+
+        $add = new Block_Vendor_Edit();
+        $this->getLayout()->getChild('content')->addChild('add', $add);
+        $add->getCollection();
+        $this->getLayout()->render();
     }
 
-    public function insertAction(){
-        $this->getMessage()->getSession()->start();
-        $vendor = $this->getRequest()->getPost('vendor');
+    public function editAction() {
+        Ccc::getModel('Core_Session')->start();
+        $id = Ccc::getModel('Core_Request')->getParam('id');
 
         try {
-            if(!$vendor){
-                throw new Exception("vendor data not found",1);
-            }
-            else {
-                $this->getMessage()->addMessages("vendor inserted successfully" ,Model_Core_Message::SUCCESS);
+            if(!$id){
+                throw new Exception("id not found",1);
             }
 
-            date_default_timezone_set("Asia/Kolkata");
-            $dateTime = date("Y-m-d h:i:sA");
-            $vendor['created_at'] = $dateTime;
-            $this->getModel()->insert($vendor);
+            $edit = new Block_Vendor_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit', $edit);
+            $edit->getCollection();
+            $this->getLayout()->render();
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }   
-
-        $this->redirect('vendor', 'grid');
-    }
-
-    public function editAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `vendor` WHERE `vendor_id` = '{$this->getRequest()->getParam('id')}'";
-        $vendorRow = $this->getModel()->fetchRow($query);
-
-        try {
-            if(!$vendorRow){
-                throw new Exception("vendor row not found" , 1);
-            }
-
-            $this->setVendor($vendorRow);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
-
-        $this->getTemplate("vendor/edit.phtml");
     }
 
-    public function updateAction(){
-        $this->getMessage()->getSession()->start();
-        $vendor = $this->getRequest()->getPost('vendor');
-
-        try {
-            if(!$vendor){
-                throw new Exception("data not inserted" , 1);
-            }
-            else {
-                $this->getMessage()->addMessages("data updated successfully" , Model_Core_Message::SUCCESS);
-            }
-
-        date_default_timezone_set("Asia/Kolkata");
-        $dateTime = date("Y-m-d h:i:sA");
-        $vendor['updated_at'] = $dateTime;
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
+    public function saveAction(){
+        Ccc::getModel('Core_Session')->start();
+        $id = Ccc::getModel('Core_Request')->getParam('id');
         
+        if(!$id){
+            $addVendor = Ccc::getModel('Core_Request')->getPost('vendor');
+            $addAddress = Ccc::getModel('Core_Request')->getPost('address');
 
-        $vendorId = $this->getRequest()->getParam('id');
+            try {
+                if(!$addVendor){
+                    throw new Exception("vendor data not inserted",1);
+                }
+                else {
+                    $row = Ccc::getModel('Vendor')->setData($addVendor);
+                    date_default_timezone_set("Asia/Kolkata");
+                    $datetime = date("Y:m:d h:i:sA");
+                    $row->created_at = $datetime;
+                    $row->save();
 
-        try {
-            if(!$vendorId){
-                throw new Exception("vendor id not found" , 1);
+                    
+
+                    Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
             }
 
-            $condition['vendor_id'] = $vendorId;
-            $this->getModel()->update($vendor , $condition);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            //-------- vendor address add
+
+            try {
+                if(!$addAddress){
+                    throw new Exception("vendor address not inserted",1);
+                }
+                else {
+                    
+
+                    $rowAddress = Ccc::getModel('Vendor_Address')->setData($addAddress);
+                    $rowAddress->vendor_id = '49'; 
+                    print_r($addAddress);
+                    $rowAddress->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            }
+
         }
 
-        $this->redirect('vendor', 'grid', [], true);
+        //else    ------------
+
+        else {
+            $updateVendor = Ccc::getModel('Core_Request')->getPost('vendor');
+            $updateAddress = Ccc::getModel('Core_Request')->getPost('address');
+
+            try {
+                if(!$updateVendor){
+                    throw new Exception("vendor data not updated",1);
+                }
+
+                else {
+                    $rowAddress = Ccc::getModel('Vendor')->setData($updateAddress);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $datetime = date("Y:m:d h:i:sA");
+                    $rowAddress->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            }
+
+            //-------- vendor address edit
+
+            try {
+                if(!$updateVendor){
+                    throw new Exception("vendor data not updated",1);
+                }
+
+                else {
+                    $row = Ccc::getModel('Vendor')->setData($updateVendor);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $datetime = date("Y:m:d h:i:sA");
+                    $row->updated_at = $datetime;
+                    $row->vendor_id = $id;
+                    $row->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            }
+
+
+        }
+        // $this->redirect('vendor', 'grid', [], true);
+
     }
 
-    public function deleteAction(){
-        $this->getMessage()->getSession()->start();
-        $deleteId = $this->getRequest()->getParam('id');
-
+    public function deleteAction() {
+        Ccc::getModel('Core_Session')->start();
+        $deleteId = Ccc::getModel('Core_Request')->getParam('id');
+        
         try {
             if(!$deleteId){
-                throw new Exception("delete id not found" , 1);
+                throw new Exception("data not deleted",1);
             }
             else {
-                $this->getMessage()->addMessages("data deleted successfully" , Model_Core_Message::SUCCESS);
+                Ccc::getModel('Vendor')->load($deleteId)->delete();
+                Ccc::getModel('Core_Message')->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
             }
-
-            $this->getModel()->delete($deleteId);
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
 
         $this->redirect('vendor', 'grid', [], true);
+
     }
 }
 

@@ -1,18 +1,18 @@
 <?php
 
-require_once 'Model/Core/Table.php';
+// require_once 'Model/Core/Table.php';
 
-class Model_Product_Row extends Model_Core_Table{
+// class Model_Product_Row extends Model_Core_Table{
     // protected $tableName = 'product';
 
     // protected $primaryKey = 'product_id';
 
     // protected $tableClass = 'Model_Product';
 
-	function __construct(){
-        parent::__construct();
-        $this->setResourceClass('Model_Product');
-    }
+	// function __construct(){
+    //     parent::__construct();
+    //     $this->setResourceClass('Model_Product');
+    // }
 
     // const STATUS_ACTIVE = 1;
 	// const STATUS_INACTIVE = 2;
@@ -28,6 +28,6 @@ class Model_Product_Row extends Model_Core_Table{
 	// 		self::STATUS_INACTIVE => self::STATUS_INACTIVE_LBL
 	// 	];
 	// }
-}
+// }
 
 ?>
