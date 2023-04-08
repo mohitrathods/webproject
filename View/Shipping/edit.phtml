@@ -1,5 +1,5 @@
 <?php
-$shippings = $this->shippings;
+$shippings = $this->getCollection();
 ?>
 <body>
 <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('shipping' , 'save' , ['id' => $shippings->shipping_method_id]) ?>" method="post">

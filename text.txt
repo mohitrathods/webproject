@@ -50,7 +50,7 @@ Tables
 ---------------
 > Entity attribute value (EAV) SYSTEM
 
-Tables 
+Tables
 - product (main table)
 - attribute (shows which attribute for which table)
     -> input tyes > text box, select, multi select, radio, checkbox, textarea
@@ -58,8 +58,43 @@ Tables
 
 ------------------- 
 FILES
-- model core table row > model core table 
-- Table.php > resource.php > model core table resource 
+> Table andar >  row bahar 
+> table andar nu name Resource 
+> Row bahar nu name table 
 
-> make model > collection jya resource file chhe tya collection ni pn rese 
-- nothing to extend in collection 
+> table andar > table nu name resource
+> table class Model_Core_Table have jya Model_Core_Table hoy tya 
+Model_Core_Table_Resource class name mlse 
+
+> row bahar row nu name table 
+> row no class Model_Core_Table_Row hato have jya Modseel_Core_Table_Row class name 
+hase tya Model_Core_Table name malse 
+
+
+row data to model 
+model data to resource 
+
+--------------------
+NEW FILES AND CHANGES
+
+- Block > Attribute > Grid (so : View > attribute > grid)
+- Controller > Eav > Attribute ()
+
+------------------------
+ABSTRACTS > TEMPLATE 
+
+
+-------------------------
+- FULL PROJECT WITH UNDERSTANDING 
+- ARRAY, FOR EACH LOOP PRACTICE 
+- PHP INBUILT FUNCTIONS 
+
+
+
+-------------------------- 
+MODIFICATIONS 
+- Edit, Grid .php 
+- edit grid .phtml 
+- controller, edit, grid .php > Row remove 
+- add resource and collection 
+- remove row 

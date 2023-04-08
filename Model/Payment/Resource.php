@@ -1,10 +1,18 @@
-<!-- <?php
+<?php
 
-class Model_Admin_Row extends Model_Core_Table{
+class Model_Payment_Resource extends Model_Core_Table_Resource{
+    function __construct()
+    {
+        parent::__construct();
+        
+        $this->setResourceName('payment')->setPrimaryKey('payment_method_id');
+    }
+    
     // function __construct(){
     //     parent::__construct();
-    //     $this->setTableClass('Model_Admin');
+    //     $this->setResourceName('Model_Admin');
     // }
+
 
     // public function getStatusText()
 	// {
@@ -16,6 +24,4 @@ class Model_Admin_Row extends Model_Core_Table{
 
 	// 	return $statuses[Model_Admin::STATUS_DEFAULT];
 	// }
-} 
-?>
--->
+}

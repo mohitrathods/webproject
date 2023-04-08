@@ -7,9 +7,9 @@ class Controller_Shipping extends Contoller_Core_Action {
         Ccc::getModel('Core_Session')->start();
 
         try {
-            $shhippingGrid = new Block_Shipping_Grid();
-            $this->getLayout()->getChild('content')->addChild('grid', $shhippingGrid);
-            $shhippingGrid->getCollection();
+            $grid = new Block_Shipping_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $grid);
+            $grid->getCollection();
             $this->getLayout()->render();    
         } 
         catch (Exception $e) {
@@ -20,9 +20,9 @@ class Controller_Shipping extends Contoller_Core_Action {
     public function addAction(){
         Ccc::getModel('Core_Session')->start();
 
-        $shippingAdd = new Block_Shipping_Edit();
-        $this->getLayout()->getChild('content')->addChild('add',$shippingAdd);
-        $shippingAdd->getCollection();
+        $add = new Block_Shipping_Edit();
+        $this->getLayout()->getChild('content')->addChild('add',$add);
+        $add->getCollection();
         $this->getLayout()->render();
     }
 
@@ -35,9 +35,9 @@ class Controller_Shipping extends Contoller_Core_Action {
                 throw new Exception('id not found',1);
             }
 
-            $shippingEdit = new Block_Shipping_Edit();
-            $this->getLayout()->getChild('content')->addChild('edit', $shippingEdit);
-            $shippingEdit->getCollection();
+            $edit = new Block_Shipping_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit', $edit);
+            $edit->getCollection();
             $this->getLayout()->render();
         } 
         catch (Exception $e) {
@@ -59,7 +59,7 @@ class Controller_Shipping extends Contoller_Core_Action {
                 }
 
                 else{
-                    $row = Ccc::getModel('Shipping_Row')->setData($addShipping);
+                    $row = Ccc::getModel('Shipping')->setData($addShipping);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->created_at = $datetime;
@@ -81,7 +81,7 @@ class Controller_Shipping extends Contoller_Core_Action {
                 }
 
                 else{
-                    $row = Ccc::getModel('Shipping_Row')->setData($updateShipping);
+                    $row = Ccc::getModel('Shipping')->setData($updateShipping);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->updated_at = $datetime;
@@ -108,7 +108,7 @@ class Controller_Shipping extends Contoller_Core_Action {
                 throw new Exception("delete id not found data not deletd",1);
             }
             else{
-                Ccc::getModel('Shipping_Row')->load($deleteId)->delete();
+                Ccc::getModel('Shipping')->load($deleteId)->delete();
                 Ccc::getModel('Core_Message')->addMessages("data deleted successfully",Model_Core_Message::SUCCESS);
             }
         } 

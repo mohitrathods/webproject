@@ -9,14 +9,16 @@ class Block_Payment_Edit extends Block_Core_Abstracts{
         $id = Ccc::getModel('Core_Request')->getParam('id');
 
         if(!$id){
-            $paymentRow = Ccc::getModel('Payment_Row');
+            $paymentRow = Ccc::getModel('Payment');
             $this->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow]);
         }
 
         else {
-            $paymentRow = Ccc::getModel('Payment_Row')->load($id);
+            $paymentRow = Ccc::getModel('Payment')->load($id);
             $this->setTemplate('payment/edit.phtml')->setData(['payments' => $paymentRow]);
         }
+
+        return $paymentRow;
     }
 }
 

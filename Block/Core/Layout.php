@@ -12,31 +12,34 @@ class Block_Core_Layout extends Block_Core_Abstracts {
 
     public function prepareChildren() {
 
-        $content = new Block_Html_Content();
+        $head = $this->createBlock('Head');
+        $this->addChild('head', $head);
+
+        $content = $this->createBlock('Content');
         $this->addChild('content', $content);
 
-        $header = new Block_Html_Header();
+        $header = $this->createBlock('Header');
         $this->addChild('header', $header);
 
-        $footer = new Block_Html_Footer();
+        $footer = $this->createBlock('Footer');
         $this->addChild('footer', $footer);
 
-        $message = new Block_Html_Message();
+        $message = $this->createBlock('Message');
         $this->addChild('message',$message);
 
-        $left = new Block_Html_Left();
+        $left = $this->createBlock('Left');
         $this->addChild('left',$left);
 
-        $right = new Block_Html_Right();
+        $right = $this->createBlock('Right');
         $this->addChild('right',$right);
     }
 
     public function createBlock($blockname){
         // $head = new Block_Html_Head(); //make above dynamic 
-        $class = 'Block_Html_'.$blockname;
-        $result = new $class;
-        $this->addChild('block',$result);//render block by calling function in content
-        return $result;
+        $blockClassname = 'Block_Html_'.$blockname;
+        $block = new $blockClassname;
+        // $block->setLayout($this); //make this changes and in gridAction attribut i wrote
+        return $block;
     }
 }
 

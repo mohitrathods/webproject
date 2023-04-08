@@ -27,6 +27,16 @@ class Ccc {
     }
 
     //---------- get singleton
+    public static function getSingleTon($className){
+        $className = 'Model_'.$className;
+
+        if(array_key_exists($className, $GLOBALS)){
+            return $GLOBALS[$className];
+        }
+
+        $GLOBALS[$className] = new $className();
+        return $GLOBALS[$className];
+    }
 
     //---------- register
     public static function Register($key, $value){

@@ -1,11 +1,16 @@
 <?php
-require_once "Core/Table.php";
+// require_once "Core/Table.php";
 
 class Model_Shipping extends Model_Core_Table{
 
-    protected $tableName = 'shipping';
-
-    protected $primaryKey = 'shipping_method_id';
+   function __construct()
+	{
+		parent::__construct();
+		
+		// $this->setResourceName('shipping')->setPrimaryKey('shipping_method_id');
+		$this->setResourceClass('Model_Shipping_Resource');
+        $this->setCollectionClass('Model_Shipping_Collection');
+	}
 }
 
 ?>

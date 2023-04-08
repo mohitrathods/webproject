@@ -6,9 +6,9 @@ class Controller_Admin extends Contoller_Core_Action{
         Ccc::getModel('Core_Session')->start();
 
         try {
-            $adminGrid = new Block_Admin_Grid();
-            $this->getLayout()->getChild('content')->addChild('grid', $adminGrid);
-            $adminGrid->getCollection();
+            $grid = new Block_Admin_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $grid);
+            $grid->getCollection();
             $this->getLayout()->render();
         } 
         catch (Exception $e) {
@@ -19,9 +19,10 @@ class Controller_Admin extends Contoller_Core_Action{
     public function addAction(){
         Ccc::getModel('Core_Session')->start();
 
-        $adminAdd = new Block_Admin_Edit();
-        $this->getLayout()->getChild('content')->addChild('add', $adminAdd);
-        $adminAdd->getCollection();
+        $add = new Block_Admin_Edit();
+        $this->getLayout()->getChild('content')->addChild('add', $add);
+        $add->getCollection();
+        // print_r($this->getLayout());
         $this->getLayout()->render();
     }
 
@@ -34,13 +35,13 @@ class Controller_Admin extends Contoller_Core_Action{
                 throw new Exception("id not found",1);
             }
 
-            $adminEdit = new Block_Admin_Edit();
-            $this->getLayout()->getChild('content')->addChild('edit', $adminEdit);
-            $adminEdit->getCollection();
+            $edit = new Block_Admin_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit', $edit);
+            $edit->getCollection();
             $this->getLayout()->render();
         }
         catch(Exception $e){
-            CcC::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
 
     }
@@ -57,7 +58,7 @@ class Controller_Admin extends Contoller_Core_Action{
                     throw new Exception("admin data not found",1);
                 }
                 else {
-                    $row = Ccc::getModel('Admin_Row')->setData($addAdmin);
+                    $row = Ccc::getModel('Admin')->setData($addAdmin);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->created_at = $datetime;
@@ -80,7 +81,7 @@ class Controller_Admin extends Contoller_Core_Action{
                     throw new Exception("admin data not found",1);
                 }
                 else{
-                    $row = Ccc::getModel('Admin_Row')->setData($updateAdmin);
+                    $row = Ccc::getModel('Admin')->setData($updateAdmin);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->updated_at = $datetime;
@@ -110,7 +111,7 @@ class Controller_Admin extends Contoller_Core_Action{
                 throw new Exception("delete id not found : data not deleted",1);
             }
             else{
-                Ccc::getModel('Admin_Row')->load($deleteId)->delete();
+                Ccc::getModel('Admin')->load($deleteId)->delete();
                 $this->getMessage()->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
             }
 

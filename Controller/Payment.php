@@ -8,13 +8,10 @@ class Controller_Payment extends Contoller_Core_Action{
         Ccc::getModel('Core_Session')->start();
 
         try {
-            $paymentGrid = new Block_Payment_Grid();
-            $this->getLayout()->getChild('content')->addChild('grid', $paymentGrid);
-            $paymentGrid->getCollection();
+            $grid = new Block_Payment_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $grid);
+            $grid->getCollection();
             $this->getLayout()->render();
-            
-            // echo "<pre>";
-            // print_r($this->getLayout());
         }
         catch (Exception $e) {
         }
@@ -24,9 +21,9 @@ class Controller_Payment extends Contoller_Core_Action{
     public function addAction(){
         Ccc::getModel('Core_Session')->start();
 
-        $paymentEdit =  new Block_Payment_Edit();
-        $this->getLayout()->getChild('content')->addChild('add',$paymentEdit);
-        $paymentEdit->getCollection();
+        $add =  new Block_Payment_Edit();
+        $this->getLayout()->getChild('content')->addChild('add',$add);
+        $add->getCollection();
         $this->getLayout()->render();
     }
 
@@ -39,10 +36,9 @@ class Controller_Payment extends Contoller_Core_Action{
                 throw new Exception("id not found",1);  
             }
 
-            $paymentEdit = new Block_Payment_Edit();
-
-            $this->getLayout()->getChild('content')->addChild('edit',$paymentEdit);
-            $paymentEdit->getCollection();
+            $edit = new Block_Payment_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit',$edit);
+            $edit->getCollection();
             $this->getLayout()->render();
         } 
         catch (Exception $e) {
@@ -65,7 +61,7 @@ class Controller_Payment extends Contoller_Core_Action{
                 }
 
                 else{
-                    $row = Ccc::getModel('Payment_Row')->setData($addPayment);
+                    $row = Ccc::getModel('Payment')->setData($addPayment);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->created_at = $datetime;
@@ -87,7 +83,7 @@ class Controller_Payment extends Contoller_Core_Action{
                 }
 
                 else{
-                    $row = Ccc::getModel('Payment_Row')->setData($updatePayment);
+                    $row = Ccc::getModel('Payment')->setData($updatePayment);
                     date_default_timezone_set("Asia/Kolkata");
                     $datetime = date("Y:m:d h:i:sA");
                     $row->updated_at = $datetime;
@@ -114,7 +110,7 @@ class Controller_Payment extends Contoller_Core_Action{
                 throw new Exception("data not deleted",1);
             }
             else{
-                Ccc::getModel('Payment_Row')->load($deleteId)->delete();
+                Ccc::getModel('Payment')->load($deleteId)->delete();
                 Ccc::getModel('Core_Message')->addMessages("data deleted successfully",Model_Core_Message::SUCCESS);
             }
         } 

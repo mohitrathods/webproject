@@ -1,7 +1,7 @@
 <?php
 require_once 'Core/Table.php';
 
-class Model_Product extends Model_Core_Table{
+class Model_Product extends Model_Core_Table_Resource{
     // protected $tableName = 'product';
 
     // protected $primaryKey = 'product_id';
@@ -11,7 +11,7 @@ class Model_Product extends Model_Core_Table{
 	{
 		parent::__construct();
 		
-		$this->setTableName('product')->setPrimaryKey('product_id');
+		$this->setResourceName('product')->setPrimaryKey('product_id');
 	}
 }
 ?>

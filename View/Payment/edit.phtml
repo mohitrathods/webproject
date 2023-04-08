@@ -1,5 +1,5 @@
 <?php
-$payments = $this->payments;
+$payments = $this->getCollection();
 ?>
 <body>
 <form action="<?php echo Ccc::getModel('Core_Url')->getUrl('payment' , 'save' , ['id' => $payments->payment_method_id]) ?>" method="post">

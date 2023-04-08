@@ -1,8 +1,8 @@
 <?php
 
-require_once 'Model/Core/Table/Row.php';
+require_once 'Model/Core/Table.php';
 
-class Model_Product_Row extends Model_Core_Table_Row{
+class Model_Product_Row extends Model_Core_Table{
     // protected $tableName = 'product';
 
     // protected $primaryKey = 'product_id';
@@ -11,7 +11,7 @@ class Model_Product_Row extends Model_Core_Table_Row{
 
 	function __construct(){
         parent::__construct();
-        $this->setTableClass('Model_Product');
+        $this->setResourceClass('Model_Product');
     }
 
     // const STATUS_ACTIVE = 1;

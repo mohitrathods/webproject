@@ -12,8 +12,10 @@ class Block_Payment_Grid extends Block_Core_Abstracts {
     public function getCollection(){
         //set data here and call collection in construct above
         $query = "SELECT * FROM `payment`";
-        $payments = Ccc::getModel('Payment_Row')->fetchAll($query);
+        $payments = Ccc::getModel('Payment')->fetchAll($query);
+        // print_r($payments);
         $this->setTemplate('payment/grid.phtml')->setData(['payments' => $payments]);
+        return $payments;
     }
     
 
