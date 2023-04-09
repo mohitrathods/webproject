@@ -64,28 +64,12 @@ class Controller_Vendor extends Contoller_Core_Action {
                     $row->created_at = $datetime;
                     $row->save();
 
-                    
-
-                    Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
-                }
-            } 
-            catch (Exception $e) {
-                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
-            }
-
-            //-------- vendor address add
-
-            try {
-                if(!$addAddress){
-                    throw new Exception("vendor address not inserted",1);
-                }
-                else {
-                    
 
                     $rowAddress = Ccc::getModel('Vendor_Address')->setData($addAddress);
-                    $rowAddress->vendor_id = '49'; 
-                    print_r($addAddress);
-                    $rowAddress->save();
+                    // $rowAddress->vendor_id = $id;
+                    // $rowAddress->save();
+
+                    
 
                     Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
                 }
@@ -94,7 +78,9 @@ class Controller_Vendor extends Contoller_Core_Action {
                 Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
             }
 
+            
         }
+
 
         //else    ------------
 
@@ -111,6 +97,7 @@ class Controller_Vendor extends Contoller_Core_Action {
                     $rowAddress = Ccc::getModel('Vendor')->setData($updateAddress);
                     date_default_timezone_set('Asia/Kolkata');
                     $datetime = date("Y:m:d h:i:sA");
+                    $rowAddress->updated_at = $datetime;
                     $rowAddress->save();
 
                     Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
@@ -123,15 +110,16 @@ class Controller_Vendor extends Contoller_Core_Action {
             //-------- vendor address edit
 
             try {
-                if(!$updateVendor){
+                if(!$updateAddress){
                     throw new Exception("vendor data not updated",1);
                 }
 
                 else {
-                    $row = Ccc::getModel('Vendor')->setData($updateVendor);
+                    print_r($updateAddress);
+                    print_r($id);
+                    $row = Ccc::getModel('Vendor_Address')->setData($updateAddress);
                     date_default_timezone_set('Asia/Kolkata');
                     $datetime = date("Y:m:d h:i:sA");
-                    $row->updated_at = $datetime;
                     $row->vendor_id = $id;
                     $row->save();
 

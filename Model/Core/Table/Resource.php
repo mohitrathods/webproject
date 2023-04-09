@@ -60,7 +60,6 @@ class Model_Core_Table_Resource extends Model_Core_Request{
     //------------------------------------------------------------
 
     public function fetchAll($query){
-        
         return $this->getAdapter()->fetchAll($query); //return this result
         
     }
@@ -116,5 +115,6 @@ class Model_Core_Table_Resource extends Model_Core_Request{
 		$row = $this->getAdapter()->fetchRow($query);
 		return $row;	
 	}
+
 }
 ?>

@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/mediaadd.css?<?php echo time(); ?>">
-    <title>Add Media</title>
-</head>
+<?php
+
+$productmedias = $this->getCollection();
+
+?>
 <body>
-<form action="<?php echo $this->getUrlObj()->getUrl('product_media' ,'insert' ,['id' => $this->getRequest()->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' ,'insert' ,['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
 <div class="maindivv">
     <div class="topdivv">
         <input type="submit" />
-        <a href="<?php echo $this->getUrlObj()->getUrl('product_media' , 'grid' , ['id' => $this->getRequest()->getParam('id')]) ?>">CANCEL</a>
+        <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' , 'grid' , ['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>">CANCEL</a>
     </div>
 
     <div class="bottomdivv">
         <div class="eachdivv">
             <label>Product Name</label>
-            <input type="name" name="name" placeholder="enter product name" required />
+            <input type="name" name="media[name]" placeholder="enter product name" required />
         </div>
 
-        <div class="eachdivv">
-            <label>Product Status</label>
-            <select name="status">
-                <option value="">Please Select</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+        <div class="eachdiv">
+            <label>sTATUS</label>
+            <select name="media[status]">
+                <option value="active" <?php if($productmedias->status == 'active' ){echo "selected";} ?>>Active</option>
+                <option value="inactive" <?php if($productmedias->status == 'inactive'){echo "selected";} ?>>Inactive</option>
             </select>
         </div>
         
         <div class="eachdivv">
             <label>select Image only</label>
-            <input type="file" name="image" required />
+            <input type="file" name="media[image]" required />
         </div>
     </div>
 </div>

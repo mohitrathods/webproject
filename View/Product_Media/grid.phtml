@@ -1,25 +1,18 @@
 <?php
 
-$fetchedMedia = $this->getMedia();
+$fetchedMedia = $this->getCollection()->getData();
+// echo "<pre>";
+// print_r($fetchedMedia);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/mediagrid.css?<?php echo time(); ?>" />
-    <title>Product Media</title>
-</head>
 <body>
-<form action="<?php echo $this->getUrlObj()->getUrl('product_media' , 'update' , ['id' => $this->getRequest()->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' , 'save' , ['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
 <div class="maindivision">
     <div class="topdiv">
         <span>Product Media</span>
-        <a href="<?php echo $this->getUrlObj()->getUrl('product_media', 'add' , ['id' => $this->getRequest()->getParam('id')]) ?>">ADD</a>
-        <a href="<?php echo $this->getUrlObj()->getUrl('product','grid') ?>">CANCEL</a>
-        <a href="<?php echo $this->getUrlObj()->getUrl('product_media' ,'delete' ,['id' => $this->getRequest()->getParam('id')]) ?>">DELETE</a>
+        <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media', 'add' , ['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>">ADD</a>
+        <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('product','grid') ?>">CANCEL</a>
+        <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' ,'delete' ,['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>">DELETE</a>
         <button>UPDATE</button>
     </div>
 
@@ -53,7 +46,7 @@ $fetchedMedia = $this->getMedia();
     </style>
 
     <?php
-        $messages = $this->getMessage()->getMessages();
+        $messages = Ccc::getModel('Core_Message')->getMessages();
         if($messages){
             foreach ($messages as $type => $message) {
                 ?>
@@ -81,16 +74,16 @@ $fetchedMedia = $this->getMedia();
 
             <?php foreach($fetchedMedia as $eachitem): ?>
                 <tr>
-                    <td><?php echo $eachitem['media_id'] ?></td>
-                    <td><?php echo $eachitem['product_id'] ?></td>
-                    <td><?php echo $eachitem['name'] ?></td>
-                    <td><?php echo $eachitem['status'] ?></td>
-                    <td><img src="images/<?php echo $eachitem['image']  ?>" width="100px" height="100px" /></td>
-                    <td><input type="radio" name="base"  value="<?php echo $eachitem['media_id'] ?>" <?php if($eachitem['base'] == 1){echo "checked";} ?> /></td>
-                    <td><input type="radio" name="thumbnail"  value="<?php echo $eachitem['media_id'] ?>"  <?php if($eachitem['thumbnail'] == 1){echo "checked";} ?> /></td>
-                    <td><input type="radio" name="small"  value="<?php echo $eachitem['media_id'] ?>" <?php if($eachitem['small'] == 1){echo "checked";} ?> /></td>
-                    <td><input type="checkbox" name="gallery[]" value="<?php echo $eachitem['media_id'] ?>" <?php if($eachitem['gallery'] == 1){echo "checked";} ?>  /></td>
-                    <td><input type="checkbox" name="delete[]" value="<?php echo $eachitem['media_id'] ?>" /></td>
+                    <td><?php echo $eachitem->media_id ?></td>
+                    <td><?php echo $eachitem->product_id ?></td>
+                    <td><?php echo $eachitem->name ?></td>
+                    <td><?php echo $eachitem->status ?></td>
+                    <td><img src="images/<?php echo $eachitem->image  ?>" width="100px" height="100px" /></td>
+                    <td><input type="radio" name="base"  value="<?php echo $eachitem->media_id ?>" <?php if($eachitem->base == 1){echo "checked";} ?> /></td>
+                    <td><input type="radio" name="thumbnail"  value="<?php echo $eachitem->media_id ?>"  <?php if($eachitem->thumbnail == 1){echo "checked";} ?> /></td>
+                    <td><input type="radio" name="small"  value="<?php echo $eachitem->media_id ?>" <?php if($eachitem->small == 1){echo "checked";} ?> /></td>
+                    <td><input type="checkbox" name="gallery[]" value="<?php echo $eachitem->media_id ?>" <?php if($eachitem->gallery == 1){echo "checked";} ?>  /></td>
+                    <td><input type="checkbox" name="delete[]" value="<?php echo $eachitem->media_id ?>" /></td>
                 </tr>
             <?php endforeach; ?>
         </table>
