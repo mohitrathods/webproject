@@ -64,12 +64,9 @@ class Controller_Vendor extends Contoller_Core_Action {
                     $row->created_at = $datetime;
                     $row->save();
 
-
                     $rowAddress = Ccc::getModel('Vendor_Address')->setData($addAddress);
                     // $rowAddress->vendor_id = $id;
                     // $rowAddress->save();
-
-                    
 
                     Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
                 }
@@ -132,7 +129,7 @@ class Controller_Vendor extends Contoller_Core_Action {
 
 
         }
-        // $this->redirect('vendor', 'grid', [], true);
+        $this->redirect('vendor', 'grid', [], true);
 
     }
 

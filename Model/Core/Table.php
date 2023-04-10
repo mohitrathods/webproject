@@ -184,7 +184,6 @@ class Model_Core_Table {
 
     public function fetchAll($query){
         $result = $this->getResource()->fetchAll($query);
-        print_r($query);
         if(!$result){
             return false;
         }

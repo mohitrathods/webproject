@@ -1,166 +1,158 @@
-<?php 
-require_once 'Model/Customer.php';
+<?php
 require_once 'Controller/Core/Action.php';
-require_once 'Model/Core/Url.php';
-require_once 'Model/Core/Message.php';
-class Controller_Customer extends Contoller_Core_Action{
+class Controller_Customer extends Contoller_Core_Action {
 
-    protected $customer = [];
-
-    protected $customerId = null;
-
-    protected $model = null;
-
-    //------------- getter setter for set custoemr
-    public function setCustomer($customer){
-        $this->customer = $customer;
-        return $this;
-    }
-
-    public function getCustomer(){
-        return $this->customer;
-    }
-
-    //------------- getter setter for model
-
-    public function setModel($model){
-        $this->model = $model;
-        return $this;
-    }
-
-    public function getModel(){
-        if($this->model){
-            return $this->model;
-        }
-        $model = new Model_Customer();
-        $this->model = $model;
-        return $model;
-    }
-
-    
-    public function gridAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `customer` WHERE 1";
-        $customer = $this->getModel()->fetchAll($query);
+    public function gridAction() {
+        Ccc::getModel('Core_Session')->start();
 
         try {
-            if(!$customer){
-                throw new Exception("data not found" , 1);
-            }
-
-            $this->setCustomer($customer);
+            $grid = new Block_Customer_Grid();
+            $this->getLayout()->getChild('content')->addChild('grid', $grid);
+            $grid->getCollection();
+            $this->getLayout()->render();
+            
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            
         }
-
-        $this->getTemplate("customer/grid.phtml");
     }
 
     public function addAction(){
-        $this->getTemplate("customer/add.phtml");
+        Ccc::getModel('Core_Session')->start();
+
+        $add = new Block_Customer_Edit();
+        $this->getLayout()->getChild('content')->addChild('add', $add);
+        $add->getCollection();
+        $this->getLayout()->render();
     }
 
-    public function insertAction(){
-        $this->getMessage()->getSession()->start();
-        $customer = $this->getRequest()->getPost('customer');
+    public function editAction() {
+        Ccc::getModel('Core_Session')->start();
+        $id = Ccc::getModel('Core_Request')->getParam('id');
+
+        try {
+            if(!$id){
+                throw new Exception("id not found",1);
+            }
+
+            $edit = new Block_Customer_Edit();
+            $this->getLayout()->getChild('content')->addChild('edit', $edit);
+            $edit->getCollection();
+            $this->getLayout()->render();
+        } 
+        catch (Exception $e) {
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+        }
+    }
+
+    public function saveAction(){
+        Ccc::getModel('Core_Session')->start();
+        $id = Ccc::getModel('Core_Request')->getParam('id');
         
-        try {
-            if(!$customer){
-                throw new Exception("Data not inserted" , 1);
-            }
-            else{
-                $this->getMessage()->addMessages("customer added successfully" , Model_Core_Message::SUCCESS);
+        if(!$id){
+            $addCustomer = Ccc::getModel('Core_Request')->getPost('customer');
+            $addAddress = Ccc::getModel('Core_Request')->getPost('address');
+
+            try {
+                if(!$addCustomer){
+                    throw new Exception("customer data not inserted",1);
+                }
+                else {
+                    $row = Ccc::getModel('Customer')->setData($addCustomer);
+                    date_default_timezone_set("Asia/Kolkata");
+                    $datetime = date("Y:m:d h:i:sA");
+                    $row->created_at = $datetime;
+                    $row->save();
+
+                    $rowAddress = Ccc::getModel('Customer_Address')->setData($addAddress);
+                    // $rowAddress->customer_id = $id;
+                    // $rowAddress->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data inserted successfully",Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
             }
 
-            date_default_timezone_set("Asia/Kolkata");
-            $dateTime = date("Y-m-d h:i:sA");
-            $customer['created_at'] = $dateTime;
-            $this->getModel()->insert($customer);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            
         }
 
-        $this->redirect('customer', 'grid');
+
+        //else    ------------
+
+        else {
+            $updateCustomer = Ccc::getModel('Core_Request')->getPost('customer');
+            $updateAddress = Ccc::getModel('Core_Request')->getPost('address');
+
+            try {
+                if(!$updateCustomer){
+                    throw new Exception("customer data not updated",1);
+                }
+
+                else {
+                    $rowAddress = Ccc::getModel('Customer')->setData($updateAddress);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $datetime = date("Y:m:d h:i:sA");
+                    $rowAddress->updated_at = $datetime;
+                    $rowAddress->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            }
+
+            //-------- customer address edit
+
+            try {
+                if(!$updateAddress){
+                    throw new Exception("customer data not updated",1);
+                }
+
+                else {
+                    print_r($updateAddress);
+                    print_r($id);
+                    $row = Ccc::getModel('Customer_Address')->setData($updateAddress);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $datetime = date("Y:m:d h:i:sA");
+                    $row->customer_id = $id;
+                    $row->save();
+
+                    Ccc::getModel('Core_Message')->addMessages("data updated successfully", Model_Core_Message::SUCCESS);
+                }
+            } 
+            catch (Exception $e) {
+                Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
+            }
+
+
+        }
+        $this->redirect('customer', 'grid', [], true);
+
     }
 
-    public function editAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `customer` WHERE `customer_id` = '{$this->getRequest()->getParam('id')}'";
-        $customerRow = $this->getModel()->fetchRow($query);
-
-        try {
-            if(!$customerRow){
-                throw new Exception("row not found" , 1);
-            }
-
-            $this->setCustomer($customerRow);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
-
-        $this->getTemplate("customer/edit.phtml");
-    }
-
-    public function updateAction(){
-        $this->getMessage()->getSession()->start();
-        $customer = $this->getRequest()->getPost('customer'); //$_POST > customer array
-
-        try {
-            if(!$customer){
-                throw new Exception("customer row not found" , 1);
-            }
-            else{
-                $this->getMessage()->addMessages("data updated successfully" , Model_Core_Message::SUCCESS);
-            }
-
-            date_default_timezone_set("Asia/Kolkata");
-            $dateTime = date("Y-m-d h:i:sA");
-            $customer['updated_at'] = $dateTime;
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
-
-
-        $customerId = $this->getRequest()->getParam('id');
-
-        try {
-            if(!$customerId){
-                throw new Exception("custoemr id not found" , 1);
-            }
+    public function deleteAction() {
+        Ccc::getModel('Core_Session')->start();
+        $deleteId = Ccc::getModel('Core_Request')->getParam('id');
         
-            $condition['customer_id'] = $customerId;
-            $this->getModel()->update($customer, $condition);    
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
-
-        $this->redirect('customer', 'grid' , [] , true);
-    }
-
-    public function deleteAction(){
-        $this->getMessage()->getSession()->start();
-        $deleteId = $this->getRequest()->getParam('id');
-
         try {
             if(!$deleteId){
-                throw new Exception("data id not found" , 1);
+                throw new Exception("data not deleted",1);
             }
-            else{
-                $this->getMessage()->addMessages("data deleted successfully" , Model_Core_Message::SUCCESS);
+            else {
+                Ccc::getModel('Customer')->load($deleteId)->delete();
+                Ccc::getModel('Core_Message')->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
             }
-
-            $this->getModel()->delete($deleteId);
         } 
         catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
+            Ccc::getModel('Core_Message')->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
         }
 
-        $this->redirect('customer', 'grid' , [] , true);
+        $this->redirect('customer', 'grid', [], true);
+
     }
 }
+
 ?>

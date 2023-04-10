@@ -1,16 +1,6 @@
 <?php
-$customers = $this->getCustomer();
+$customers = $this->getCollection()->getData();
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="skin/css/grid.css?<?php echo time(); ?>">
-    <title>Customer</title>
-</head>
 <body>
 <div class="maindiv">
     <div class="subdiv">
@@ -19,7 +9,7 @@ $customers = $this->getCustomer();
         </div>
         <div class="headd">
             <span>Customers</span>
-            <a href="<?php echo $this->getUrlObj()->getUrl('customer', 'add') ?>">Add Customer</a>
+            <a href="<?php echo Ccc::getModel('Core_Url')->getUrl('customer', 'add') ?>">Add Customer</a>
         </div>
     </div>  
 
@@ -42,17 +32,17 @@ $customers = $this->getCustomer();
 
             <?php foreach($customers as $customer): ?>    
                 <tr>
-                    <td><?php echo $customer['customer_id'] ?></td>
-                    <td><?php echo $customer['first_name'] ?></td>
-                    <td><?php echo $customer['last_name'] ?></td>
-                    <td><?php echo $customer['email'] ?></td>
-                    <td><?php echo $customer['gender'] ?></td>
-                    <td><?php echo $customer['mobile'] ?></td>
-                    <td><?php echo $customer['status'] ?></td>
-                    <td><?php echo $customer['created_at'] ?></td>
-                    <td><?php echo $customer['updated_at'] ?></td>
-                    <td><a href="<?php echo $this->getUrlObj()->getUrl('customer', 'edit', ['id' => $customer['customer_id']]) ?>">EDIT</a></td>
-                    <td><a href="<?php echo $this->getUrlObj()->getUrl('customer', 'delete', ['id' => $customer['customer_id']]) ?>">DELETE</a></td>
+                    <td><?php echo $customer->customer_id ?></td>
+                    <td><?php echo $customer->first_name ?></td>
+                    <td><?php echo $customer->last_name ?></td>
+                    <td><?php echo $customer->email ?></td>
+                    <td><?php echo $customer->gender ?></td>
+                    <td><?php echo $customer->mobile ?></td>
+                    <td><?php echo $customer->status ?></td>
+                    <td><?php echo $customer->created_at ?></td>
+                    <td><?php echo $customer->updated_at ?></td>
+                    <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('customer', 'edit', ['id' => $customer->customer_id]) ?>">EDIT</a></td>
+                    <td><a href="<?php echo Ccc::getModel('Core_Url')->getUrl('customer', 'delete', ['id' => $customer->customer_id]) ?>">DELETE</a></td>
                 </tr>
             <?php endforeach; ?>
         </table>

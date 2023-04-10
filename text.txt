@@ -1,7 +1,5 @@
 -----------------------------
-- all application today and with media
-- category, salesman price 
-- vendor, customer address (both are same)
+- media, salesman price baki 
 - add statustext in all things 
 - remove no needed html heads and comments from all files after understanding
 - eav attribute with jquery

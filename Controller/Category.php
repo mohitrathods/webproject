@@ -1,204 +1,131 @@
 <?php
+
 require_once 'Controller/Core/Action.php';
 
-class Controller_Category extends Contoller_Core_Action{
-    public function gridAction() {
-        // Ccc::getModel('Core_Message')->getSession()->start();
-        // $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `category`";
-        $categories = Ccc::getModel('Category_Row')->fetchAll($query);
-        // print_r($categories);
-        $this->getView()->setTemplate('category/grid.phtml')->setData(['category' => $categories])->render();
+class Controller_Admin extends Contoller_Core_Action{
 
-    }
+	public function gridAction()
+	{
+		try {
+			$grid = $this->getLayout()->createBlock('Category_Grid');
+			$this->getLayout()->getChild('content')->addChild('grid',$grid);
+			$this->getLayout()->render();
+
+		} catch (Exception $e) {
+			Ccc::getModel('Core_View')->getMessage()->add($e->getMessage(),Model_Core_Message::FAILURE);
+			$this->redirect('grid');			
+		}		
+	}
+
+	public function addAction()
+	{
+		try {
+			$category = Ccc::getModel('Category');
+			$edit = $this->getLayout()->createBlock('Category_Edit')->setData(['category'=>$category]);
+			$this->getLayout()->getChild('content')->addChild('edit',$edit);
+			$this->getLayout()->render();
+
+		} catch (Exception $e) {
+			Ccc::getModel('Core_View')->getMessage()->add($e->getMessage(),Model_Core_Message::FAILURE);
+			$this->redirect('grid');
+		}
+	}
+
+	public function editAction()
+	{
+		try {
+			$categoryId = (int) Ccc::getModel('Core_Request')->getParam('category_id');
+			if (!$categoryId) {
+				throw new Exception("Invalid ID", 1);
+			}
+
+			$category = Ccc::getModel('Category')->load($categoryId);
+			if (!$category) {
+				throw new Exception("Invalid Request", 1);
+			}
+
+			$edit = $this->getLayout()->createBlock('Category_Edit')->setData(['category'=>$category]);
+			$this->getLayout()->getChild('content')->addChild('edit',$edit);
+			$this->getLayout()->render();
+
+		} catch (Exception $e) {
+			Ccc::getModel('Core_View')->getMessage()->add($e->getMessage(),Model_Core_Message::FAILURE);
+			$this->redirect('grid','',[],true);
+		}
+	}
+
+	public function saveAction()
+	{
+		try {
+			if (!$this->getRequest()->isPost()) {
+				throw new Exception("Data Not Posted", 1);
+			}
+
+			$postData = $this->getRequest()->getPost('category');
+			if (!$postData) {
+				throw new Exception("Data Not Posted", 1);
+			}
+
+			$categoryId = (int) $this->getRequest()->getParam('category_id');
+			if ($categoryId) {
+				$category = Ccc::getModel('Category')->load($categoryId);
+				if (!$category) {
+					throw new Exception("Invalid ID Request", 1);
+				}
+				$category->updated_at = date("y-m-d h:i:sA");
+			}
+			else{
+				$category = Ccc::getModel('Category');
+				$category->created_at = date("y-m-d h:i:sA");
+			}
+
+			$category->setData($postData);
+
+			if (!$category->save()) {
+				throw new Exception("Category Not Added", 1);
+			}
+			else{
+				$category->updatePath();
+				Ccc::getModel('Core_View')->getMessage()->add('Category has been saved successfully',Model_Core_Message::SUCCESS);
+			}
+			
+		} 
+		catch (Exception $e) {
+			Ccc::getModel('Core_View')->getMessage()->add($e->getMessage(),Model_Core_Message::FAILURE);
+		}
+
+		$this->redirect('grid','',[],true);
+
+	}
+
+	public function deleteAction()
+	{
+		try {
+			$categoryId = (int) $this->getRequest()->getParam('category_id');
+			if (!$categoryId) {
+				throw new Exception("Invalid ID", 1);
+			}
+
+			$category = Ccc::getModel('Category')->load($categoryId);
+			if (!$category) {
+				throw new Exception("Invalid Request", 1);
+			}
+			$query = "DELETE FROM `category` WHERE `path` LIKE '{$category->path}=%' OR `path` = '{$category->path}'";
+			if (!$category->getResource()->getAdapter()->delete($query)) {
+				throw new Exception("Error Processing Request", 1);
+			}	
+			else{
+				Ccc::getModel('Core_View')->getMessage()->add('Category has been Deleted Successfully', Model_Core_Message::SUCCESS);
+			}	
+
+		} catch (Exception $e) {
+			Ccc::getModel('Core_View')->getMessage()->add('Category Not Deleted',Model_Core_Message::FAILURE);
+		}
+
+		$this->redirect('grid','',[],true);
+	}
 
 
 }
+
 ?>
-
-<!-- 
-require_once 'Controller/Core/Action.php';
-require_once 'Model/Category.php';
-require_once 'Model/Core/Url.php';
-
-require_once 'Model/Core/Message.php';  
-require_once 'Model/Core/Table/Row.php';
-
-class Controller_Category extends Contoller_Core_Action{
-
-    protected $category = [];
-
-    protected $categoryId = null;
-
-    protected $model = null;
-
-    protected $row = null;
-
-    //------------ setter getter category
-    public function setCategory($category){
-        $this->category = $category;
-        return $this;
-    }
-    
-    public function getCategory(){
-        return $this->category;
-    }
-
-    //------------------------- set & get category ID
-    public function setCategoryId($category){
-        $this->categoryId = $category;
-        return $this;
-    }
-
-    public function getCategoryId(){
-        return $this->categoryId;
-    }   
-
-    //-------------------------- setter getter of model
-
-    public function setModel($model){
-        $this->model = $model;
-        return $this;
-    }
-
-    public function getModel(){
-        if($this->model){
-            return $this->model;
-        }
-        $model = new Model_Category();
-        $this->model = $model;
-        return $model;
-    }
-
-    //------------------ set get row
-    
-
-
-    //----------------------------
-    public function gridAction(){
-        
-        $this->getMessage()->getSession()->start();
-
-        try {
-            $query = "SELECT * FROM `category` WHERE 1";
-            $category = $this->getModel()->fetchAll($query);
-            if(!$category){
-                throw new Exception("data not found" ,1);
-            }
-            $this->setCategory($category);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
-        }
-
-        $this->getTemplate("category/grid.phtml");
-    }
-
-    public function addAction(){
-        $this->getTemplate("category/add.phtml");
-    }
-
-    public function insertAction(){
-        $this->getMessage()->getSession()->start();
-        $category = $this->getRequest()->getPost('category');
-
-        try {
-            if(!$category){
-                throw new Exception("data not inserted",1);
-            }
-            else{
-                $this->getMessage()->addMessages("category inserted successfully", Model_Core_Message::SUCCESS);
-            }
-            
-            date_default_timezone_set('Asia/Kolkata');
-            $dateTime = date("Y-m-d h:i:sA");
-            $category['created_at'] = $dateTime;
-            $this->getModel()->insert($category);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
-        }
-
-        $this->redirect('category', 'grid');
-    }
-
-    public function editAction(){
-        $this->getMessage()->getSession()->start();
-        $query = "SELECT * FROM `category` WHERE `category_id` = '{$this->getRequest()->getParam('id')}'";
-        $categoryRow = $this->getModel()->fetchRow($query);
-
-        try {
-            if(!$categoryRow){
-                throw new Exception("row not found", 1);
-            }
-
-            $this->setCategory($categoryRow);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
-        }
-
-
-        $this->getTemplate("category/edit.phtml");
-    }
-
-    public function updateAction(){
-        $this->getMessage()->getSession()->start();
-        $category = $this->getModel()->getPost('category');
-
-        try {
-            if(!$category){
-                throw new Exception("data not updated" , 1);
-            }
-            else{
-                $this->getMessage()->addMessages("data updated successfully" , Model_Core_Message::SUCCESS);
-            }
-
-            date_default_timezone_set("Asia/Kolkata");
-            $dateTime = date("Y-m-d h:i:sA");
-            $category['updated_at'] = $dateTime;
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
-
-        
-        $categoryId = $this->getRequest()->getParam('id');
-
-        try {
-            if(!$categoryId){
-                throw new Exception("row id not found" , 1);
-            }
-
-            $condition['category_id'] = $categoryId;
-            $this->getModel()->update($category,$condition);
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage(), Model_Core_Message::FAILURE);
-        }
-
-        // $this->redirect('category', 'grid' , [] , true);
-    }
-
-    public function deleteAction(){
-        $this->getMessage()->getSession()->start();
-        $deleteId = $this->getRequest()->getParam('id');
-        
-        try {
-            if(!$deleteId){
-                throw new Exception("delete id not found", 1);
-            }
-            else{
-                $this->getMessage()->addMessages("data deleted successfully", Model_Core_Message::SUCCESS);
-            }
-            $this->getModel()->delete($deleteId);
-
-        } 
-        catch (Exception $e) {
-            $this->getMessage()->addMessages($e->getMessage() , Model_Core_Message::FAILURE);
-        }
-
-        $this->redirect('category', 'grid', [], true);
-    }
-}
-?> -->

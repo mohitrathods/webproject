@@ -22,6 +22,7 @@ class Controller_Product_Media extends Contoller_Core_Action {
 
     public function addAction(){
         Ccc::getModel('Core_Session')->start();
+        $productId = Ccc::getModel('Core_Request')->getParam('id');
 
         $add = new Block_Product_Media_Edit();
         $this->getLayout()->getChild('content')->addChild('add',$add);
@@ -29,38 +30,30 @@ class Controller_Product_Media extends Contoller_Core_Action {
         $this->getLayout()->render();
     }
 
-    public function insertAction(){
+    public function saveAction(){
+        echo "<pre>";
+        Ccc::getModel('Core_Session')->Start();
         $productId = Ccc::getModel('Core_Request')->getParam('id');
         $mediaPost = Ccc::getModel('Core_Request')->getPost('media');
 
-        //insert data
-        $mediaPost->product_id = $productId;
-        $insertData = Ccc::getModel('Product_Media')->setData($mediaPost);
-        $insertData->save();
+            //insert id
+            $mediaPost['product_id'] = $productId;
+        
+            // file name
+            $imagename = $_FILES['media']['name']['image'];
+            $mediaPost['image'] = $imagename;
+            print_r($mediaPost);
 
-        // change file name
-            $get_files = $_FILES['image'];
+            $add = new Block_Product_Media_Edit();
+            $addaata = Ccc::getModel('Product_Media')->setData($mediaPost);
+            $addaata->save();
 
-            $extension = explode('.',$_FILES['image']['name']);
+            move_uploaded_file($_FILES['media']['tmp_name']['image'],"images/".$imagename);
+    }
 
-            $file_name = $insertData.'.'.$extension[1]; //new file name
-
-            $image['image'] = $file_name;
-
-            $condition['media_id'] = $insertData;
-            $condition['product_id'] = $productId;
-
-            //update filename
-            $update = Ccc::getModel('Product_Media')->setData($image,$condition);
-            $update->save();
-
-            move_uploaded_file($_FILES['image']['tmp_name'],"images/".$file_name);
-
-
+    public function deleteAction() {
 
     }
-    
-
 }
 
 ?>

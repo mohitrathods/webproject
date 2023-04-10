@@ -4,7 +4,7 @@ $productmedias = $this->getCollection();
 
 ?>
 <body>
-<form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' ,'insert' ,['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo Ccc::getModel('Core_Url')->getUrl('product_media' ,'save' ,['id' => Ccc::getModel('Core_Request')->getParam('id')]) ?>" method="post" enctype="multipart/form-data">
 <div class="maindivv">
     <div class="topdivv">
         <input type="submit" />

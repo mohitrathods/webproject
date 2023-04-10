@@ -1,10 +1,11 @@
 <?php
-require_once 'Core/Table.php';
 class Model_Customer extends Model_Core_Table{
 
-    protected $tableName = 'customer';
-    protected $primaryKey = 'customer_id';
-
+    function __construct(){
+        parent::__construct();
+        $this->setResourceClass('Model_Customer_Resource');
+        $this->setCollectionClass('Model_Customer_Collection');
+    }
 
 }
 ?>
